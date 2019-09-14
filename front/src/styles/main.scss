@@ -1,0 +1,16 @@
+@import './theme/materialize/materialize.scss';
+
+
+//VIEWS
+
+@import './component/header';
+@import './component/view/home';
+@import './component/view/detail-products';
+//COMPONENTS
+
+@import './component/cards';
+@import './component/filters';
+
+body{
+  background: #F3F3F3 0% 0% no-repeat padding-box;
+}

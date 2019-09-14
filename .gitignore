@@ -4,6 +4,8 @@
 /db/
 /target/
 /deploys/
+/node_module/
+
 
 ### STS ###
 .apt_generated
