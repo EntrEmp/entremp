@@ -1,44 +1,66 @@
 package com.entremp.core.entremp.model.budget
 
 import com.entremp.core.entremp.model.DeliveryTerm
-import com.entremp.core.entremp.model.pricing.Pricing
-import com.entremp.core.entremp.model.review.Review
-import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonManagedReference
-import lombok.EqualsAndHashCode
-import org.hibernate.annotations.GenericGenerator
-import javax.persistence.*
+import org.joda.time.DateTime
+import java.util.*
 
-@Entity
-@EqualsAndHashCode
+
 data class Budget(
-        @Id
-        @GeneratedValue(generator = "system-uuid")
-        @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-        val id: String? = null,
-
-        @OneToOne
-        @JoinColumn(name="pricing_id")
-        @JsonBackReference
-        @EqualsAndHashCode.Exclude
-        val pricing: Pricing? = null,
-
-        @OneToOne(mappedBy = "budget")
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val review: Review? = null,
-
+        val id: UUID,
+        val pricingId: UUID,
         val price: Double,
         val iva: Double,
-
-        val deliveryTerm: DeliveryTerm = DeliveryTerm.IN_15_DAYS,
-
         val deliveryConditions: String,
         val paymentConditions: String,
         val specifications: String,
+        val deliveryTerm: DeliveryTerm,
+        val createdAt: DateTime,
+        val updatedAt: DateTime?
+) {
+        companion object {
+            fun create(
+                    pricingId: UUID,
+                    price: Double,
+                    iva: Double,
+                    deliveryConditions: String,
+                    paymentConditions: String,
+                    specifications: String
+            ): Budget {
+                    return Budget(
+                            id = UUID.randomUUID(),
+                            pricingId = pricingId,
+                            price = price,
+                            iva = iva,
+                            deliveryConditions = deliveryConditions,
+                            paymentConditions = paymentConditions,
+                            specifications = specifications,
+                            deliveryTerm = DeliveryTerm.IN_15_DAYS,
+                            createdAt = DateTime.now(),
+                            updatedAt = null
+                    )
+            }
 
-        @OneToMany(mappedBy = "budget")
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val budgetAttachement: List<BudgetAttachement> = emptyList()
-)
+            fun create(
+                    pricingId: UUID,
+                    price: Double,
+                    iva: Double,
+                    deliveryConditions: String,
+                    paymentConditions: String,
+                    specifications: String,
+                    deliveryTerm: DeliveryTerm
+            ): Budget {
+                    return Budget(
+                            id = UUID.randomUUID(),
+                            pricingId = pricingId,
+                            price = price,
+                            iva = iva,
+                            deliveryConditions = deliveryConditions,
+                            paymentConditions = paymentConditions,
+                            specifications = specifications,
+                            deliveryTerm = deliveryTerm,
+                            createdAt = DateTime.now(),
+                            updatedAt = null
+                    )
+            }
+        }
+}

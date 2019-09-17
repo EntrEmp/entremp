@@ -1,25 +1,48 @@
 package com.entremp.core.entremp.model.review
 
-import com.fasterxml.jackson.annotation.JsonBackReference
-import lombok.EqualsAndHashCode
-import org.hibernate.annotations.GenericGenerator
-import javax.persistence.*
+import java.util.*
 
-@Entity
-@EqualsAndHashCode
 data class ReviewQualification(
-        @Id
-        @GeneratedValue(generator = "system-uuid")
-        @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-        val id: String? = null,
-
-        @ManyToOne
-        @JoinColumn(name="review_id")
-        @JsonBackReference
-        @EqualsAndHashCode.Exclude
-        val review: Review? = null,
-
-        val qualificationType: QualificationType? = null,
-
+        val id: UUID,
+        val reviewId: UUID,
+        val qualificationType: QualificationType,
         val qualification: Double
-)
+) {
+        companion object {
+            fun qualifyDeliveryTerm(
+                    reviewId: UUID,
+                    qualification: Double
+            ): ReviewQualification {
+                    return ReviewQualification(
+                            id = UUID.randomUUID(),
+                            reviewId = reviewId,
+                            qualificationType = QualificationType.DELIVERY_TERM,
+                            qualification = qualification
+                    )
+            }
+
+            fun qualifyProduct(
+                    reviewId: UUID,
+                    qualification: Double
+            ): ReviewQualification {
+                    return ReviewQualification(
+                            id = UUID.randomUUID(),
+                            reviewId = reviewId,
+                            qualificationType = QualificationType.PRODUCT_QUALITY,
+                            qualification = qualification
+                    )
+            }
+
+            fun qualifyService(
+                    reviewId: UUID,
+                    qualification: Double
+            ): ReviewQualification {
+                    return ReviewQualification(
+                            id = UUID.randomUUID(),
+                            reviewId = reviewId,
+                            qualificationType = QualificationType.SERVICE_QUALITY,
+                            qualification = qualification
+                    )
+            }
+        }
+}

@@ -1,64 +1,68 @@
 package com.entremp.core.entremp.model.pricing
 
 import com.entremp.core.entremp.model.DeliveryTerm
-import com.entremp.core.entremp.model.user.User
-import com.entremp.core.entremp.model.budget.Budget
-import com.entremp.core.entremp.model.sample.Sample
-import com.entremp.core.entremp.model.product.Product
-import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonManagedReference
-import lombok.EqualsAndHashCode
-import org.hibernate.annotations.GenericGenerator
-import javax.persistence.*
+import org.joda.time.DateTime
+import java.util.*
 
-@Entity
-@EqualsAndHashCode
+
 data class Pricing(
-        @Id
-        @GeneratedValue(generator = "system-uuid")
-        @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-        val id: String? = null,
-
-        @ManyToOne
-        @JoinColumn(name="buyer_id")
-        @JsonBackReference
-        @EqualsAndHashCode.Exclude
-        val buyer: User? = null,
-
-        @ManyToOne
-        @JoinColumn(name="provider_id")
-        @JsonBackReference
-        @EqualsAndHashCode.Exclude
-        val provider: User? = null,
-
-        @ManyToOne
-        @JoinColumn(name="product_id")
-        @JsonBackReference
-        @EqualsAndHashCode.Exclude
-        val product: Product? = null,
-
-        @OneToMany(mappedBy = "pricing")
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val pricingAttachements: List<PricingAttachement> = emptyList(),
-
-        @OneToOne(mappedBy = "pricing")
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val pricingSample: Sample? = null,
-
-        @OneToOne(mappedBy = "pricing")
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val budget: Budget? = null,
-
+        val id: UUID,
+        val buyerId: UUID,
+        val providerId: UUID,
+        val productId: UUID,
         val quantity: Long,
-
         val specifications: String,
+        val sample: Boolean,
+        val deliveryTerm: DeliveryTerm,
+        val status: PricingStatus,
+        val createdAt: DateTime,
+        val updatedAt: DateTime?
+) {
+        companion object {
+            fun create(
+                    buyerId: UUID,
+                    providerId: UUID,
+                    productId: UUID,
+                    quantity: Long,
+                    specifications: String
+            ): Pricing {
+                    return Pricing(
+                            id = UUID.randomUUID(),
+                            buyerId = buyerId,
+                            providerId = providerId,
+                            productId = productId,
+                            quantity = quantity,
+                            specifications = specifications,
+                            sample = false,
+                            deliveryTerm = DeliveryTerm.IN_15_DAYS,
+                            status = PricingStatus.PENDING,
+                            createdAt = DateTime.now(),
+                            updatedAt = null
+                    )
+            }
 
-        val deliveryTerm: DeliveryTerm = DeliveryTerm.IN_15_DAYS,
-
-        val sample: Boolean = false,
-
-        val status: PricingStatus = PricingStatus.PENDING
-)
+                fun create(
+                    buyerId: UUID,
+                    providerId: UUID,
+                    productId: UUID,
+                    quantity: Long,
+                    specifications: String,
+                    sample: Boolean,
+                    deliveryTerm: DeliveryTerm
+            ): Pricing {
+                    return Pricing(
+                            id = UUID.randomUUID(),
+                            buyerId = buyerId,
+                            providerId = providerId,
+                            productId = productId,
+                            quantity = quantity,
+                            specifications = specifications,
+                            sample = sample,
+                            deliveryTerm = deliveryTerm,
+                            status = PricingStatus.PENDING,
+                            createdAt = DateTime.now(),
+                            updatedAt = null
+                    )
+            }
+        }
+}

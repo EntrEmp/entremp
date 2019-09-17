@@ -20,6 +20,7 @@ class DataSourceInitializer(
     private val logger: Logger = LoggerFactory.getLogger(javaClass)
 
     val isTest: Boolean = config.isTest
+    val initOnStart: Boolean = config.initOnStart
 
     fun initAuto(dropSql: String? = null) = transaction {
         if (config.drop == DROP_ACK && dropSql != null) {

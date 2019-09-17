@@ -1,76 +1,50 @@
 package com.entremp.core.entremp.model.user
 
-import com.entremp.core.entremp.model.chat.Chat
-import com.entremp.core.entremp.model.pricing.Pricing
-import com.entremp.core.entremp.model.product.Product
-import com.entremp.core.entremp.model.review.Review
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonManagedReference
-import com.fasterxml.jackson.annotation.JsonProperty
-import lombok.EqualsAndHashCode
-import org.hibernate.annotations.GenericGenerator
+import org.joda.time.DateTime
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
-import javax.persistence.*
+import java.util.*
 
-@Entity
-@EqualsAndHashCode
 data class User(
-        @Id
-        @GeneratedValue(generator = "system-uuid")
-        @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-        val id: String? = null,
-
+        val id: UUID,
         val email: String,
-
-        @Column(name = "password")
         val passwd: String,
-
-        @JsonIgnore
-        val token: String,
-        val active: Boolean = false,
-
-        val name: String = "",
-        val address: String = "",
-        val phone: Long = Long.MIN_VALUE,
-        val cuit: Long = Long.MIN_VALUE,
-
-        @OneToMany(mappedBy = "user")
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val certifications: List<Certification> = emptyList(),
-
-        @OneToMany(mappedBy = "user")
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val products: List<Product> = emptyList(),
-
-        @OneToMany(mappedBy = "buyer")
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val applied: List<Pricing> = emptyList(),
-
-        @OneToMany(mappedBy = "provider")
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val requested: List<Pricing> = emptyList(),
-
-        @OneToMany(mappedBy = "provider")
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val reviews: List<Review> = emptyList(),
-
-        @OneToMany(mappedBy = "buyer")
-        @JsonIgnore
-        @EqualsAndHashCode.Exclude
-        val buyerChats: List<Chat> = emptyList(),
-
-        @OneToMany(mappedBy = "provider")
-        @JsonIgnore
-        @EqualsAndHashCode.Exclude
-        val providerChats: List<Chat> = emptyList()
+        /**
+         * Authentication token used for registration
+         */
+        val token: UUID? = null,
+        val name: String,
+        val address: String,
+        val phone: String,
+        val active: Boolean,
+        val cuit: Long,
+        val createdAt: DateTime,
+        val updatedAt: DateTime? = null
 ): UserDetails {
+
+        companion object {
+                fun create(
+                        email: String,
+                        password: String,
+                        name: String,
+                        cuit: Long
+                ): User {
+                        return User(
+                                id = UUID.randomUUID(),
+                                token = UUID.randomUUID(),
+                                email = email,
+                                passwd = password,
+                                name = name,
+                                cuit = cuit,
+                                phone = "",
+                                address = "",
+                                active = false,
+                                createdAt = DateTime.now()
+                        )
+                }
+        }
 
         @JsonIgnore
         override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
@@ -103,37 +77,5 @@ data class User(
 
         @JsonIgnore
         override fun isAccountNonLocked(): Boolean = true
-
-        @JsonProperty
-        fun chats(): List<String> = (buyerChats + providerChats).mapNotNull { item ->
-                item.id
-        }
-
-        @JsonProperty
-        fun deliveryScore(): Double {
-                return reviews
-                        .mapNotNull { review ->
-                                review.delivery()
-                        }
-                        .average()
-        }
-
-        @JsonProperty
-        fun serviceScore(): Double {
-                return reviews
-                        .mapNotNull { review ->
-                                review.service()
-                        }
-                        .average()
-        }
-
-        @JsonProperty
-        fun productScore(): Double {
-                return reviews
-                        .mapNotNull { review ->
-                                review.product()
-                        }
-                        .average()
-        }
 
 }

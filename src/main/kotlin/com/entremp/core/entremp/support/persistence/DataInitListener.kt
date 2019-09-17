@@ -24,10 +24,20 @@ class DataInitListener(
             }
         }
 
-        if (dataSourceInitializer.isTest) {
-            dataSourceInitializer.initAuto("/db/drop.h2.sql")
-        } else {
-            dataSourceInitializer.initIfRequired("classpath:/db/*.sql")
+
+        when {
+
+            dataSourceInitializer.isTest -> {
+                dataSourceInitializer.initAuto("/db/drop.h2.sql")
+            }
+
+            dataSourceInitializer.initOnStart -> {
+                dataSourceInitializer.initAuto("/db/drop.sql")
+            }
+
+            else -> {
+                dataSourceInitializer.initIfRequired("classpath:/db/*.sql")
+            }
         }
     }
 }

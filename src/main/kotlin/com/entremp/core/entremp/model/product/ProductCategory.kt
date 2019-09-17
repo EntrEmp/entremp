@@ -1,29 +1,22 @@
 package com.entremp.core.entremp.model.product
 
-import com.entremp.core.entremp.model.Category
-import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonManagedReference
-import lombok.EqualsAndHashCode
-import org.hibernate.annotations.GenericGenerator
-import javax.persistence.*
+import java.util.*
 
-@Entity
-@EqualsAndHashCode
 data class ProductCategory(
-        @Id
-        @GeneratedValue(generator = "system-uuid")
-        @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-        val id: String? = null,
-
-        @ManyToOne
-        @JoinColumn
-        @JsonBackReference
-        @EqualsAndHashCode.Exclude
-        val product: Product? = null,
-
-        @ManyToOne
-        @JoinColumn
-        @JsonManagedReference
-        @EqualsAndHashCode.Exclude
-        val category: Category? = null
-)
+        val id: UUID,
+        val productId: UUID,
+        val categoryId: UUID
+) {
+        companion object {
+            fun create(
+                    productId: UUID,
+                    categoryId: UUID
+            ): ProductCategory {
+                    return ProductCategory(
+                            id = UUID.randomUUID(),
+                            productId = productId,
+                            categoryId = categoryId
+                    )
+            }
+        }
+}

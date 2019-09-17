@@ -6,7 +6,8 @@ data class DataSourceConfig(
     val password: String,
     val driver: String,
     val logStatements: Boolean,
-    val drop: String
+    val drop: String,
+    val initOnStart: Boolean
 ) {
     val isTest: Boolean = driver == "org.h2.Driver"
 }
