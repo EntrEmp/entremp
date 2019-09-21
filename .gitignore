@@ -15,7 +15,7 @@
 .settings
 .springBeans
 .sts4-cache
-
+package-lock.json
 ### IntelliJ IDEA ###
 .idea
 *.iws
