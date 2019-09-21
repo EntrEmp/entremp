@@ -1,0 +1,116 @@
+@mixin icon-circle($widthHeight, $color, $bg, $bgHover, $border) {
+  @include flex-center;
+  color: $color;
+  width: $widthHeight;
+  height: $widthHeight;
+  border-radius: 50%;
+  border: 1px solid;
+  cursor: pointer;
+  background: $bg;
+  transition: .2s;
+  border-color: $border;
+  &:hover {
+    background: $bgHover;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+@mixin flex-start {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+}
+
+@mixin flex-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+}
+
+@mixin custom-accordion {
+  .accordion {
+    border: none;
+    p{
+        text-align: center;
+    }
+  }
+  .accordion__item {
+  }
+  .accordion__title {
+    padding: 0;
+    &:focus{
+        outline: none!important;
+      }
+  }
+  .accordion__body{
+      padding: $andes-spacing-8;
+      background: $andes-gray-70;
+  }
+}
+
+@mixin grid-colum($colums, $rows, $gap, $align) {
+  display: grid; 
+  grid-template-columns: $colums; 
+  grid-template-rows: $rows; 
+  grid-column-gap: $gap;
+  align-content: $align;	
+}
+
+@mixin grid-rows($colums, $rows, $gap) {
+  display: grid; 
+  grid-template-columns: $colums; 
+  grid-template-rows: $rows; 
+  grid-column-gap: $gap;
+}
+
+@mixin icon-circle-img($widthHeight,$border) {
+  @include flex-center;
+  background: $andes-white;
+  border: 1px solid;
+  max-width: $widthHeight;
+  max-height: $widthHeight;
+  min-width: $widthHeight;
+  min-height: $widthHeight;
+  border-color: $border;
+  border-radius: 50%;
+  padding: $andes-spacing-8;
+  overflow: hidden;
+    img{
+      width: 100%;
+    }
+}
+
+@mixin badges($bg-color){
+    @include flex-center;
+    background-color:$bg-color;
+    color: #fff;
+    display: inline-block;
+    font-family: inherit;
+    font-weight: $font-weight-regular;
+    border: 0;
+    border-radius: 50px;
+    white-space: nowrap;
+    padding: $andes-spacing-8 $andes-spacing-4;
+    position: relative;
+    transition: 70ms;
+    position: relative;
+}
+
