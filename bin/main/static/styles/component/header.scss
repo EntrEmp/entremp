@@ -1,0 +1,42 @@
+@import '../settings/variables.scss';
+@import '../settings/mixin.scss';
+
+.header-component{
+  box-shadow: none;
+  background-color: $brand-primary;
+.row{
+    display: flex;
+  }
+  &--logo{
+
+  }
+  &--input-search{
+    @include flex-start;
+    align-content: center;
+    align-items: center;
+    position: relative;
+    .btn{
+      border-radius: 10px 0 0 10px;
+      background:#00202e ;
+    }
+    input[type=text]{
+      background-color: $white;
+      padding: 0 $spacing-16;
+      border: 0;
+      height: 36px;
+      position: relative;
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 0;
+    }
+    span{
+      position: absolute;
+      right: 24px;
+      .material-icons{
+        color: $blue-400;
+      }
+    }
+  }
+  &--menu{
+
+  }
+}

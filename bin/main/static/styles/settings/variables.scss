@@ -1,0 +1,76 @@
+// Basic colors
+$white: #fff !default;
+$black: #000 !default;
+
+// Gray
+$gray-800: rgba($black, 0.8) !default; //	primary text
+$gray-600: rgba($black, 0.6) !default;
+$gray-450: rgba($black, 0.45) !default; //	secondary text
+$gray-250: rgba($black, 0.25) !default; //	disabled text
+$gray-100: rgba($black, 0.1) !default;
+$gray-70: rgba($black, 0.07) !default;
+$gray-40: rgba($black, 0.04) !default;
+
+// Bg
+$primary: #ededed !default;
+$secondary: #f5f5f5 !default;
+
+// Success
+$success-green: #00a650 !default;
+$success-green-secondary: #008744 !default;
+
+// Warning
+$warning-orange: #f73 !default;
+$warning-orange-secondary: #e6540b !default;
+
+// Error
+$error-red: #f23d4f !default;
+$error-red-secondary: #d12440 !default;
+
+
+
+
+$blue-100: #1572ab;
+$blue-200: #1b87c9;
+$blue-300: #1c8acf;
+$blue-400: #009ee3; // primary blue
+$blue-500: #007eb5; // secondary blue
+$blue-600: #005e88; // tertiary blue
+
+$spacing-4: 4px;
+$spacing-8: 8px;
+$spacing-12: 12px;
+$spacing-16: 16px;
+$spacing-20: 20px;
+$spacing-24: 24px;
+$spacing-28: 28px;
+$spacing-32: 32px;
+$spacing-40: 40px;
+$spacing-48: 48px;
+$spacing-56: 56px;
+$spacing-64: 64px;
+
+// Font weights
+$font-weight-light: 300 !default;
+$font-weight-regular: 400 !default;
+$font-weight-semibold: 600 !default;
+$font-weight-bold: 700 !default;
+
+// Font families
+$font-family-primary: 'Proxima Nova', -apple-system, 'Helvetica Neue', Helvetica, 'Roboto', Arial, sans-serif !default;
+
+// Font sizes
+$font-size-base-value: 16;
+$font-size-base: 16px;
+$font-size-12: 12px;
+$font-size-14: 14px;
+$font-size-16: 16px;
+$font-size-18: 18px;
+$font-size-20: 20px;
+$font-size-24: 24px;
+$font-size-28: 28px;
+$font-size-32: 32px;
+$font-size-44: 44px;
+
+$brand-primary : #00344c;
+$secondary-color: $blue-100;
