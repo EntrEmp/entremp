@@ -3,9 +3,11 @@
 
 .header-component{
   box-shadow: none;
+  height: 80px;
   background-color: $brand-primary;
 .row{
     display: flex;
+    margin: 0;
   }
   &--logo{
 
@@ -36,7 +38,16 @@
       }
     }
   }
-  &--menu{
-
+  .header-component--menu{
+    height: 100%;
+    .nav{
+      li{
+        @include flex-center;
+        a{
+          font-size: $font-size-12;
+          padding:8px $spacing-12;
+        }
+      }
+    }
   }
 }
