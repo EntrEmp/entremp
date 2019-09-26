@@ -1,6 +1,6 @@
 package com.entremp.core.entremp.persistence.budget
 
-import com.entremp.core.entremp.model.DeliveryTerm
+import com.entremp.core.entremp.model.commons.DeliveryTerm
 import com.entremp.core.entremp.model.budget.Budget
 import com.entremp.core.entremp.support.persistence.AbstractEntity
 import com.entremp.core.entremp.support.persistence.AbstractEntityClass
@@ -12,18 +12,18 @@ class BudgetEntity(id: EntityID<UUID>)
     : AbstractEntity<Budget>(id){
 
     companion object: AbstractEntityClass<Budget, BudgetEntity>(
-            Budgets
+            BudgetTable
     )
 
-    var pricingId: UUID by Budgets.pricingId
-    var price: Double by Budgets.price
-    var iva: Double by Budgets.iva
-    var deliveryConditions: String by Budgets.deliveryConditions
-    var paymentConditions: String by Budgets.paymentConditions
-    var specifications: String by Budgets.specifications
-    var deliveryTerm: DeliveryTerm by Budgets.deliveryTerm
-    var createdAt: DateTime by Budgets.createdAt
-    var updatedAt: DateTime? by Budgets.updatedAt
+    var pricingId: UUID by BudgetTable.pricingId
+    var price: Double by BudgetTable.price
+    var iva: Double by BudgetTable.iva
+    var deliveryConditions: String by BudgetTable.deliveryConditions
+    var paymentConditions: String by BudgetTable.paymentConditions
+    var specifications: String by BudgetTable.specifications
+    var deliveryTerm: DeliveryTerm by BudgetTable.deliveryTerm
+    var createdAt: DateTime by BudgetTable.createdAt
+    var updatedAt: DateTime? by BudgetTable.updatedAt
 
     override fun create(source: Budget): AbstractEntity<Budget> {
         return update(source)

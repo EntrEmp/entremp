@@ -10,7 +10,9 @@ data class Message(
         val receiverId: UUID,
         val message: String,
         val sent: DateTime,
-        val seen: Boolean
+        val seen: Boolean,
+        val createdAt: DateTime,
+        val updatedAt: DateTime?
 ) {
         companion object {
             fun create(
@@ -19,14 +21,17 @@ data class Message(
                receiverId: UUID,
                message: String
             ): Message {
+                val now = DateTime.now()
                     return Message(
                             id = UUID.randomUUID(),
                             chatId = chatId,
                             senderId = senderId,
                             receiverId = receiverId,
                             message = message,
-                            sent = DateTime.now(),
-                            seen = false
+                            sent = now,
+                            seen = false,
+                        createdAt = now,
+                        updatedAt = null
                     )
             }
         }

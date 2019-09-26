@@ -11,19 +11,19 @@ class UserEntity(id: EntityID<UUID>)
     : AbstractEntity<User>(id) {
 
     companion object: AbstractEntityClass<User, UserEntity>(
-            Users
+            UserTable
     )
 
-    var email: String by Users.email
-    var password: String by Users.password
-    var token: UUID? by Users.token
-    var address: String by Users.address
-    var name: String by Users.name
-    var cuit: Long by Users.cuit
-    var phone: String by Users.phone
-    var active: Boolean by Users.active
-    var createdAt: DateTime by Users.createdAt
-    var updatedAt: DateTime? by Users.updatedAt
+    var email: String by UserTable.email
+    var password: String by UserTable.password
+    var token: UUID? by UserTable.token
+    var address: String by UserTable.address
+    var name: String by UserTable.name
+    var cuit: Long by UserTable.cuit
+    var phone: String by UserTable.phone
+    var active: Boolean by UserTable.active
+    var createdAt: DateTime by UserTable.createdAt
+    var updatedAt: DateTime? by UserTable.updatedAt
 
     override fun create(source: User): AbstractEntity<User> {
         return update(source)

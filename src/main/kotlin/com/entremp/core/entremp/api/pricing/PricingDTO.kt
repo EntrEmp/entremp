@@ -1,20 +1,20 @@
 package com.entremp.core.entremp.api.pricing
 
-import com.entremp.core.entremp.model.DeliveryTerm
+import com.entremp.core.entremp.model.commons.DeliveryTerm
 import com.entremp.core.entremp.model.pricing.PricingStatus
 
 class PricingDTO(
-        val productId: String,
+    val productId: String,
 
-        val quantity: Long,
+    val quantity: Long,
 
-        val specifications: String,
+    val specifications: String,
 
-        val deliveryTerm: DeliveryTerm = DeliveryTerm.IN_15_DAYS,
+    val deliveryTerm: DeliveryTerm = DeliveryTerm.IN_15_DAYS,
 
-        val sample: Boolean = false,
+    val sample: Boolean = false,
 
-        val status: PricingStatus = PricingStatus.PENDING
+    val status: PricingStatus = PricingStatus.PENDING
 ) {
     constructor(): this(
             productId = "",

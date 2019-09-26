@@ -1,6 +1,6 @@
 package com.entremp.core.entremp.data.product
 
-import com.entremp.core.entremp.model.Attribute
+import com.entremp.core.entremp.model.commons.Attribute
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.product.ProductAttribute
 import org.springframework.data.repository.CrudRepository

@@ -5,7 +5,7 @@ package com.entremp.core.entremp.service
 import com.entremp.core.entremp.data.pricing.PricingAttachementRepository
 import com.entremp.core.entremp.data.pricing.PricingRepository
 import com.entremp.core.entremp.data.sample.SampleRepository
-import com.entremp.core.entremp.model.DeliveryTerm
+import com.entremp.core.entremp.model.commons.DeliveryTerm
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.pricing.PricingAttachement
 import com.entremp.core.entremp.model.product.Product

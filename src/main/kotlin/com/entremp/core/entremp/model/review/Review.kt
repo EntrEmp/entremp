@@ -1,5 +1,6 @@
 package com.entremp.core.entremp.model.review
 
+import org.joda.time.DateTime
 import java.util.*
 
 data class Review(
@@ -7,7 +8,9 @@ data class Review(
         val buyerId: UUID,
         val providerId: UUID,
         val budgetId: UUID,
-        val comment: String
+        val comment: String,
+        val createdAt: DateTime,
+        val updatedAt: DateTime?
 ) {
     companion object {
         fun create(
@@ -17,11 +20,13 @@ data class Review(
                 comment: String
         ): Review {
             return Review(
-                    id = UUID.randomUUID(),
-                    buyerId = buyerId,
-                    providerId = providerId,
-                    budgetId = budgetId,
-                    comment = comment
+                id = UUID.randomUUID(),
+                buyerId = buyerId,
+                providerId = providerId,
+                budgetId = budgetId,
+                comment = comment,
+                createdAt = DateTime.now(),
+                updatedAt = null
             )
         }
     }

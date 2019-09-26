@@ -9,7 +9,7 @@ class UserDAO: TransactionSupport() {
     fun all(): List<User> = transaction {
         UserEntity
                 .all()
-                .map { entity: CertificationEntity ->
+                .map { entity: UserEntity ->
                     entity.toDomainType()
                 }
     }
@@ -21,7 +21,7 @@ class UserDAO: TransactionSupport() {
     fun findByEmail(email: String): User = transaction {
         UserEntity
                 .find {
-                    Certifications.email eq email
+                    UserTable.email eq email
                 }
                 .single()
                 .toDomainType()

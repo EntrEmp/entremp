@@ -1,7 +1,7 @@
 package com.entremp.core.entremp.controllers.support
 
 import com.entremp.core.entremp.data.CategoriesRepository
-import com.entremp.core.entremp.model.Category
+import com.entremp.core.entremp.model.commons.Category
 import com.fasterxml.jackson.databind.JsonNode
 import org.springframework.security.access.annotation.Secured
 import org.springframework.web.bind.annotation.*
@@ -21,7 +21,7 @@ class CategoryController(
     fun save(@RequestBody input: JsonNode): Category {
         val name: String = input.get("name").asText()
         val category = Category(
-                name = name
+            name = name
         )
         return categoriesRepository.save(category)
     }

@@ -1,6 +1,6 @@
 package com.entremp.core.entremp.persistence.pricing
 
-import com.entremp.core.entremp.model.DeliveryTerm
+import com.entremp.core.entremp.model.commons.DeliveryTerm
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.pricing.PricingStatus
 import com.entremp.core.entremp.support.persistence.AbstractEntity
@@ -13,19 +13,19 @@ class PricingEntity(id: EntityID<UUID>)
     : AbstractEntity<Pricing>(id){
 
     companion object: AbstractEntityClass<Pricing, PricingEntity> (
-            Pricings
+            PricingTable
     )
 
-    var buyerId: UUID by Pricings.buyerId
-    var providerId: UUID by Pricings.providerId
-    var productId: UUID by Pricings.productId
-    var quantity: Long by Pricings.quantity
-    var specifications: String by Pricings.specifications
-    var sample: Boolean by Pricings.sample
-    var deliveryTerm: DeliveryTerm by Pricings.deliveryTerm
-    var status: PricingStatus by Pricings.status
-    var createdAt: DateTime by Pricings.createdAt
-    var updatedAt: DateTime? by Pricings.updatedAt
+    var buyerId: UUID by PricingTable.buyerId
+    var providerId: UUID by PricingTable.providerId
+    var productId: UUID by PricingTable.productId
+    var quantity: Long by PricingTable.quantity
+    var specifications: String by PricingTable.specifications
+    var sample: Boolean by PricingTable.sample
+    var deliveryTerm: DeliveryTerm by PricingTable.deliveryTerm
+    var status: PricingStatus by PricingTable.status
+    var createdAt: DateTime by PricingTable.createdAt
+    var updatedAt: DateTime? by PricingTable.updatedAt
 
 
     override fun create(source: Pricing): AbstractEntity<Pricing> {

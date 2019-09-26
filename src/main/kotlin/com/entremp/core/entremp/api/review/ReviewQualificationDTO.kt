@@ -1,13 +1,13 @@
 package com.entremp.core.entremp.api.review
 
-import com.entremp.core.entremp.model.review.QualificationType
+import com.entremp.core.entremp.model.review.ReviewType
 
 data class ReviewQualificationDTO(
-        val qualificationType: QualificationType?,
-        val qualification: Double?
+    val reviewType: ReviewType?,
+    val qualification: Double?
 ){
     constructor(): this(
-            qualificationType = null,
+            reviewType = null,
             qualification = 0.0
     )
 }

@@ -11,17 +11,17 @@ class ProductEntity(id: EntityID<UUID>)
     : AbstractEntity<Product>(id) {
 
     companion object: AbstractEntityClass<Product, ProductEntity>(
-            Products
+            ProductTable
     )
 
-    var userId: UUID by Products.userId
-    var name: String by Products.name
-    var minimum: Int by Products.minimum
-    var maximum: Int by Products.maximum
-    var batchSize: Int by Products.batchSize
-    var description: String by Products.description
-    var createdAt: DateTime by Products.createdAt
-    var updatedAt: DateTime? by Products.updatedAt
+    var userId: UUID by ProductTable.userId
+    var name: String by ProductTable.name
+    var minimum: Int by ProductTable.minimum
+    var maximum: Int by ProductTable.maximum
+    var batchSize: Int by ProductTable.batchSize
+    var description: String by ProductTable.description
+    var createdAt: DateTime by ProductTable.createdAt
+    var updatedAt: DateTime? by ProductTable.updatedAt
 
     override fun create(source: Product): AbstractEntity<Product> {
         return update(source)

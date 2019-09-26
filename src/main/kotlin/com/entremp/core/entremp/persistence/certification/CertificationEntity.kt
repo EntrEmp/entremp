@@ -11,14 +11,14 @@ class CertificationEntity(id: EntityID<UUID>)
     : AbstractEntity<Certification>(id) {
 
     companion object: AbstractEntityClass<Certification, CertificationEntity>(
-            Certifications
+            CertificationTable
     )
 
-    var fileLocation: String by Certifications.fileLocation
-    var userId: UUID by Certifications.userId
-    var name: String by Certifications.name
-    var createdAt: DateTime by Certifications.createdAt
-    var updatedAt: DateTime? by Certifications.updatedAt
+    var fileLocation: String by CertificationTable.fileLocation
+    var userId: UUID by CertificationTable.userId
+    var name: String by CertificationTable.name
+    var createdAt: DateTime by CertificationTable.createdAt
+    var updatedAt: DateTime? by CertificationTable.updatedAt
 
     override fun create(source: Certification): AbstractEntity<Certification> {
         return update(source)

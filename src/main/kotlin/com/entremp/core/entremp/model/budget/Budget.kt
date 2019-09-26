@@ -1,21 +1,21 @@
 package com.entremp.core.entremp.model.budget
 
-import com.entremp.core.entremp.model.DeliveryTerm
+import com.entremp.core.entremp.model.commons.DeliveryTerm
 import org.joda.time.DateTime
 import java.util.*
 
 
 data class Budget(
-        val id: UUID,
-        val pricingId: UUID,
-        val price: Double,
-        val iva: Double,
-        val deliveryConditions: String,
-        val paymentConditions: String,
-        val specifications: String,
-        val deliveryTerm: DeliveryTerm,
-        val createdAt: DateTime,
-        val updatedAt: DateTime?
+    val id: UUID,
+    val pricingId: UUID,
+    val price: Double,
+    val iva: Double,
+    val deliveryConditions: String,
+    val paymentConditions: String,
+    val specifications: String,
+    val deliveryTerm: DeliveryTerm,
+    val createdAt: DateTime,
+    val updatedAt: DateTime?
 ) {
         companion object {
             fun create(

@@ -5,7 +5,7 @@ package com.entremp.core.entremp.service
 import com.entremp.core.entremp.data.budget.BudgetAttachementRepository
 import com.entremp.core.entremp.data.budget.BudgetRepository
 import com.entremp.core.entremp.data.pricing.PricingRepository
-import com.entremp.core.entremp.model.DeliveryTerm
+import com.entremp.core.entremp.model.commons.DeliveryTerm
 import com.entremp.core.entremp.model.budget.Budget
 import com.entremp.core.entremp.model.budget.BudgetAttachement
 import com.entremp.core.entremp.model.pricing.Pricing

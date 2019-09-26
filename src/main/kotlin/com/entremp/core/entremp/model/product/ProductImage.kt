@@ -1,6 +1,6 @@
 package com.entremp.core.entremp.model.product
 
-import com.entremp.core.entremp.model.Fileable
+import com.entremp.core.entremp.model.commons.Fileable
 import org.joda.time.DateTime
 import java.util.*
 

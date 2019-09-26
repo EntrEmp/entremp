@@ -1,22 +1,22 @@
 package com.entremp.core.entremp.model.pricing
 
-import com.entremp.core.entremp.model.DeliveryTerm
+import com.entremp.core.entremp.model.commons.DeliveryTerm
 import org.joda.time.DateTime
 import java.util.*
 
 
 data class Pricing(
-        val id: UUID,
-        val buyerId: UUID,
-        val providerId: UUID,
-        val productId: UUID,
-        val quantity: Long,
-        val specifications: String,
-        val sample: Boolean,
-        val deliveryTerm: DeliveryTerm,
-        val status: PricingStatus,
-        val createdAt: DateTime,
-        val updatedAt: DateTime?
+    val id: UUID,
+    val buyerId: UUID,
+    val providerId: UUID,
+    val productId: UUID,
+    val quantity: Long,
+    val specifications: String,
+    val sample: Boolean,
+    val deliveryTerm: DeliveryTerm,
+    val status: PricingStatus,
+    val createdAt: DateTime,
+    val updatedAt: DateTime?
 ) {
         companion object {
             fun create(

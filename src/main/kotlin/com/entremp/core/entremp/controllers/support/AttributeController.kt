@@ -3,8 +3,8 @@ package com.entremp.core.entremp.controllers.support
 import com.entremp.core.entremp.api.EditableAttributeDTO
 import com.entremp.core.entremp.data.AttributesRepository
 import com.entremp.core.entremp.data.CategoriesRepository
-import com.entremp.core.entremp.model.Attribute
-import com.entremp.core.entremp.model.Category
+import com.entremp.core.entremp.model.commons.Attribute
+import com.entremp.core.entremp.model.commons.Category
 import com.entremp.core.entremp.support.JavaSupport.unwrap
 import com.fasterxml.jackson.databind.JsonNode
 import org.springframework.security.access.annotation.Secured
@@ -42,8 +42,8 @@ class AttributeController(
         val name: String = input.get("name").asText()
 
         val attribute = Attribute(
-                category = category,
-                name = name
+            category = category,
+            name = name
         )
 
         return attributesRepository.save(attribute)
@@ -56,7 +56,11 @@ class AttributeController(
     ): Attribute {
         assert(attribute.id == id)
         val category: Category? = categoriesRepository.findById(attribute.categoryId).unwrap()
-        val edit = Attribute(id =  attribute.id, name = attribute.name, category = category)
+        val edit = Attribute(
+            id = attribute.id,
+            name = attribute.name,
+            category = category
+        )
         return attributesRepository.save(edit)
     }
 

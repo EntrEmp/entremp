@@ -5,7 +5,7 @@ import com.entremp.core.entremp.data.product.ProductAttributeRepository
 import com.entremp.core.entremp.data.product.ProductCategoryRepository
 import com.entremp.core.entremp.data.product.ProductImageRepository
 import com.entremp.core.entremp.data.product.ProductsRepository
-import com.entremp.core.entremp.model.Category
+import com.entremp.core.entremp.model.commons.Category
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.product.ProductAttribute
 import com.entremp.core.entremp.model.product.ProductCategory

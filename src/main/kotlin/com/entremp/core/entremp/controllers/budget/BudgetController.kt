@@ -15,7 +15,7 @@ import com.entremp.core.entremp.model.budget.BudgetAttachement
 import com.entremp.core.entremp.model.chat.Chat
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.review.Review
-import com.entremp.core.entremp.model.review.ReviewQualification
+import com.entremp.core.entremp.model.review.ReviewItem
 import com.entremp.core.entremp.model.user.User
 import com.entremp.core.entremp.support.FileStorageService
 import com.entremp.core.entremp.support.JavaSupport.extension
@@ -158,9 +158,9 @@ class BudgetController(
         input.qualifications.forEach { data: ReviewQualificationDTO ->
             qualificationRepository.save(
 
-                    ReviewQualification(
+                    ReviewItem(
                             review = review,
-                            qualificationType = data.qualificationType,
+                            reviewType = data.reviewType,
                             qualification = data.qualification!!
                     )
             )
