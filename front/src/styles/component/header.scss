@@ -39,13 +39,19 @@
     }
   }
   .header-component--menu{
-    height: 100%;
-    .nav{
-      li{
-        @include flex-center;
-        a{
-          font-size: $font-size-12;
-          padding:8px $spacing-12;
+    nav{
+      box-shadow: none;
+      ul{
+        float: none;
+        li{
+          @include flex-center;
+          a{
+            font-size: $font-size-12;
+            padding:8px $spacing-12;
+            &:hover{
+              background: none;
+            }
+          }
         }
       }
     }

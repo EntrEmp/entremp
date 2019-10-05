@@ -36,7 +36,7 @@
                     <p><a href="#">Agregar domicilio</a></p>
                   </div>
                   <div class="col s2 right-align">
-                       <a class="modal-trigger data--modify" href="#">Modificar</a>
+                       <a class="modal-trigger data--modify" href="#modalAddress">Modificar</a>
                   </div>
                 </div>
                 <div class=" col s12 profile--data">
@@ -51,7 +51,7 @@
                     </div>
                     </div>
                     <div class="col s4 right-align">
-                        <a class="modal-trigger data--modify" href="#">Modificar</a>
+                        <a class="modal-trigger data--modify" href="#modalPassword">Modificar</a>
                     </div>
                     </div>
                     
@@ -64,100 +64,100 @@
     </div>
 
     <!--Modal de datos-->
-    <div id="" class=""> <!--modal-->
-        <div class="modal-content">
-            <div class="col s10 offset-s1 row">
+    <div id="modalData" class="modal modals-container"> <!--modal-->
+        <div class="modal-content modals--center">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="nombre">Nombre o Razón social:</label>
                 <input type="text" name="nombre" id="">
             </div>
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="document">Documento:</label>
                 <input type="number" name="document" id="">
             </div>
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="phone">Teléfono:</label>
                 <input type="number" name="phone" id="">
             </div>
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="CUIT">CUIT/CUIL</label>
                 <input type="number" name="CUIT" id="">
             </div>
                         
-            <div class="col s10 offset-s1 row">
-                <button class=" col s2 offset-s2 btn waves-effect waves-light center-align row" type="submit" name="action">Guardar</button>
-                <button class=" col s2 offset-s2 btn waves-effect waves-light center-align row" type="submit" name="action">Cancelar</button>
+            <div class="col s12 modals--footer">
+                <button class=" col s2 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
+                <button class=" col s2 btn waves-effect waves-light modals--button" type="submit" name="action">Cancelar</button>
             </div>
         </div>
     </div>
     
     <!--Modal direccion-->
-    <div id="" class="">
-        <div class="modal-content">
+    <div id="modalAddress" class="modal modals-container">
+        <div class="modal-content modals--center">
         <div class="col s12">
         <div class="col s6">
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="country">País:</label>
                 <input type="text" name="country" id="">
             </div>
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="province">Provincia:</label>
                 <input type="text" name="province" id="">
             </div>
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="street">Calle:</label>
                 <input type="number" name="street" id="">
             </div>
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="floor">Piso/ Departamento</label>
                 <input type="number" name="floor" id="">
             </div>
         </div>
         <div class="col s6">
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="CP">Código Postal:</label>
                 <input type="number" name="CP" id="">
             </div>
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="town">Localidad:</label>
                 <input type="text" name="town" id="">
             </div>
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="number">Número:</label>
                 <input type="number" name="number" id="">
             </div>
-            <div class="col s10 offset-s1 row">
+            <div class="col s12">
                 <label class="blue-text darken-4-text" for="contact-phone">Teléfono de contacto</label>
                 <input type="number" name="contact-phone" id="">
             </div>
         </div>
         </div>
                             
-            <div class="col s10 offset-s1 row">
-                <button class=" col s2 offset-s2 btn waves-effect waves-light center-align row" type="submit" name="action">Guardar</button>
-                <button class=" col s2 offset-s2 btn waves-effect waves-light center-align row" type="submit" name="action">Cancelar</button>
+            <div class="col s12 modals--footer">
+                <button class=" col s2 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
+                <button class=" col s2 btn waves-effect waves-light modals--button" type="submit" name="action">Cancelar</button>
             </div>
             </div>
         </div>
     
         <!--Modal Pasword -->
-        <div id="" class="">
-                <div class="modal-content">
-                    <div class="col s10 offset-s1 row">
+        <div id="modalPassword" class="modal modals-container">
+                <div class="modal-content modals--center">
+                    <div class="col s12">
                         <label class="blue-text darken-4-text" for="currentPassword">Contraseña actual:</label>
                         <input type="password" name="currentPassword" id="">
                     </div>
-                    <div class="col s10 offset-s1 row">
+                    <div class="col s12">
                         <label class="blue-text darken-4-text" for="newPassword">Nueva contraseña:</label>
                         <input type="password" name="newPassword" id="">
                     </div>
-                    <div class="col s10 offset-s1 row">
+                    <div class="col s12">
                         <label class="blue-text darken-4-text" for="password">Confirmar nueva contraseña:</label>
                         <input type="password" name="password" id="">
                     </div>
                                                     
-                    <div class="col s10 offset-s1 row">
-                        <button class=" col s2 offset-s2 btn waves-effect waves-light center-align row" type="submit" name="action">Guardar</button>
-                        <button class=" col s2 offset-s2 btn waves-effect waves-light center-align row" type="submit" name="action">Cancelar</button>
+                    <div class="col s12 modals--footer">
+                        <button class=" col s2 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
+                        <button class=" col s2 btn waves-effect waves-light modals--button" type="submit" name="action">Cancelar</button>
                     </div>
                 </div>
             </div>

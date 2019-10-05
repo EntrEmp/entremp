@@ -8,11 +8,15 @@
 @import './component/view/detail-products';
 @import './component/view/message-services';
 @import './component/view/availableCotizaciones';
+
 //COMPONENTS
 @import './component/cards';
 @import './component/filters';
-@import './component/login.scss';
-@import './component/profile.scss';
+@import './component/login';
+@import './component/profile';
+@import './component/modals';
+@import './component/card-cotizaciones';
+@import './component/liveChat';
 
 body{
   background: #F3F3F3 0% 0% no-repeat padding-box;

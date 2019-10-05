@@ -1,7 +1,8 @@
 .profile{
-    display: flex;
-    justify-content: center;
     margin-top: $spacing-20;
+    margin: auto;
+    max-width: 80%;
+    @include flex-center;
     .card--profile{
         width:60%;
         padding: 0px;       
@@ -64,6 +65,22 @@
             font-size: $font-size-base;
             font-weight: $font-weight-regular;
         }
+    }
+
+    .profileCard--img{
+        width: 100%;
+        padding-top: $spacing-16;
+        padding-bottom: $spacing-16;
+        @include flex-center;
+        div{
+            img{
+            width: 80px;
+            }
+        }
+    }
+
+    .no-divider{
+        border-bottom: 0px !important;
     }
 
 }

@@ -1,40 +1,131 @@
 <div class="profile">
-    <div class="col s8">
-        <div class="col s2 offset-s4">
+    <div class="col s12 card--profile">
+
+        <div class="row">
+        <div class="col s8 profileCard--img">
+            <div>
             <img src="https://via.placeholder.com/100x100?text=10x10+Logo" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
         </div>
-        <div class="col s10 card-panel z-depth-1 card--profile">
-            <p class="col s6">Nombre o razón social: </p> <p class="col s6">Mariano Gomez</p>
-            <p class="col s6">Documento: </p> <p class="col s6">31483383</p>
-            <p class="col s6">Teléfono: </p> <p class="col s6">1168723644</p>
-            <p class="col s6">CUIT: </p> <p class="col s6">27-38291193-2</p>
+        <div class="col s8 card-panel z-depth-1 card--profile">
+           <div class=" col s12 profile--data no-divider">
+                    <div class="col s12 data--left">
+                        <p class="col s6 data--right">Nombre o razón social: </p> <p class="col s6 data--left">Mariano Gomez</p>
+                        <p class="col s6 data--right">Documento: </p> <p class="col s6 data--left">31483383</p>
+                        <p class="col s6 data--right">Teléfono: </p> <p class="col s6 data--left">1168723644</p>
+                        <p class="col s6 data--right">CUIT: </p> <p class="col s6 data--left">27-38291193-2</p>
+                    </div>
+            </div>
         </div>
 
-        <div class="col s10 card-panel z-depth-1 card--profile">
-            <div class="col s12">
-                <div class="col s4">
-                    <p class="col s6">Direcciones:</p>
+        <div class="col s8 card-panel z-depth-1 card--profile">
+            <div class="col s12 profile--data no-divider">
+                <div class="col s6">
+                    <p class="col s12 data--right">Direcciones:</p>
                 </div>
-                <div class="col s6 ">
-                    <p >Avenida del Libertador 2700  </p>
+                  <div class="col s6 data--left">
+                    <p>Avenida del Libertador 2700  </p>
                     <p>Capital Federal, CABA, Argentina </p> 
                     <p>Blanco Encalada 900 </p>
                     <p>San Isidro, CABA, Argentina </p>
                     <p><a href="#">Agregar domicilio</a></p>
-                </div>
+                  </div>
             </div>
         </div>
 
-        <div class="col s10 card-panel z-depth-1  card--profile">
-            <div class="col s8 row">
-                <p class="col s6">Certificaciones: </p> <p class="col s6">ISO 1404, ISO 1601</p>
+        <div class="col s8 card-panel z-depth-1  card--profile">
+            <div class=" col s12 profile--data no-divider">
+            <div class="col s12">
+                <p class="col s6 data--right">Certificaciones: </p> <p class="col s6 data--left">ISO 1404, ISO 1601</p>
             </div>
+        </div>
         </div>
 
-        <div class="col s10 card-panel z-depth-1  card--profile">
-            <div class="col s8 row">
-                <p class="col s6">Mail: </p> <p class="col s6">marianogomez@gmail.com</p>
-                 <p class="col s6">Clave: </p> <p class="col s6">*********</p>
+        <div class="col s8 card-panel z-depth-1  card--profile">
+            <div class=" col s12 profile--data no-divider">
+                    <div class="col s12">
+                        <div class="col s6">
+                        <p class="data--right">Mail: </p>
+                        <p class="data--right">Clave: </p>
+                    </div>
+                    <div class="col s6">
+                        <p class="data--left">marianogomez@gmail.com</p> 
+                        <p class="data--left">*********</p>
+                    </div>
+                    </div>
             </div>
         </div>
+        </div>
+
+        <div class="col s4 profile--sidebar">
+        <div class="col s12">
+            <h6> Otros productos que te pueden interesar</h6>
+            <div class="col s6">
+            <div class="card card-products">
+            <div class="card-image card-products--image z-depth-1">
+              <img
+                src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
+            </div>
+            <div class="card-products--title">
+              <div>
+                <span class="card-title">Card Title</span>
+                <p>Musmiundo</p>
+              </div>
+              <div>
+                <i class="material-icons">favorite_border</i>
+              </div>
+              {{!-- <i class="material-icons">favorite_border</i> --}}
+            </div>
+            <div class="card-products--ranking">
+              <i class="material-icons">star</i>
+              <i class="material-icons">star</i>
+              <i class="material-icons">star</i>
+              <i class="material-icons">star_border</i>
+              <i class="material-icons">star_border</i>
+            </div>
+            <div class="card-products--extra-information">
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae natus</p>
+              <p>Lorem ipsum dolor sit</p>
+              <p> 479 productos disponibles</p>
+              <a class="waves-effect waves-light btn">Solicitar infomración</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col s6">
+          <div class="card card-products">
+            <div class="card-image card-products--image z-depth-1">
+              <img
+                src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
+            </div>
+            <div class="card-products--title">
+              <div>
+                <span class="card-title">Card Title</span>
+                <p>Musmiundo</p>
+              </div>
+              <div>
+                <i class="material-icons">favorite_border</i>
+              </div>
+              {{!-- <i class="material-icons">favorite_border</i> --}}
+            </div>
+            <div class="card-products--ranking">
+              <i class="material-icons">star</i>
+              <i class="material-icons">star</i>
+              <i class="material-icons">star</i>
+              <i class="material-icons">star_border</i>
+              <i class="material-icons">star_border</i>
+            </div>
+            <div class="card-products--extra-information">
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae natus</p>
+              <p>Lorem ipsum dolor sit</p>
+              <p> 479 productos disponibles</p>
+              <a class="waves-effect waves-light btn">Solicitar infomración</a>
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+
+    </div>
+    
     </div>
