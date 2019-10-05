@@ -1,0 +1,40 @@
+.modals-container{
+    width: 400px;
+    color: $blue-600;
+    border-radius: 10px;
+    font-weight: $font-weight-semibold;
+    margin: auto;
+    
+
+    .modals--center{
+        padding: $spacing-40;
+        margin: auto;
+    }
+
+    .modals--footer{
+        @include flex-center;
+        margin-top: $spacing-20;
+        
+        .modals--button{
+            margin-left: $spacing-20;
+        }
+    }
+
+    .modals--subtitle{
+        h5{
+            color: black;
+            margin-bottom: 0px;
+            margin-top: $spacing-8;
+            font-size: $font-size-24;
+        }
+        h6{
+            color: $blue-600;
+            font-weight: $font-weight-semibold;
+            margin: 0px;
+        }
+        p{
+            font-size: $font-size-12;
+            color: $gray-450;
+        }
+    }
+}
