@@ -6,10 +6,13 @@
 @import './component/header';
 @import './component/view/home';
 @import './component/view/detail-products';
-//COMPONENTS
+@import './component/view/message-services';
 
+//COMPONENTS
 @import './component/cards';
 @import './component/filters';
+@import './component/login.scss';
+@import './component/profile.scss';
 
 body{
   background: #F3F3F3 0% 0% no-repeat padding-box;

@@ -1,3 +1,4 @@
+
 @mixin icon-circle($widthHeight, $color, $bg, $bgHover, $border) {
   @include flex-center;
   color: $color;
@@ -61,7 +62,7 @@
       }
   }
   .accordion__body{
-      padding: $andes-spacing-8;
+      padding: $spacing-8;
       background: $andes-gray-70;
   }
 }
@@ -83,7 +84,7 @@
 
 @mixin icon-circle-img($widthHeight,$border) {
   @include flex-center;
-  background: $andes-white;
+  background: $white;
   border: 1px solid;
   max-width: $widthHeight;
   max-height: $widthHeight;
@@ -91,7 +92,7 @@
   min-height: $widthHeight;
   border-color: $border;
   border-radius: 50%;
-  padding: $andes-spacing-8;
+  padding: $spacing-8;
   overflow: hidden;
     img{
       width: 100%;
@@ -108,7 +109,7 @@
     border: 0;
     border-radius: 50px;
     white-space: nowrap;
-    padding: $andes-spacing-8 $andes-spacing-4;
+    padding: $spacing-8 $spacing-4;
     position: relative;
     transition: 70ms;
     position: relative;
