@@ -21,6 +21,7 @@ class WebRenderController {
     fun example(): ModelAndView {
         return ModelAndView("example")
     }
+
     @RequestMapping(
         "/index",
         method = [RequestMethod.GET],
@@ -28,5 +29,23 @@ class WebRenderController {
     )
     fun index(): ModelAndView {
         return ModelAndView("index")
+    }
+
+    @RequestMapping(
+        "/messages",
+        method = [RequestMethod.GET],
+        produces = [MediaType.TEXT_HTML_VALUE]
+    )
+    fun messages(): ModelAndView {
+        return ModelAndView("messages")
+    }
+
+    @RequestMapping(
+        "/products",
+        method = [RequestMethod.GET],
+        produces = [MediaType.TEXT_HTML_VALUE]
+    )
+    fun products(): ModelAndView {
+        return ModelAndView("products")
     }
 }

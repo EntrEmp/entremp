@@ -100,7 +100,7 @@ textarea.materialize-textarea {
     color: $input-error-color;
   }
 
-  // Full width label when using validate for error messages
+  // Full width label when using validate for error messages.mustache
   &.validate + label {
     width: 100%;
   }

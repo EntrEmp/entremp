@@ -1,5 +1,5 @@
 <nav class="header-component">
-  <div class="container-fuid">
+  <div class="container-fluid">
 
     <div class="nav-wrapper">
       <div class="row">
@@ -13,13 +13,23 @@
           <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
           <span><i class="material-icons">search</i></span>
         </div>
-        <div class="col s4 header-component--menu" >
-          <ul class="nav">
-            <li><a href="sass.html">FAVORITOS</a></li>
-            <li><a href="badges.html">COTIZACIONES</a></li>
-            <li><a href="collapsible.html">MENSAJES</a></li>
-            <li><a href="collapsible.html">PERFIL</a></li>
+        <div class="col s4 header-component--menu">
+          <ul id="dropdown1" class="dropdown-content">
+            <li><a href="#!">one</a></li>
+            <li><a href="#!">two</a></li>
+            <li class="divider"></li>
+            <li><a href="#!">three</a></li>
           </ul>
+          <nav>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="sass.html">Sass</a></li>
+              <li><a href="badges.html">Favoritos</a></li>
+              <li><a href="badges.html">Cotizaciones</a></li>
+              <!-- Dropdown Trigger -->
+              <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">Perfil<i
+                    class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>

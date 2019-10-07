@@ -15,6 +15,9 @@
     {{> partials/components/cardSolicitudCotizacion }} 
      {{!-- 
    {{> partials/components/verify }}
+    {{> partials/view/cardCotizaciones }}
+    {{> partials/components/chatbot }}
+    {{!-- {{> partials/components/verify }} 
    
    {{> partials/components/createAccount }}
    {{> partials/components/createAccountSelect }}
@@ -24,17 +27,33 @@
    {{> partials/components/profile }}
    {{> partials/view/home }} 
 
- {{> partials/view/category }}  
+  {{> partials/view/category }}  
  {{> partials/view/productsDetail }}
- {{> partials/components/messageServices }} --}}
-   
-  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js" ></script>
+ {{> partials/components/messageServices }} 
+   --}}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/js/bin/materialize.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('.modal').modal();
         });
-  </script>
+    </script>
+    <script>
+        (function () {
+            $('.live-chat .live-chat--header').on('click', function () {
+                $('.chat').slideToggle(300, 'swing');
+            });
+            $('.chat-close').on('click', function (e) {
+                e.preventDefault();
+                $('live-chat').fadeOut(300);
+            });
+        })();
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-trigger").dropdown();
+        })
+    </script>
 </body>
 
 </html>
