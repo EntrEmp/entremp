@@ -26,31 +26,33 @@
 </div>
 
 <div id="modalRequest" class="modal modals-container"> <!--modal solicitar cotización-->
-    <div class="modal-content modals--center">
+    <div class="modal-content modals--cotizacion">
+        <div class="row">
         <div class="col s12">
             <h5> Solicitar cotización!</h5>
+        </div>
             <div class="col s12">
-            <div class="col s4 modal--img">
-                <div class="z-depth-1">
+            <div class="col s3 z-depth-1 modal--img">
                     <img src="https://via.placeholder.com/100x100?text=100x100+Logo">                 
-                </div>
             </div>
-            <div class="col s7">
+            <div class="col s9">
                 <div class="col s12 modals--subtitle">
                     <h5>Mesa y sillas</h5>
                     <h6>Musimundo</h6>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
                 </div>
-                <div class="col s12">
+                <div class="col s12 modals--cantidad">
                     <p>Ingrese la cantidad de unidades a solicitar.</p>
-                    <div class="col s8">
+                    <div class="col s5">
                         <input type="text" name="" id="" placeholder="10 unidades">
                     </div>
-                    <div class="col s4">
+                    <div class="col s4 modals--lote">
                         <p>Lote: xx</p>
                         <p>Max:xx</p>
                     </div>
-                    <p>(800 disponibles)</p>
+                    </div>
+                <div class="col s12">
+                    <p class="modals--disponible">(800 disponibles)</p>
                 </div>
             </div>
             </div>
@@ -58,12 +60,14 @@
         <div class="col s12">
             <textarea name="" id="" cols="12" rows="5"></textarea>
         </div>
-        <div class="col s12">
-                <button class="btn waves-effect waves-light center-align row" type="submit" name="action">Cargar archivo</button>
-                <label for="">El archivo debe ser inferior a 500MB</label>
+        <div class="col s12 modals--submit">
+                <button class="btn waves-effect waves-light center-align" type="submit" name="action">Cargar archivo</button>
+                <p>El archivo debe ser inferior a 500MB</p>
         </div>
-        <div class="col s12">
-                <button class="btn waves-effect waves-light center-align row" type="submit" name="action">Solicitar cotización</button>
+        <div class="col s12 modals--footer">
+                <button class="btn waves-effect waves-light center-align" type="submit" name="action">Solicitar cotización</button>
+        </div>
+        
         </div>
     </div>
 </div>
