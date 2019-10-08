@@ -13,20 +13,23 @@
 <body>
     {{> partials/components/header }}
     {{> partials/components/cardSolicitudCotizacion }}
+    
      {{!-- 
    {{> partials/components/verify }}
     {{> partials/view/cardCotizaciones }}
     {{> partials/components/chatbot }}
     {{!-- {{> partials/components/verify }} 
-   
+    
    {{> partials/components/createAccount }}
    {{> partials/components/createAccountSelect }}
    {{> partials/components/loginComprador}} 
    {{> partials/components/recoverPassword }}
    {{> partials/components/createProfile }}
-   {{> partials/components/profile }}
    {{> partials/view/home }} 
-
+   {{> partials/components/createProfileComprador }}
+   {{> partials/components/profile }}
+   
+   {{> partials/components/producteComprador }}
   {{> partials/view/category }}  
  {{> partials/view/productsDetail }}
  {{> partials/components/messageServices }} 
@@ -36,6 +39,11 @@
     <script>
         $(document).ready(function () {
             $('.modal').modal();
+        });
+    </script>
+    <script>
+         $(document).ready(function(){
+            $('select').formSelect();
         });
     </script>
     <script>

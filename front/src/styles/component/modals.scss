@@ -4,6 +4,11 @@
     font-weight: $font-weight-semibold;
     margin: auto;
 
+    .close{
+        color: $gray-450;
+        @include flex-end;
+    }
+
     .modals--profile{
         width: 500px;
         padding: $spacing-8;
@@ -14,8 +19,9 @@
         padding: $spacing-20;
         margin: auto;
         width: 550px;
+        
         h5{
-            margin-bottom: $spacing-24;
+            margin-bottom: $spacing-12;
             margin-top: 0px;
         }
         .modal--img{
@@ -51,7 +57,7 @@
             div{
                 padding: 0px;
                 input[type=text]{
-                    border: 1px solid $gray-600;
+                    border: 1px solid rgb(169, 169, 169);;
                     padding: 3px;
                     height: $spacing-28;
                 }
@@ -81,17 +87,11 @@
         }
     }
 
-    .modals--footer{
-        @include flex-center;
-        margin-top: $spacing-20;
-        .modals--button{
-            margin-left: $spacing-20;
-        }
-    }
+
 
 
 }
-.modals--sucess{
+    .modals--sucess{
     padding: $spacing-20;
     margin: auto;
     width: 350px;
@@ -130,7 +130,7 @@
 .modals--product{
     padding: $spacing-20;
     margin: $spacing-12 auto;
-    width: 350px;
+    width: 450px;
     div{
         h5{
             margin-bottom: $spacing-24;
@@ -154,6 +154,23 @@
             font-size: 10px;
         }
     }
+    .modals--select{
+        color: $success-green;
+        div{
+            label{
+            color: $gray-450;
+            font-size: 8px;
+        }
+        }
+        
+    }
 }
 
+.modals--footer{
+    @include flex-center;
+    margin-top: $spacing-16;
+    .modals--button{
+        margin-left: $spacing-20;
+    }
+}
 }

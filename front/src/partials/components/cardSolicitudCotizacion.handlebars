@@ -18,7 +18,7 @@
                 <p>ISO 1401</p>
             </div>
             <div class="col s4 right-align">
-                <a href="#modalStock" class=" modal-trigger waves-effect waves-light btn-small">Solicitar cotización</a>
+                <a href="#modalProduct" class=" modal-trigger waves-effect waves-light btn-small">Solicitar cotización</a>
                 <a href="#">Ver detalle</a>
             </div>
         </div>
@@ -28,6 +28,7 @@
 <div id="modalRequest" class="modal modals-container"> <!--modal solicitar cotización-->
     <div class="modal-content modals--cotizacion">
         <div class="row">
+           <i class="tiny material-icons close">clear</i>
         <div class="col s12">
             <h5> Solicitar cotización!</h5>
         </div>
@@ -74,6 +75,7 @@
 
 <div id="modalSucess" class="modal modals-container"> <!--modal cotización solicitada-->
     <div class="modal-content modals--sucess">
+        <i class="tiny material-icons close">clear</i>
         <div class="row">
         <div class="col s12">
             <h5>Cotización solicitada con éxito!</h5>
@@ -93,6 +95,7 @@
 
 <div id="modalProduct" class="modal modals-container"> <!--modal cargar un nuevo producto-->
     <div class="modal-content modals--product">
+        <i class="tiny material-icons close">clear</i>
         <div class="row">
         <div class="col s12">
             <h5>Carga un nuevo producto!</h5>
@@ -101,10 +104,29 @@
             
             <label for="description">Descripción:</label>
             <input type="text" name="description" id="" placeholder="loremipsum loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum">
- 
-            <!--Categorias-->
+
 
             <!--submit con flecha-->
+        </div>
+        <!--Categorias-->
+        <div class="input-field col s4 modals--select">
+        <select>
+            <option value="" selected>Categorias</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+        </div>
+            <div class="col s8">
+            <label>Selecciona la categoria más acorde al producto que querés publicar</label>
+            </div>
+        
+            
+        </div>
+  </div>
+
+        <div class="cols12">
+
         </div>
         </div>
     </div>
@@ -112,6 +134,7 @@
 
 <div id="modalStock" class="modal modals-container"> <!--modal cargar un nuevo producto l2-->
     <div class="modal-content modals--product">
+        <i class="tiny material-icons close">clear</i>
         <div class="row">
         <div class="col s12">
             <label for="stock">Stock disponible</label>
