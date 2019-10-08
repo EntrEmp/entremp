@@ -18,7 +18,7 @@
                 <p>ISO 1401</p>
             </div>
             <div class="col s4 right-align">
-                <a href="#modalRequest" class=" modal-trigger waves-effect waves-light btn-small">Solicitar cotización</a>
+                <a href="#modalStock" class=" modal-trigger waves-effect waves-light btn-small">Solicitar cotización</a>
                 <a href="#">Ver detalle</a>
             </div>
         </div>
@@ -65,9 +65,73 @@
                 <p>El archivo debe ser inferior a 500MB</p>
         </div>
         <div class="col s12 modals--footer">
-                <button class="btn waves-effect waves-light center-align" type="submit" name="action">Solicitar cotización</button>
+                <button href="#modalSucess" class=" modal-trigger btn waves-effect waves-light" type="submit" name="action">Solicitar cotización</button>
         </div>
         
         </div>
     </div>
 </div>
+
+<div id="modalSucess" class="modal modals-container"> <!--modal cotización solicitada-->
+    <div class="modal-content modals--sucess">
+        <div class="row">
+        <div class="col s12">
+            <h5>Cotización solicitada con éxito!</h5>
+        </div>
+        <div class="col s12 modals--sucessCenter"> 
+            <p>La cotización ya fue solicitada al proveedor</p>
+        </div>
+        <div class="col s12 modals--detail">
+            <h6>DETALLE:</h6>
+            <p>Producto: 456 sillas negras</p>
+            <p>Proveedor: Musimundo</p>
+            <p>Fecha de cotización: 02/06/2019</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<div id="modalProduct" class="modal modals-container"> <!--modal cargar un nuevo producto-->
+    <div class="modal-content modals--product">
+        <div class="row">
+        <div class="col s12">
+            <h5>Carga un nuevo producto!</h5>
+            <label for="productname">Nombre del producto:</label>
+            <input type="text" name="productname" id="" placeholder="Ej:Televisiones led">
+            
+            <label for="description">Descripción:</label>
+            <input type="text" name="description" id="" placeholder="loremipsum loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum">
+ 
+            <!--Categorias-->
+
+            <!--submit con flecha-->
+        </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalStock" class="modal modals-container"> <!--modal cargar un nuevo producto l2-->
+    <div class="modal-content modals--product">
+        <div class="row">
+        <div class="col s12">
+            <label for="stock">Stock disponible</label>
+            <input type="number" name="stock" id="" placeholder="Ej:476">
+ 
+            <label for="size">Tamaño del lote</label>
+            <input type="number" name="size" id="" placeholder="Ej:476">
+ 
+            <label for="maxAmount">Cantidad Máxima</label>
+            <input type="text" name="maxAmount" id="" placeholder="Ej:476">
+ 
+            <label for="minAmount">Cantidad mínima</label>
+            <input type="text" name="minAmount" id="" placeholder="Ej:476">
+ 
+            <label for="timeSend">Tiempo estimado de entrega</label>
+            <input type="text" name="timeSend" id="" placeholder="Ej:476">
+            <p>El plazo de entrega del producto de esta cotización se confirma al momento de recibir su pedido</p>
+        </div>
+            <!--siguiente-->
+        </div>
+    </div>
+</div>
+

@@ -79,22 +79,81 @@
             color: $gray-450;
             font-size: $font-size-12;
         }
-        div{
-            button{
-                margin: auto;
-            }
-        }
-    }
-
     }
 
     .modals--footer{
         @include flex-center;
         margin-top: $spacing-20;
-        
         .modals--button{
             margin-left: $spacing-20;
         }
     }
+
+
+}
+.modals--sucess{
+    padding: $spacing-20;
+    margin: auto;
+    width: 350px;
+    div{
+        h5{
+            margin-bottom: $spacing-24;
+            margin-top: 0px;
+            font-size: $font-size-20;
+            margin-bottom: $spacing-8;
+        }
+    }
+    .modals--sucessCenter{
+        p{
+            color: $gray-450;
+            font-size: $font-size-12;
+            margin-top: 0px;
+            @include flex-center;
+        }
+    }
+    .modals--detail{
+        h6{
+            font-weight: $font-weight-regular;
+            margin-top: $spacing-32;
+            margin-bottom: $spacing-8;
+            font-size: $font-size-16;
+        }
+        p{
+            color: $gray-450;
+            font-size: $font-size-12;
+            margin-bottom: $spacing-8;
+            margin-top: $spacing-8;
+        }
+    }  
+}
+
+.modals--product{
+    padding: $spacing-20;
+    margin: $spacing-12 auto;
+    width: 350px;
+    div{
+        h5{
+            margin-bottom: $spacing-24;
+            margin-top: $spacing-20;
+            font-size: $font-size-20;
+            margin-bottom: $spacing-32;
+            color: $success-green;
+            font-weight: $font-weight-semibold;
+            @include flex-center;
+        }
+        label{
+            color: $success-green;
+        }
+        input{
+            font-size: $font-size-14;
+            height: $spacing-32;
+            margin-bottom: 0px;
+        }
+        p{
+            color: $gray-450;
+            font-size: 10px;
+        }
+    }
+}
 
 }
