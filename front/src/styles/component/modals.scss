@@ -166,11 +166,59 @@
     }
 }
 
+.modals--next{
+    // margin-top: $spacing-12;
+    @include flex-end;
+    a{
+        color: $success-green;
+    }
+    .modals--arrow{
+        font-size: $font-size-20;
+        color: $success-green;
+        @include flex-center;
+        }
+}
+
+.modals--AddProduct{
+    label{
+       color: $success-green; 
+    }
+    
+   .modals--CargaSubtitle{
+    color: $success-green;
+    margin: 0px;
+    padding: 0;
+    font-size: $font-size-12;
+    }
+    p{
+        font-size: 10px;
+        color: $gray-450;
+        margin: 0px;
+        padding: 0px;
+    }
+    .modals--CargaImg{
+        .cargar--product{
+            margin-right: $spacing-20;
+            height: 100px;
+            padding: 0px;
+            img{
+                width: 100%;
+            }
+        }
+        i{
+            margin: auto;
+            color: $success-green;
+            @include flex-center;
+        }
+    }
+}
+
+
 .modals--footer{
     @include flex-center;
     margin-top: $spacing-16;
     .modals--button{
-        margin-left: $spacing-20;
+        margin-left: $spacing-24;
     }
 }
 }

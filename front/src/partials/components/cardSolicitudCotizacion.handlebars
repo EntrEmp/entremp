@@ -18,7 +18,7 @@
                 <p>ISO 1401</p>
             </div>
             <div class="col s4 right-align">
-                <a href="#modalProduct" class=" modal-trigger waves-effect waves-light btn-small">Solicitar cotización</a>
+                <a href="#modalCertificado" class=" modal-trigger waves-effect waves-light btn-small">Solicitar cotización</a>
                 <a href="#">Ver detalle</a>
             </div>
         </div>
@@ -104,11 +104,9 @@
             
             <label for="description">Descripción:</label>
             <input type="text" name="description" id="" placeholder="loremipsum loremipsum  loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum">
-
-
-            <!--submit con flecha-->
         </div>
         <!--Categorias-->
+        <div class="col s12">
         <div class="input-field col s4 modals--select">
         <select>
             <option value="" selected>Categorias</option>
@@ -120,17 +118,17 @@
             <div class="col s8">
             <label>Selecciona la categoria más acorde al producto que querés publicar</label>
             </div>
-        
-            
+        </div>
+
+        <div class="col s12 modals--next">
+            <!--submit con flecha-->
+            <a href="#"> Siguiente </a><i class="small material-icons modals--arrow">navigate_next</i>
         </div>
   </div>
 
-        <div class="cols12">
-
-        </div>
+     
         </div>
     </div>
-</div>
 
 <div id="modalStock" class="modal modals-container"> <!--modal cargar un nuevo producto l2-->
     <div class="modal-content modals--product">
@@ -153,8 +151,108 @@
             <input type="text" name="timeSend" id="" placeholder="Ej:476">
             <p>El plazo de entrega del producto de esta cotización se confirma al momento de recibir su pedido</p>
         </div>
-            <!--siguiente-->
+           <div class="col s12 modals--next">
+            <!--submit con flecha-->
+            <a href="#"> Siguiente </a><i class="small material-icons modals--arrow">navigate_next</i>
+        </div>
         </div>
     </div>
 </div>
 
+<div id="modalMoreProduct" class="modal modals-container"> <!--modal cargar un nuevo producto-->
+    <div class="modal-content modals--AddProduct">
+        <i class="tiny material-icons close">clear</i>
+        <div class="row">
+        <div class="col s12">
+            <label for="productname">Palabras clave:</label>
+            <input type="text" name="productname" id="" placeholder="Ej:Televisiones led">
+        </div>
+            <div class="col s12">
+            <p class="col s2 modals--CargaSubtitle">Imágenes</p>
+            <p class="col s8">adjuntar imágenes del producto. Preferentemente en alta calidad</p> 
+            </div>
+            <div class="col s12 modals--CargaImg">
+            <div class="col s2 card-panel z-depth-1 cargar--product">
+              <div>
+                  <img src="https://via.placeholder.com/100x100?text=100x100+Logo">               
+              </div>
+            </div>
+            <div class="col s2 card-panel z-depth-1 cargar--product">
+              <div>
+                  <img src=""> <i class="medium material-icons cargar--add">add_a_photo</i>                
+              </div>
+            </div>
+            <div class="col s2 card-panel z-depth-1 cargar--product">
+              <div>
+                  <img src=""> <i class="medium material-icons cargar--add">add_a_photo</i>                 
+              </div>
+            </div>
+            <div class="col s2 card-panel z-depth-1 cargar--product">
+              <div>
+                 <img src=""> <i class="medium material-icons cargar--add">add_a_photo</i>                
+              </div>
+            </div>
+            <div class="col s2 card-panel z-depth-1 cargar--product">
+              <div>
+                 <img src=""> <i class="medium material-icons cargar--add">add_a_photo</i>                
+              </div>
+            </div>
+            <div class="col s2 card-panel z-depth-1 cargar--product">
+              <div>
+                  <img src=""> <i class="medium material-icons cargar--add">add_a_photo</i>               
+              </div>
+            </div>
+            <div class="col s2 card-panel z-depth-1 cargar--product">
+              <div>
+                  <img src=""> <i class="medium material-icons cargar--add">add_a_photo</i>                
+              </div>
+            </div>
+            <div class="col s2 card-panel z-depth-1 cargar--product">
+              <div>
+                  <img src=""> <i class="medium material-icons cargar--add">add_a_photo</i>                 
+              </div>
+            </div>
+            <div class="col s2 card-panel z-depth-1 cargar--product">
+              <div>
+                 <img src=""> <i class="medium material-icons cargar--add">add_a_photo</i>                
+              </div>
+            </div>
+            <div class="col s2 card-panel z-depth-1 cargar--product">
+              <div>
+                 <img src=""> <i class="medium material-icons cargar--add">add_a_photo</i>                
+              </div>
+            </div>
+        </div>
+             <div class="col s12 modals--next">
+            <!--submit con flecha-->
+            <a href="#"> Siguiente </a><i class="small material-icons modals--arrow">navigate_next</i>
+            </div>
+        </div>
+        </div>
+</div>
+
+<div id="modalCertificado" class="modal modals-container"> <!--modal certificación-->
+    <div class="modal-content modals--sucess">
+        <i class="tiny material-icons close">clear</i>
+        <div class="row">
+        <div class="col s12">
+            <h5>Certificaciones del producto</h5>
+        </div>
+        <div class="col s12 modals--sucessCenter"> 
+            <p>Escriba el nombre de la certificación o seleccione una de las opciones debajo</p>
+            <input type="text" placeholder="Ej: ISO 9001">
+        </div>
+        <div class="col s12 modals--detail">
+            <h6>DETALLE:</h6>
+            <p>Producto: 456 sillas negras</p>
+            <p>Proveedor: Musimundo</p>
+            <p>Fecha de cotización: 02/06/2019</p>
+        </div>
+        <div class="col s12 modals--footer">
+            <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
+            <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Cancelar</button>
+        </div>
+    </div>
+</div>
+</div>
+    
