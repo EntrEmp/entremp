@@ -7,6 +7,8 @@ $sizeImage: 160px;
   .row{
     width: 100%;
     margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
   }
   .card-cotzacns--img{
     display:flex;
@@ -117,10 +119,16 @@ $sizeImage: 160px;
   display: flex;
   align-items: center;
   padding:$spacing-32 $spacing-16;
+  position: relative;
   .row{
     width: 100%;
     margin-bottom: 0;
   }
+  .card-cotzacns--icon{
+    position: absolute;
+    right: 40px;
+    top: 20px;
+  } 
   .card-cotzacns--img{
     display:flex;
     min-width: $sizeImage;
