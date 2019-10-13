@@ -1,3 +1,75 @@
+.modals--cotizacion{
+    padding: $spacing-20;
+    margin: auto;
+    width: 600px;
+    
+    h5{
+        margin-bottom: $spacing-12;
+        margin-top: 0px;
+    }
+    .modal--img{
+        height: 150px;
+    }
+    .modals--subtitle{
+        h5{
+            font-size: $font-size-20;
+            color: black;
+            margin: 0px;
+            font-size: $font-size-20;
+        }
+        h6{
+            color: $blue-600;
+            font-weight: $font-weight-semibold;
+            margin: 0px;    
+            font-size: $font-size-16;
+        }
+        p{
+            font-size: $font-size-12;
+            color: $gray-450;
+            margin-top: 0px;
+        }
+    }
+    .modals--cantidad{
+        color: $gray-450;
+        font-size: $font-size-12;
+        margin-top: 0px;
+        p{
+            margin-top: 0px;
+            margin-bottom: 5px;
+        }
+        div{
+            padding: 0px;
+            input[type=text]{
+                border: 1px solid rgb(169, 169, 169);;
+                padding: 3px;
+                height: $spacing-28;
+            }
+        }
+        .modals--lote{
+            p{
+                margin: 0px;
+                margin-left: $spacing-40;
+            }
+        }
+}
+.modals--disponible{
+    color: $gray-450;
+    font-size: $font-size-12;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.modals--submit{
+    button{
+        margin-bottom: 0px;
+        margin-top: $spacing-8;
+    }
+    p{
+        margin-top: 0px;
+        color: $gray-450;
+        font-size: $font-size-12;
+    }
+}
+}
 .modals-container{
     color: $blue-600;
     border-radius: 10px;
@@ -15,82 +87,7 @@
         margin: auto;
     }
 
-    .modals--cotizacion{
-        padding: $spacing-20;
-        margin: auto;
-        width: 550px;
-        
-        h5{
-            margin-bottom: $spacing-12;
-            margin-top: 0px;
-        }
-        .modal--img{
-            height: 150px;
-        }
-        .modals--subtitle{
-            h5{
-                font-size: $font-size-20;
-                color: black;
-                margin: 0px;
-                font-size: $font-size-20;
-            }
-            h6{
-                color: $blue-600;
-                font-weight: $font-weight-semibold;
-                margin: 0px;    
-                font-size: $font-size-16;
-            }
-            p{
-                font-size: $font-size-12;
-                color: $gray-450;
-                margin-top: 0px;
-            }
-        }
-        .modals--cantidad{
-            color: $gray-450;
-            font-size: $font-size-12;
-            margin-top: 0px;
-            p{
-                margin-top: 0px;
-                margin-bottom: 5px;
-            }
-            div{
-                padding: 0px;
-                input[type=text]{
-                    border: 1px solid rgb(169, 169, 169);;
-                    padding: 3px;
-                    height: $spacing-28;
-                }
-            }
-            .modals--lote{
-                p{
-                    margin: 0px;
-                    margin-left: $spacing-40;
-                }
-            }
-    }
-    .modals--disponible{
-        color: $gray-450;
-        font-size: $font-size-12;
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
-    .modals--submit{
-        button{
-            margin-bottom: 0px;
-            margin-top: $spacing-8;
-        }
-        p{
-            margin-top: 0px;
-            color: $gray-450;
-            font-size: $font-size-12;
-        }
-    }
 
-
-
-
-}
     .modals--sucess{
     padding: $spacing-20;
     margin: auto;
