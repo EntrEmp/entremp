@@ -1,14 +1,14 @@
 .profile{
-    display: flex;
-    justify-content: center;
     margin-top: $spacing-20;
+    margin: auto;
+    max-width: 80%;
+    @include flex-center;
     .card--profile{
         width:60%;
         padding: 0px;       
     }
     .profile--header{
         padding: 0px;
-        margin-bottom: $spacing-16;
         .profile--img{
             background: $blue-600;
             width: 100%;
@@ -66,4 +66,50 @@
         }
     }
 
+    .profileCard--img{
+        width: 100%;
+        padding-top: $spacing-16;
+        padding-bottom: $spacing-16;
+        @include flex-center;
+        div{
+            img{
+            width: 80px;
+            }
+        }
+    }
+
+    .no-divider{
+        border-bottom: 0px !important;
+    }
+
+    .profile--sidebar{
+        margin-top: $spacing-40;
+        h6{
+            color: $blue-600;
+            font-size: $font-size-20;
+            margin-left: $spacing-12;
+        }
+    }
+
+    .cargar--product{
+        margin-right: $spacing-20;
+        height: 88px;
+        div{
+            img{
+                width: 100%;
+            }
+            .cargar--add{
+                color: $blue-400;
+                width: 100%;
+                margin-top: $spacing-8;
+                @include flex-center;
+            }
+        }
+
+    }
+
+}
+
+.widthNone{
+    width: 100% !important;
 }
