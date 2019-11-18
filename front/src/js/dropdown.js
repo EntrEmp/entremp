@@ -604,7 +604,7 @@
   }
 
   /**
-   * @img
+   * @images
    * @memberof Dropdown
    */
   Dropdown._dropdowns = [];

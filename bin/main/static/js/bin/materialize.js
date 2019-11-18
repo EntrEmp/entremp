@@ -2846,7 +2846,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   }(Component);
 
   /**
-   * @img
+   * @images
    * @memberof Dropdown
    */
 
@@ -3279,7 +3279,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   }(Component);
 
   /**
-   * @img
+   * @images
    * @memberof Modal
    */
 
@@ -3287,7 +3287,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   Modal._modalsOpen = 0;
 
   /**
-   * @img
+   * @images
    * @memberof Modal
    */
   Modal._count = 0;
@@ -3826,7 +3826,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       _this21.options = $.extend({}, Parallax.defaults, options);
       _this21._enabled = window.innerWidth > _this21.options.responsiveThreshold;
 
-      _this21.$img = _this21.$el.find('img').first();
+      _this21.$img = _this21.$el.find('images').first();
       _this21.$img.each(function () {
         var el = this;
         if (el.complete) $(el).trigger('load');
@@ -3951,7 +3951,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   }(Component);
 
   /**
-   * @img
+   * @images
    * @memberof Parallax
    */
 
@@ -5429,7 +5429,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   }();
 
   /**
-   * @img
+   * @images
    * @memberof Toast
    * @type {Array.<Toast>}
    */
@@ -5438,13 +5438,13 @@ $jscomp.polyfill = function (e, r, p, m) {
   Toast._toasts = [];
 
   /**
-   * @img
+   * @images
    * @memberof Toast
    */
   Toast._container = null;
 
   /**
-   * @img
+   * @images
    * @memberof Toast
    * @type {Toast}
    */
@@ -6086,7 +6086,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   }(Component);
 
   /**
-   * @img
+   * @images
    * @memberof Sidenav
    * @type {Array.<Sidenav>}
    */
@@ -6372,7 +6372,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   }(Component);
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    * @type {Array.<ScrollSpy>}
    */
@@ -6381,33 +6381,33 @@ $jscomp.polyfill = function (e, r, p, m) {
   ScrollSpy._elements = [];
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    * @type {Array.<ScrollSpy>}
    */
   ScrollSpy._elementsInView = [];
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    * @type {Array.<cash>}
    */
   ScrollSpy._visibleElements = [];
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    */
   ScrollSpy._count = 0;
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    */
   ScrollSpy._increment = 0;
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    */
   ScrollSpy._ticks = 0;
@@ -6709,7 +6709,7 @@ $jscomp.polyfill = function (e, r, p, m) {
     }, {
       key: "_highlight",
       value: function _highlight(string, $el) {
-        var img = $el.find('img');
+        var img = $el.find('images');
         var matchStart = $el.text().toLowerCase().indexOf('' + string.toLowerCase() + ''),
             matchEnd = matchStart + string.length - 1,
             beforeMatch = $el.text().slice(0, matchStart),
@@ -6812,7 +6812,7 @@ $jscomp.polyfill = function (e, r, p, m) {
           var _entry = matchingData[i];
           var $autocompleteOption = $('<li></li>');
           if (!!_entry.data) {
-            $autocompleteOption.append("<img src=\"" + _entry.data + "\" class=\"right circle\"><span>" + _entry.key + "</span>");
+            $autocompleteOption.append("<images src=\"" + _entry.data + "\" class=\"right circle\"><span>" + _entry.key + "</span>");
           } else {
             $autocompleteOption.append('<span>' + _entry.key + '</span>');
           }
@@ -6899,7 +6899,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   }(Component);
 
   /**
-   * @img
+   * @images
    * @memberof Autocomplete
    */
 
@@ -7214,8 +7214,8 @@ $jscomp.polyfill = function (e, r, p, m) {
         _this40._animateCaptionIn(el, 0);
       });
 
-      // Move img src into background-image
-      _this40.$slides.find('img').each(function (el) {
+      // Move images src into background-image
+      _this40.$slides.find('images').each(function (el) {
         var placeholderBase64 = 'data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
         if ($(el).attr('src') !== placeholderBase64) {
           $(el).css('background-image', 'url("' + $(el).attr('src') + '")');
@@ -7247,7 +7247,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       }
 
       // Adjust height to current slide
-      _this40.$active.find('img').each(function (el) {
+      _this40.$active.find('images').each(function (el) {
         anim({
           targets: _this40.$active.find('.caption')[0],
           opacity: 1,
@@ -7849,7 +7849,7 @@ $jscomp.polyfill = function (e, r, p, m) {
 
         // attach image if needed
         if (chip.image) {
-          var img = document.createElement('img');
+          var img = document.createElement('images');
           img.setAttribute('src', chip.image);
           renderedChip.insertBefore(img, renderedChip.firstChild);
         }
@@ -8134,7 +8134,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   }(Component);
 
   /**
-   * @img
+   * @images
    * @memberof Chips
    */
 
@@ -8148,7 +8148,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   }
 
   $(document).ready(function () {
-    // Handle removal of img chips.
+    // Handle removal of images chips.
     $(document.body).on('click', '.chip .close', function () {
       var $chips = $(this).closest('.chips');
       if ($chips.length && $chips[0].M_Chips) {
@@ -8311,7 +8311,7 @@ $jscomp.polyfill = function (e, r, p, m) {
   }(Component);
 
   /**
-   * @img
+   * @images
    * @memberof Pushpin
    */
 
@@ -10660,7 +10660,7 @@ $jscomp.polyfill = function (e, r, p, m) {
       key: "_handleCarouselTap",
       value: function _handleCarouselTap(e) {
         // Fixes firefox draggable image bug
-        if (e.type === 'mousedown' && $(e.target).is('img')) {
+        if (e.type === 'mousedown' && $(e.target).is('images')) {
           e.preventDefault();
         }
         this.pressed = true;
@@ -10833,7 +10833,7 @@ $jscomp.polyfill = function (e, r, p, m) {
         var _this65 = this;
 
         var firstSlide = this.$el.find('.carousel-item.active').length ? this.$el.find('.carousel-item.active').first() : this.$el.find('.carousel-item').first();
-        var firstImage = firstSlide.find('img').first();
+        var firstImage = firstSlide.find('images').first();
         if (firstImage.length) {
           if (firstImage[0].complete) {
             // If image won't trigger the load event
@@ -11921,7 +11921,7 @@ $jscomp.polyfill = function (e, r, p, m) {
         // add icons
         var iconUrl = option.getAttribute('data-icon');
         if (!!iconUrl) {
-          var imgEl = $("<img alt=\"\" src=\"" + iconUrl + "\">");
+          var imgEl = $("<images alt=\"\" src=\"" + iconUrl + "\">");
           liEl.prepend(imgEl);
         }
 

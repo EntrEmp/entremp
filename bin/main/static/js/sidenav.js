@@ -566,7 +566,7 @@
   }
 
   /**
-   * @img
+   * @images
    * @memberof Sidenav
    * @type {Array.<Sidenav>}
    */

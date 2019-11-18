@@ -54,8 +54,8 @@
         this._animateCaptionIn(el, 0);
       });
 
-      // Move img src into background-image
-      this.$slides.find('img').each((el) => {
+      // Move images src into background-image
+      this.$slides.find('images').each((el) => {
         let placeholderBase64 =
           'data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
         if ($(el).attr('src') !== placeholderBase64) {
@@ -88,7 +88,7 @@
       }
 
       // Adjust height to current slide
-      this.$active.find('img').each((el) => {
+      this.$active.find('images').each((el) => {
         anim({
           targets: this.$active.find('.caption')[0],
           opacity: 1,

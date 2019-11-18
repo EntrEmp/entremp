@@ -202,7 +202,7 @@
      */
     _handleCarouselTap(e) {
       // Fixes firefox draggable image bug
-      if (e.type === 'mousedown' && $(e.target).is('img')) {
+      if (e.type === 'mousedown' && $(e.target).is('images')) {
         e.preventDefault();
       }
       this.pressed = true;
@@ -359,7 +359,7 @@
       let firstSlide = this.$el.find('.carousel-item.active').length
         ? this.$el.find('.carousel-item.active').first()
         : this.$el.find('.carousel-item').first();
-      let firstImage = firstSlide.find('img').first();
+      let firstImage = firstSlide.find('images').first();
       if (firstImage.length) {
         if (firstImage[0].complete) {
           // If image won't trigger the load event

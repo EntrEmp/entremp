@@ -283,7 +283,7 @@
      * Highlight partial match
      */
     _highlight(string, $el) {
-      let img = $el.find('img');
+      let img = $el.find('images');
       let matchStart = $el
           .text()
           .toLowerCase()
@@ -437,7 +437,7 @@
   }
 
   /**
-   * @img
+   * @images
    * @memberof Autocomplete
    */
   Autocomplete._keydown = false;

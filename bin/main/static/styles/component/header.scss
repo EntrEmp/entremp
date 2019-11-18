@@ -4,14 +4,16 @@
 .header-component{
   box-shadow: none;
   height: 80px;
-  background-color: $brand-primary;
-.row{
+
+  .row{
     display: flex;
     margin: 0;
   }
+
   &--logo{
 
   }
+
   &--input-search{
     @include flex-start;
     align-content: center;
@@ -38,6 +40,7 @@
       }
     }
   }
+
   .header-component--menu{
     height: 100%;
     .nav{
@@ -50,4 +53,13 @@
       }
     }
   }
+
+}
+
+.header-buyer{
+  background-color: $brand-buyer;
+}
+
+.header-seller{
+  background-color: $brand-seller;
 }

@@ -303,7 +303,7 @@
 
       // attach image if needed
       if (chip.image) {
-        let img = document.createElement('img');
+        let img = document.createElement('images');
         img.setAttribute('src', chip.image);
         renderedChip.insertBefore(img, renderedChip.firstChild);
       }
@@ -455,7 +455,7 @@
   }
 
   /**
-   * @img
+   * @images
    * @memberof Chips
    */
   Chips._keydown = false;
@@ -467,7 +467,7 @@
   }
 
   $(document).ready(function() {
-    // Handle removal of img chips.
+    // Handle removal of images chips.
     $(document.body).on('click', '.chip .close', function() {
       let $chips = $(this).closest('.chips');
       if ($chips.length && $chips[0].M_Chips) {

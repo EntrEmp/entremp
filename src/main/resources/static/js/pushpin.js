@@ -132,7 +132,7 @@
   }
 
   /**
-   * @img
+   * @images
    * @memberof Pushpin
    */
   Pushpin._pushpins = [];

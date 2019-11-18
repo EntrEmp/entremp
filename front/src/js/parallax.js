@@ -19,7 +19,7 @@
       this.options = $.extend({}, Parallax.defaults, options);
       this._enabled = window.innerWidth > this.options.responsiveThreshold;
 
-      this.$img = this.$el.find('img').first();
+      this.$img = this.$el.find('images').first();
       this.$img.each(function() {
         let el = this;
         if (el.complete) $(el).trigger('load');
@@ -125,7 +125,7 @@
   }
 
   /**
-   * @img
+   * @images
    * @memberof Parallax
    */
   Parallax._parallaxes = [];

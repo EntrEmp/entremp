@@ -284,20 +284,20 @@
   }
 
   /**
-   * @img
+   * @images
    * @memberof Toast
    * @type {Array.<Toast>}
    */
   Toast._toasts = [];
 
   /**
-   * @img
+   * @images
    * @memberof Toast
    */
   Toast._container = null;
 
   /**
-   * @img
+   * @images
    * @memberof Toast
    * @type {Toast}
    */

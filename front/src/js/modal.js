@@ -363,13 +363,13 @@
   }
 
   /**
-   * @img
+   * @images
    * @memberof Modal
    */
   Modal._modalsOpen = 0;
 
   /**
-   * @img
+   * @images
    * @memberof Modal
    */
   Modal._count = 0;

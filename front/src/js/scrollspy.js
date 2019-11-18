@@ -249,40 +249,40 @@
   }
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    * @type {Array.<ScrollSpy>}
    */
   ScrollSpy._elements = [];
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    * @type {Array.<ScrollSpy>}
    */
   ScrollSpy._elementsInView = [];
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    * @type {Array.<cash>}
    */
   ScrollSpy._visibleElements = [];
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    */
   ScrollSpy._count = 0;
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    */
   ScrollSpy._increment = 0;
 
   /**
-   * @img
+   * @images
    * @memberof ScrollSpy
    */
   ScrollSpy._ticks = 0;
