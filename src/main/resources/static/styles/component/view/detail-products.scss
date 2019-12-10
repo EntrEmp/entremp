@@ -1,9 +1,12 @@
 $height-detail:600;
+
 .detail-products{
   padding:$spacing-40;
+
   .detail-products--photos{
     padding: 0;
   }
+
   .detail-products--breadcrumb{
     background: $gray-100;
     padding-left: $spacing-20;
@@ -16,6 +19,7 @@ $height-detail:600;
       color:$secondary-color;
     }
   }
+
   .card-detail{
     min-height:($height-detail+50px);
     padding: $spacing-20;
@@ -59,6 +63,7 @@ $height-detail:600;
       }
     }
   }
+
   .detail-products--photo-min{
     @include flex-column;
     height: ($height-detail+px);
@@ -77,6 +82,7 @@ $height-detail:600;
       }
     }
   }
+
   .detail-products--photo-container{
     height: ($height-detail+px);
     margin-bottom: $spacing-8;

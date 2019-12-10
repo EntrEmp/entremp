@@ -45,7 +45,7 @@ class SellerRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun products(): ModelAndView {
-        val body = template("templates/product/index.mustache")
+        val body = template("templates/products/index.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -59,7 +59,7 @@ class SellerRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun createProduct(): ModelAndView {
-        val body = template("templates/product/edit.mustache")
+        val body = template("templates/products/edit.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -73,8 +73,8 @@ class SellerRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun showProduct(@PathVariable id: String): ModelAndView {
-        val body = template("templates/product/show.mustache")
 
+        val body = template(resource = "templates/products/seller/show.mustache")
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
@@ -87,7 +87,7 @@ class SellerRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun editProduct(@PathVariable id: String): ModelAndView {
-        val body = template("templates/product/edit.mustache")
+        val body = template("templates/products/edit.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -104,7 +104,7 @@ class SellerRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun pricings(): ModelAndView {
-        val body = template("templates/pricings/index.mustache")
+        val body = template("templates/pricings/seller/index.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -163,7 +163,7 @@ class SellerRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun showProfile(@PathVariable id: String): ModelAndView {
-        val body = template("templates/user/show.mustache")
+        val body = template("templates/user/seller/show.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -177,7 +177,7 @@ class SellerRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun createProfile(@PathVariable id: String): ModelAndView {
-        val body = template("templates/user/edit.mustache")
+        val body = template("templates/user/seller/edit.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -243,6 +243,17 @@ class SellerRenderController {
 
     private fun template(resource: String): String {
         return TemplateBuilder(templateName = resource, factory = factory)
+            .build()
+    }
+
+    private fun template(
+        resource: String,
+        data: Map<String, Any?>
+    ): String {
+        return TemplateBuilder(
+            templateName = resource,
+            factory = factory)
+            .data(data)
             .build()
     }
 

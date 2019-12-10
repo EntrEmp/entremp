@@ -1,0 +1,183 @@
+<div class="profile">
+    <section class="card-panel z-depth-1 card--profile">
+        <div class="row">
+            <div class="col s12 profile--header">
+                <div class="col s12 profile--img--seller">
+                    <div>
+                        <img src="/images/logo/verde.png">
+                    </div>
+                </div>
+                <div class="col s12">
+                    <div class=" col s12 profile--data">
+                        <div class="col s12 img--data">
+                            <img src="/images/profile/rock.png" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+                        </div>
+                    </div>
+                    <div class=" col s12 profile--data">
+                        <div class="col s8 data--left">
+                            <p class="col s6 data--right">Nombre o razón social: </p> <p class="col s6">Mariano Gomez</p>
+                            <p class="col s6 data--right">Documento: </p> <p class="col s6">31483383</p>
+                            <p class="col s6 data--right">Teléfono: </p> <p class="col s6">1168723644</p>
+                            <p class="col s6 data--right">CUIT: </p> <p class="col s6">27-38291193-2</p>
+                        </div>
+                        <div class="col s4 right-align">
+                            <a class="modal-trigger data--modify" href="#modalData">Modificar</a>
+                        </div>
+                    </div>
+                    <div class="col s12 profile--data">
+                        <div class="col s4">
+                            <p class="col s6 data--right">Direcciones:</p>
+                        </div>
+                        <div class="col s6 data--left">
+                            <p>Avenida del Libertador 2700  </p>
+                            <p>Capital Federal, CABA, Argentina </p>
+                            <p>Blanco Encalada 900 </p>
+                            <p>San Isidro, CABA, Argentina </p>
+                            <p><a href="#">Agregar domicilio</a></p>
+                        </div>
+                        <div class="col s2 right-align">
+                            <a class="modal-trigger data--modify" href="#modalAddress">Modificar</a>
+                        </div>
+                    </div>
+                    <div class=" col s12 profile--data">
+                        <div class="col s8">
+                            <div class="col s6">
+                                <p class="data--right">Certificaciones: </p>
+                            </div>
+                            <div class="col s6">
+                                <p class="data--left">ISO 14004, ISO 1909</p>
+                            </div>
+                        </div>
+                        <div class="col s4 right-align">
+                            <a class="modal-trigger data--modify" href="#modalPassword">Modificar</a>
+                        </div>
+                    </div>
+                    <div class=" col s12 profile--data">
+                        <div class="col s8">
+                            <div class="col s6">
+                                <p class="data--right">Mail: </p>
+                                <p class="data--right">Clave: </p>
+                            </div>
+                            <div class="col s6">
+                                <p class="data--left">marianogomez@gmail.com</p>
+                                <p class="data--left">*********</p>
+                            </div>
+                        </div>
+                        <div class="col s4 right-align">
+                            <a class="modal-trigger data--modify" href="#modalPassword">Modificar</a>
+                        </div>
+                    </div>
+
+                </div>
+                <section class="col s12 data--sumit">
+                    <button class="btn waves-effect waves-light center-align row" type="submit" name="action">Crea perfil comprador</button>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <!--Modal de datos-->
+    <div id="modalData" class="modal modals-container"> <!--modal-->
+        <div class="modal-content modals--profile">
+            <div class="row">
+                <div class="col s12">
+                    <label class="blue-text darken-4-text" for="nombre">Nombre o Razón social:</label>
+                    <input type="text" name="nombre" id="">
+                </div>
+                <div class="col s12">
+                    <label class="blue-text darken-4-text" for="document">Documento:</label>
+                    <input type="number" name="document" id="">
+                </div>
+                <div class="col s12">
+                    <label class="blue-text darken-4-text" for="phone">Teléfono:</label>
+                    <input type="number" name="phone" id="">
+                </div>
+                <div class="col s12">
+                    <label class="blue-text darken-4-text" for="CUIT">CUIT/CUIL</label>
+                    <input type="number" name="CUIT" id="">
+                </div>
+
+                <div class="col s12 modals--footer">
+                    <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
+                    <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal direccion-->
+    <div id="modalAddress" class="modal modals-container">
+        <div class="modal-content modals--profile">
+            <div class="row">
+                <div class="col s12">
+                    <div class="col s6">
+                        <div class="col s12">
+                            <label class="blue-text darken-4-text" for="country">País:</label>
+                            <input type="text" name="country" id="">
+                        </div>
+                        <div class="col s12">
+                            <label class="blue-text darken-4-text" for="province">Provincia:</label>
+                            <input type="text" name="province" id="">
+                        </div>
+                        <div class="col s12">
+                            <label class="blue-text darken-4-text" for="street">Calle:</label>
+                            <input type="number" name="street" id="">
+                        </div>
+                        <div class="col s12">
+                            <label class="blue-text darken-4-text" for="floor">Piso/ Departamento</label>
+                            <input type="number" name="floor" id="">
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="col s12">
+                            <label class="blue-text darken-4-text" for="CP">Código Postal:</label>
+                            <input type="number" name="CP" id="">
+                        </div>
+                        <div class="col s12">
+                            <label class="blue-text darken-4-text" for="town">Localidad:</label>
+                            <input type="text" name="town" id="">
+                        </div>
+                        <div class="col s12">
+                            <label class="blue-text darken-4-text" for="number">Número:</label>
+                            <input type="number" name="number" id="">
+                        </div>
+                        <div class="col s12">
+                            <label class="blue-text darken-4-text" for="contact-phone">Teléfono de contacto</label>
+                            <input type="number" name="contact-phone" id="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12 modals--footer">
+                    <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
+                    <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal Pasword -->
+    <div id="modalPassword" class="modal modals-container">
+        <div class="modal-content modals--profile">
+            <div class="col s12">
+                <label class="blue-text darken-4-text" for="currentPassword">Contraseña actual:</label>
+                <input type="password" name="currentPassword" id="">
+            </div>
+            <div class="col s12">
+                <label class="blue-text darken-4-text" for="newPassword">Nueva contraseña:</label>
+                <input type="password" name="newPassword" id="">
+            </div>
+            <div class="col s12">
+                <label class="blue-text darken-4-text" for="password">Confirmar nueva contraseña:</label>
+                <input type="password" name="password" id="">
+            </div>
+
+            <div class="col s12 modals--footer">
+                <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
+                <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

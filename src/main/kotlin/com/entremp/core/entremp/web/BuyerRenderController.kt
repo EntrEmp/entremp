@@ -37,6 +37,39 @@ class BuyerRenderController {
     }
 
     /**
+     * Product Routes
+     */
+    @RequestMapping(
+        "/products",
+        method = [RequestMethod.GET],
+        produces = [MediaType.TEXT_HTML_VALUE]
+    )
+    fun products(): ModelAndView {
+        val body = template("templates/products/search.mustache")
+
+        return ModelAndView("common/general")
+            .addObject("header", header())
+            .addObject("body", body)
+            .addObject("footer", "")
+    }
+
+    @RequestMapping(
+        "/products/{id}",
+        method = [RequestMethod.GET],
+        produces = [MediaType.TEXT_HTML_VALUE]
+    )
+    fun showProduct(@PathVariable id: String): ModelAndView {
+        val body = template(resource = "templates/products/buyer/show.mustache")
+
+
+        return ModelAndView("common/general")
+            .addObject("header", header())
+            .addObject("body", body)
+            .addObject("footer", "")
+    }
+
+
+    /**
      * Pricing Routes
      */
     @RequestMapping(
@@ -45,7 +78,7 @@ class BuyerRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun pricings(): ModelAndView {
-        val body = template("templates/pricings/index.mustache")
+        val body = template("templates/pricings/buyer/index.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -96,65 +129,6 @@ class BuyerRenderController {
     }
 
     /**
-     * Product Routes
-     */
-    @RequestMapping(
-        "/products",
-        method = [RequestMethod.GET],
-        produces = [MediaType.TEXT_HTML_VALUE]
-    )
-    fun products(): ModelAndView {
-        val body = template("templates/product/index.mustache")
-
-        return ModelAndView("common/general")
-            .addObject("header", header())
-            .addObject("body", body)
-            .addObject("footer", "")
-    }
-
-    @RequestMapping(
-        "/products/create",
-        method = [RequestMethod.GET],
-        produces = [MediaType.TEXT_HTML_VALUE]
-    )
-    fun createProduct(): ModelAndView {
-        val body = template("templates/product/edit.mustache")
-
-        return ModelAndView("common/general")
-            .addObject("header", header())
-            .addObject("body", body)
-            .addObject("footer", "")
-    }
-
-    @RequestMapping(
-        "/products/{id}",
-        method = [RequestMethod.GET],
-        produces = [MediaType.TEXT_HTML_VALUE]
-    )
-    fun showProduct(@PathVariable id: String): ModelAndView {
-        val body = template("templates/product/show.mustache")
-
-        return ModelAndView("common/general")
-            .addObject("header", header())
-            .addObject("body", body)
-            .addObject("footer", "")
-    }
-
-    @RequestMapping(
-        "/products/{id}/edit",
-        method = [RequestMethod.GET],
-        produces = [MediaType.TEXT_HTML_VALUE]
-    )
-    fun editProduct(@PathVariable id: String): ModelAndView {
-        val body = template("templates/product/edit.mustache")
-
-        return ModelAndView("common/general")
-            .addObject("header", header())
-            .addObject("body", body)
-            .addObject("footer", "")
-    }
-
-    /**
      * User Routes
      */
     @RequestMapping(
@@ -163,7 +137,7 @@ class BuyerRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun showProfile(@PathVariable id: String): ModelAndView {
-        val body = template("templates/user/show.mustache")
+        val body = template("templates/user/buyer/show.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -177,7 +151,7 @@ class BuyerRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun createProfile(@PathVariable id: String): ModelAndView {
-        val body = template("templates/user/edit.mustache")
+        val body = template("templates/user/buyer/edit.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -226,6 +200,17 @@ class BuyerRenderController {
             templateName = resource,
             factory = factory
         ).build()
+    }
+
+    private fun template(
+        resource: String,
+        data: Map<String, Any?>
+    ): String {
+        return TemplateBuilder(
+            templateName = resource,
+            factory = factory)
+            .data(data)
+            .build()
     }
 
 }
