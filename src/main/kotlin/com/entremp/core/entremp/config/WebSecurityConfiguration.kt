@@ -20,21 +20,24 @@ class WebSecurityConfiguration(
     }
 
     override fun configure(http: HttpSecurity?) {
-        if (http != null) {
+        if(http != null){
             http.csrf().disable()
-            .authorizeRequests()
-//                    .antMatchers("/mail").anonymous()
-//                    .antMatchers("/login").anonymous()
-//                    .antMatchers("/register").anonymous()
-                    //TODO make any requests authenticated by configuration
-//                    .anyRequest().authenticated()
-                    .anyRequest().anonymous()
-                .and()
-                    .formLogin()
-                .and()
-                    .logout()
-                .and()
-                    .httpBasic()
+
+            http.authorizeRequests()
+                .antMatchers("/web/seller/*")
         }
+
+        http?.csrf()?.disable()
+            ?.authorizeRequests()
+            ?.antMatchers("/web/seller/*")?.authenticated()
+            ?.antMatchers("/web/buyer/*")?.authenticated()
+            ?.antMatchers("/resources/**")?.permitAll()
+            ?.anyRequest()?.permitAll()
+            ?.and()
+            ?.formLogin()?.loginPage("/web/login")
+            ?.and()
+            ?.logout()
+            ?.and()
+            ?.httpBasic()
     }
 }

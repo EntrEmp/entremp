@@ -1,5 +1,6 @@
 <div class="row login">
     <div class="col card-panel z-depth-1 card--login">
+        {{{flashMessage}}}
 
         <div class="row login--img">
             <div class="col s12">
@@ -8,30 +9,38 @@
         </div>
 
         <section class="row col s12 login--input">
-            <div class="col s12">
-                <label class="col s12" for="email">Dirección de correo electrónico</label>
-                <input type="email" name="email" id="">
-            </div>
-            <div class="col s12">
-                <label class="col s4" for="password">Contraseña</label>
-                <label class="col s8 right-align"><a href="#">¿Olvidaste tu contraseña?</a></label>
-                <input type="password" name="password" id="">
-            </div>
-            <div class="col s12">
-                <button class=" col s12 btn waves-effect waves-light center-align row"
-                        type="submit"
-                        name="action">Iniciar sesión</button>
-                <p>Al continuar, aceptas las Condiciones de uso y el Aviso de privacidad de EntrEmp</p>
-            </div>
-            <div class=" login--noregistre">
-                <section class="col s12">
-                    <p>¿No tenes una cuenta de EntrEmp?</p>
-                    <a class="col s12 btn waves-effect waves-light center-align row"
-                       type="submit"
-                       name="action"
-                       href="/web/sign-up">Crea tu cuenta</a>
-                </section>
-            </div>
+
+            <form id="login" method="post" action="login">
+                <div class="col s12">
+                    <label class="col s12" for="username">Dirección de correo electrónico</label>
+                    <input class="validate" type="email" name="username" id="username" required>
+                </div>
+
+                <div class="col s12">
+                    <label class="col s12" for="password">Contraseña</label>
+                    <input class="validate" type="password" name="password" id="password" required>
+                </div>
+
+                <div class="col s12">
+                    <button class=" col s12 btn waves-effect waves-light center-align row"
+                            type="submit"
+                            name="action">Iniciar sesión</button>
+                    <section class="col s12">
+                        <p><a href="#">¿Olvidaste tu contraseña?</a></p>
+                        <p>Al continuar, aceptas las Condiciones de uso y el Aviso de privacidad de EntrEmp</p>
+                    </section>
+                </div>
+
+                <div class=" login--noregistre">
+                    <section class="col s12">
+                        <p>¿No tenes una cuenta de EntrEmp?</p>
+                        <a class="col s12 btn waves-effect waves-light center-align row"
+                           type="submit"
+                           name="action"
+                           href="/web/sign-up">Crea tu cuenta</a>
+                    </section>
+                </div>
+            </form>
         </section>
 
     </div>

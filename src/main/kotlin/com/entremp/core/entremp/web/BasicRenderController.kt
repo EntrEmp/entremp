@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.servlet.ModelAndView
+import org.springframework.web.servlet.support.RequestContextUtils
+import javax.servlet.http.HttpServletRequest
 
 @Controller
 @RequestMapping("/web")
@@ -36,8 +38,13 @@ class BasicRenderController {
         method = [RequestMethod.GET],
         produces = [MediaType.TEXT_HTML_VALUE]
     )
-    fun login(): ModelAndView {
-        val body = template("templates/auth/login.mustache")
+    fun login(request: HttpServletRequest): ModelAndView {
+        val flashMap = RequestContextUtils.getInputFlashMap(request)
+        val dataMap = mapOf(
+            "flashMessage" to flashMap?.get("success")
+        )
+
+        val body = template("templates/auth/login.mustache", dataMap)
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -80,11 +87,12 @@ class BasicRenderController {
     )
     fun signUp(): ModelAndView {
         val body = template("templates/auth/signup.mustache")
+        val footer = template("templates/auth/register-footer.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
-            .addObject("footer", "")
+            .addObject("footer", footer)
     }
 
     @RequestMapping(
@@ -137,9 +145,16 @@ class BasicRenderController {
         .build()
 
     private fun template(resource: String): String {
-        return TemplateBuilder(
-            templateName = resource,
-            factory = factory)
+        return TemplateBuilder(templateName = resource, factory = factory)
+            .build()
+    }
+
+    private fun template(
+        resource: String,
+        dataMap: Map<String, Any?>
+    ): String {
+        return TemplateBuilder(templateName = resource, factory = factory)
+            .data(dataMap)
             .build()
     }
 }

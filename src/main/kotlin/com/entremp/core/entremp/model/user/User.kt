@@ -1,5 +1,6 @@
 package com.entremp.core.entremp.model.user
 
+import com.entremp.core.entremp.api.user.UserRegistrationDTO
 import com.entremp.core.entremp.model.chat.Chat
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.product.Product

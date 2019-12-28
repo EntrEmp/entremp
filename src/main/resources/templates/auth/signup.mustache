@@ -8,36 +8,38 @@
         </div>
 
         <section class="row col s12 login--input">
-            <div class="col s12">
-                <label class="col s12" for="nombre">Nombre</label>
-                <input type="text" name="nombre" id="">
-            </div>
-            <div class="col s12">
-                <label class="col s12" for="email">Correo electrónico</label>
-                <input type="email" name="email" id="">
-            </div>
-            <div class="col s12">
-                <label class="col s12" for="password">Contraseña</label>
-                <input type="password" name="password" id="">
-            </div>
-            <div class="col s12">
-                <label class="col s12" for="SecurityPassword">Confirmar tu contraseña</label>
-                <input type="password" name="SecurityPassword" id="">
-            </div>
-            <div class="col s12">
-                <label class="col s12" for="phone">Teléfono</label>
-                <input type="number" name="phone" id="">
-            </div>
-            <div class="col s12">
-                <label class="col s12" for="cuit">CUIT</label>
-                <input type="number" name="cuit" id="">
-            </div>
-            <div class="col s12">
-                <button class=" col s12 btn waves-effect waves-light center-align row" type="submit" name="action">Crea tu cuenta</button>
-            </div>
-            <div class="col s12">
-                <p>¿Ya tenes una cuenta? <a href="/web/login">Iniciar sesión</a></p>
-            </div>
+            <form id="register" method="post" action="/register">
+                <div class="col s12">
+                    <label class="col s12" for="name" >Nombre</label>
+                    <input class="validate" type="text" name="name" required>
+                </div>
+                <div class="col s12">
+                    <label class="col s12" for="email">Correo electrónico</label>
+                    <input class="validate" type="email" name="email" required>
+                </div>
+                <div class="col s12">
+                    <label class="col s12" for="password">Contraseña</label>
+                    <input class="validate" type="password" name="password" id="password" required>
+                </div>
+                <div class="col s12">
+                    <label class="col s12" for="confirmation">Confirmar tu contraseña</label>
+                    <input class="validate" type="password" name="confirmation" required>
+                </div>
+                <div class="col s12">
+                    <label class="col s12" for="phone">Teléfono</label>
+                    <input class="validate" type="number" name="phone" required>
+                </div>
+                <div class="col s12">
+                    <label class="col s12" for="cuit">CUIT</label>
+                    <input class="validate" type="number" name="cuit" required>
+                </div>
+                <div class="col s12">
+                    <button class=" col s12 btn waves-effect waves-light center-align row" type="submit" name="action">Crea tu cuenta</button>
+                </div>
+                <div class="col s12">
+                    <p>¿Ya tenes una cuenta? <a href="/web/login">Iniciar sesión</a></p>
+                </div>
+            </form>
         </section>
 
     </div>

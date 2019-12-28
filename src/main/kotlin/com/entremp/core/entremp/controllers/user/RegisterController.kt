@@ -4,28 +4,37 @@ import com.entremp.core.entremp.api.user.UserRegistrationDTO
 import com.entremp.core.entremp.data.user.UsersRepository
 import com.entremp.core.entremp.model.user.User
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import org.springframework.web.servlet.view.RedirectView
 import java.util.*
 
 
 @RestController
 class RegisterController(
         private val usersRepository: UsersRepository,
-        private val passwordEncoder: PasswordEncoder
+        private val encoder: PasswordEncoder
 ) {
 
     @RequestMapping("register", method = [RequestMethod.POST])
-    fun register(@RequestBody prospect: UserRegistrationDTO){
+    fun register(
+        @ModelAttribute prospect: UserRegistrationDTO,
+        redirectAttributes: RedirectAttributes
+    ): RedirectView {
         validateAccount(prospect)
         val user = User(
-                email = prospect.email,
-                passwd = passwordEncoder.encode(prospect.password),
-                token = UUID.randomUUID().toString()
+            name = prospect.name,
+            email = prospect.email,
+            passwd = encoder.encode(prospect.password),
+            phone = prospect.phone,
+            cuit = prospect.cuit,
+            token = UUID.randomUUID().toString()
         )
         usersRepository.save(user)
+
+        redirectAttributes.addFlashAttribute("success", flashSuccess())
+
+        return RedirectView("/web/login")
     }
 
     private fun validateAccount(prospect: UserRegistrationDTO) {
@@ -33,11 +42,23 @@ class RegisterController(
         if(exists){
             throw RuntimeException("Account email ${prospect.email} already exists.")
         } else {
-            val passwordMatch: Boolean = prospect.password == prospect.matchingPassword
-            if(! passwordMatch){
+            val passwordMatch: Boolean = prospect.password == prospect.confirmation
+            if(!passwordMatch){
                 throw RuntimeException("Password and Confirmation did not match.")
             }
         }
     }
+
+    private fun flashSuccess(): String =
+        """
+            <div class="col s12">
+                <div class="card teal">
+                    <div class="card-content white-text">
+                        <h7>Tu usuario se creo correctamente!</h7>
+                    </div>
+                </div>
+            </div>
+        """.trimIndent()
+
 
 }
