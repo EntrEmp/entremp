@@ -6,195 +6,45 @@
             <h3>Muebles</h3>
         </div>
 
-        <!--Product Preview-->
-        <div class="col s12 m2">
+        {{#products}}
+            <div class="col s12 m2">
 
-            <div class="card card-products">
+                <div class="card card-products">
 
-                <!--Preview Image-->
-                <div class="card-image card-products--image z-depth-1">
-                    <img alt="Product Preview" src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </div>
-
-                <div class="card-products--title">
-                    <div>
-                        <span class="card-title">Sillas</span>
-                        <p>Ikea</p>
+                    <!--Preview Image-->
+                    <div class="card-image card-products--image z-depth-1">
+                        <img alt="Product Preview" class="materialboxed"
+                             src="{{mainImage}}">
                     </div>
-                </div>
 
-                <!--Rank-->
-                <div class="card-products--ranking">
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star_border</i>
-                    <i class="material-icons">star_border</i>
-                </div>
+                    <div class="card-products--title">
+                        <div>
+                            <span class="card-title">{{name}}</span>
+                            <p>{{userName}}</p>
+                        </div>
+                    </div>
 
-                <!--Description-->
-                <div class="card-products--extra-information">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae natus</p>
-                    <p>Certificaciones: ISO 9001, ISO 14001</p>
-                    <p> 479 productos disponibles</p>
-                    <a href="/web/seller/products/1">Ver detalle</a>
+                    <!--Rank-->
+                    <div class="card-products--ranking">
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star</i>
+                        <i class="material-icons">star_border</i>
+                        <i class="material-icons">star_border</i>
+                    </div>
+
+                    <!--Description-->
+                    <div class="card-products--extra-information">
+                        <p>{{description}}</p>
+                        <p>Certificaciones: ISO 9001, ISO 14001</p>
+                        <p> {{maximum}} productos disponibles</p>
+                        <a href="/web/seller/products/{{id}}">Ver detalle</a>
+                    </div>
+
                 </div>
 
             </div>
-
-        </div>
-
-        <!--Product Preview-->
-        <div class="col s12 m2">
-
-            <div class="card card-products">
-
-                <!--Preview Image-->
-                <div class="card-image card-products--image z-depth-1">
-                    <img alt="Product Preview" src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </div>
-
-                <div class="card-products--title">
-                    <div>
-                        <span class="card-title">Sillas</span>
-                        <p>Ikea</p>
-                    </div>
-                </div>
-
-                <!--Rank-->
-                <div class="card-products--ranking">
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star_border</i>
-                    <i class="material-icons">star_border</i>
-                </div>
-
-                <!--Description-->
-                <div class="card-products--extra-information">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae natus</p>
-                    <p>Certificaciones: ISO 9001, ISO 14001</p>
-                    <p> 479 productos disponibles</p>
-                    <a href="/web/seller/products/1">Ver detalle</a>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!--Product Preview-->
-        <div class="col s12 m2">
-
-            <div class="card card-products">
-
-                <!--Preview Image-->
-                <div class="card-image card-products--image z-depth-1">
-                    <img alt="Product Preview" src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </div>
-
-                <div class="card-products--title">
-                    <div>
-                        <span class="card-title">Sillas</span>
-                        <p>Ikea</p>
-                    </div>
-                </div>
-
-                <!--Rank-->
-                <div class="card-products--ranking">
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star_border</i>
-                    <i class="material-icons">star_border</i>
-                </div>
-
-                <!--Description-->
-                <div class="card-products--extra-information">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae natus</p>
-                    <p>Certificaciones: ISO 9001, ISO 14001</p>
-                    <p> 479 productos disponibles</p>
-                    <a href="/web/seller/products/1">Ver detalle</a>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!--Product Preview-->
-        <div class="col s12 m2">
-
-            <div class="card card-products">
-
-                <!--Preview Image-->
-                <div class="card-image card-products--image z-depth-1">
-                    <img alt="Product Preview" src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </div>
-
-                <div class="card-products--title">
-                    <div>
-                        <span class="card-title">Sillas</span>
-                        <p>Ikea</p>
-                    </div>
-                </div>
-
-                <!--Rank-->
-                <div class="card-products--ranking">
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star_border</i>
-                    <i class="material-icons">star_border</i>
-                </div>
-
-                <!--Description-->
-                <div class="card-products--extra-information">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae natus</p>
-                    <p>Certificaciones: ISO 9001, ISO 14001</p>
-                    <p> 479 productos disponibles</p>
-                    <a href="/web/seller/products/1">Ver detalle</a>
-                </div>
-
-            </div>
-
-        </div>
-
-        <!--Product Preview-->
-        <div class="col s12 m2">
-
-            <div class="card card-products">
-
-                <!--Preview Image-->
-                <div class="card-image card-products--image z-depth-1">
-                    <img alt="Product Preview" src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </div>
-
-                <div class="card-products--title">
-                    <div>
-                        <span class="card-title">Sillas</span>
-                        <p>Ikea</p>
-                    </div>
-                </div>
-
-                <!--Rank-->
-                <div class="card-products--ranking">
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star</i>
-                    <i class="material-icons">star_border</i>
-                    <i class="material-icons">star_border</i>
-                </div>
-
-                <!--Description-->
-                <div class="card-products--extra-information">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae natus</p>
-                    <p>Certificaciones: ISO 9001, ISO 14001</p>
-                    <p> 479 productos disponibles</p>
-                    <a href="/web/seller/products/1">Ver detalle</a>
-                </div>
-
-            </div>
-
-        </div>
+        {{/products}}
 
     </div>
 </div>

@@ -10,7 +10,7 @@ import com.entremp.core.entremp.model.budget.Budget
 import com.entremp.core.entremp.model.budget.BudgetAttachement
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.user.User
-import com.entremp.core.entremp.support.FileStorageService
+import com.entremp.core.entremp.support.storage.FileStorageService
 import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.springframework.web.multipart.MultipartFile
 import java.net.URL

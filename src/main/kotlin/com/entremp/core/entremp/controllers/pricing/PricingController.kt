@@ -2,24 +2,13 @@ package com.entremp.core.entremp.controllers.pricing
 
 import com.entremp.core.entremp.api.pricing.PricingDTO
 import com.entremp.core.entremp.controllers.Authenticated
-import com.entremp.core.entremp.data.pricing.PricingAttachementRepository
-import com.entremp.core.entremp.data.pricing.PricingRepository
-import com.entremp.core.entremp.data.product.ProductsRepository
-import com.entremp.core.entremp.data.sample.SampleRepository
 import com.entremp.core.entremp.model.pricing.Pricing
-import com.entremp.core.entremp.model.pricing.PricingAttachement
 import com.entremp.core.entremp.model.product.Product
-import com.entremp.core.entremp.model.sample.Sample
 import com.entremp.core.entremp.model.user.User
 import com.entremp.core.entremp.service.PricingService
 import com.entremp.core.entremp.service.ProductService
-import com.entremp.core.entremp.support.FileStorageService
-import com.entremp.core.entremp.support.JavaSupport.extension
 import org.springframework.web.bind.annotation.*
-import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.springframework.web.multipart.MultipartFile
-import java.net.URL
-import java.util.*
 
 @RestController
 @RequestMapping("/pricings")

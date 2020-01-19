@@ -1,0 +1,261 @@
+<div class="profile">
+    <div class="col s12 card--profile">
+
+        <div class="row">
+            <div class="col s12">
+
+                <div class="col s12 card-panel z-depth-1 card--profile">
+                    <div class="col s12 profile--header">
+                        <div class="col s12 profile--img--seller">
+                            <div>
+                                <img src="/images/logo/verde.png">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" col s12 profile--data no-divider">
+                        <div class="col s8 data--left">
+                            <p class="col s6 data--right">Nombre del producto: </p>
+                            <p class="col s6 data--left"> {{name}} </p>
+
+                            <p class="col s6 data--right">Descripción: </p>
+                            <p class="col s6 data--left"> {{description}} </p>
+
+                            <p class="col s6 data--right">Categoria: </p>
+                            <div class="col s6 data--left">
+                                {{#attributes}}
+                                    <div class="chip" tabindex="0">{{name}}</div>
+                                {{/attributes}}
+                            </div>
+                        </div>
+                        <div class="col s4 right-align">
+                            <a class="modal-trigger data--modify" href="#modalData">Editar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 card-panel z-depth-1 card--profile">
+                    <div class=" col s12 profile--data no-divider">
+                        <div class="col s8 data--left">
+                            <p class="col s6 data--right">Stock disponible: </p> <p class="col s6 data--left">{{maximum}} unidades</p>
+                            <p class="col s6 data--right">Lote disponible: </p> <p class="col s6 data--left">{{batch}}</p>
+                            <p class="col s6 data--right">Máximo disponible: </p> <p class="col s6 data--left">{{maximum}} unidades</p>
+                            <p class="col s6 data--right">Minimo disponible: </p> <p class="col s6 data--left">{{minimum}} unidades</p>
+                        </div>
+                        <div class="col s4 right-align">
+                            <a class="modal-trigger data--modify" href="#modalStock">Editar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 card-panel z-depth-1  card--profile">
+                    <div class=" col s12 profile--data no-divider">
+                        <div class="col s8 data--left">
+
+                            <p class="col s6 data--right">Palabras claves: </p>
+                            <div class="col s6 data--left">
+                                {{#tags}}
+                                    <div class="chip" tabindex="0">{{name}}</div>
+                                {{/tags}}
+                            </div>
+
+                            <p class="col s6 data--right">Imagenes </p>
+                        </div>
+                        <div class="col s4 right-align">
+                            <a class="modal-trigger data--modify" href="#modalTags">Editar</a>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        {{#images}}
+                            <div class="col s2 card-panel z-depth-1 cargar--product">
+                                <img class="materialboxed" src="{{s3Link}}">
+                            </div>
+                        {{/images}}
+                    </div>
+                </div>
+
+
+                <div class="col s12 card-panel z-depth-1  card--profile">
+                    <div class=" col s12 profile--data no-divider">
+                        <div class="col s8 data--left">
+                            <p class="col s6 data--right">Certificaciones: </p>
+                            <div class="col s6 data--left">
+                                {{#certifications}}
+                                    <div class="chip" tabindex="0">{{name}}</div>
+                                {{/certifications}}
+                            </div>
+                        </div>
+                        <div class="col s4 right-align">
+                            <a class="modal-trigger data--modify" href="#modalCertifications">Editar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalData" class="modal modals-container modals--product">
+    <div class="modal-content">
+
+        <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+            <i class="tiny material-icons close">clear</i>
+        </a>
+
+        <div class="row">
+
+            <form id="dataForm" method="post" action="/products/{{id}}/data">
+                <div class="col s12">
+                    <label for="name">Nombre del producto</label>
+                    <input class="validate" type="text" name="name" value="{{name}}">
+
+                    <label for="description" >Descripción</label>
+                    <textarea id="description" name="description" class="materialize-textarea"></textarea>
+
+                    <label for="attributes" >Atributos</label>
+                    <div id="attributes-chips" class="chips chips-initial"></div>
+
+                    <input type="hidden" name="attributes" id="attributes">
+
+                </div>
+
+                <div class="col s8 push-s2 modals--next">
+                    <!--submit con flecha-->
+                    <a href="#!" class=" col s5 btn modal-close waves-effect waves-green btn-flat">Cancelar </a>
+                    <div class="col s2"></div>
+                    <button class=" col s5 btn waves-effect waves-light modals--button"
+                            id="editData" type="submit" name="action">Guardar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalStock" class="modal modals-container modals--product">
+    <div class="modal-content">
+
+        <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+            <i class="tiny material-icons close">clear</i>
+        </a>
+
+        <div class="row">
+
+            <form id="stockForm" method="post" action="/products/{{id}}/stock">
+                <div class="col s12">
+                    <label for="stock">Stock disponible</label>
+                    <input type="number" name="stock" value="{{maximum}}">
+
+                    <label for="batch">Tamaño del lote</label>
+                    <input type="number" name="batch" value="{{batch}}">
+
+                    <label for="maximum">Cantidad Máxima</label>
+                    <input type="text" name="maximum" value="{{maximum}}">
+
+                    <label for="minimum">Cantidad mínima</label>
+                    <input type="text" name="minimum"  value="{{minimum}}">
+                </div>
+
+                <div class="col s8 push-s2 modals--next">
+                    <!--submit con flecha-->
+                    <a href="#!" class=" col s5 btn modal-close waves-effect waves-green btn-flat">Cancelar </a>
+                    <div class="col s2"></div>
+                    <button class=" col s5 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalTags" class="modal modals-container modals--sucess">
+    <div class="modal-content">
+
+        <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+            <i class="tiny material-icons close">clear</i>
+        </a>
+
+        <div class="row">
+
+            <form id="tagsForm" method="post" action="/products/{{id}}/tags-and-images" enctype="multipart/form-data">
+
+                <div class="col s12">
+                    <h5>Tags</h5>
+                </div>
+
+                <div class="col s12 modals--sucessCenter">
+                    <p>Escriba el nombre de los tags</p>
+                    <input type="hidden" name="tags" id="tags">
+                </div>
+
+                <div class="col s12 modals--sucessCenter">
+                    <div id="tags-chips" class="chips chips-autocomplete"></div>
+                </div>
+
+                <div class="col s12">
+                    <h5>Imagenes</h5>
+                </div>
+
+                <div class="col s12 modals--sucessCenter">
+                    <p>Elija las imagenes a ser cargadas (los archivos seleccionados reemplazaran a los anteriores)</p>
+                </div>
+
+                <div class="col s12 modals--sucessCenter">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Imágenes</span>
+                            <input type="file" name="images" multiple>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Subí una o más imágenes">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s8 push-s2 modals--next">
+                    <!--submit con flecha-->
+                    <a href="#!" class=" col s5 btn modal-close waves-effect waves-green btn-flat">Cancelar </a>
+                    <div class="col s2"></div>
+                    <button class=" col s5 btn waves-effect waves-light modals--button"
+                            id="editTags" type="submit" name="action">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalCertifications" class="modal modals-container modals--sucess">
+    <div class="modal-content">
+
+        <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+            <i class="tiny material-icons close">clear</i>
+        </a>
+
+        <div class="row">
+
+            <form id="certificationsForm" method="post" action="/products/{{id}}/certifications">
+
+                <div class="col s12">
+                    <h5>Certificaciones del producto</h5>
+                </div>
+
+                <div class="col s12 modals--sucessCenter">
+                    <p>Escriba el nombre de las certificaciones</p>
+                    <input type="hidden" name="certifications" id="certifications">
+                </div>
+
+                <div class="col s12 modals--sucessCenter">
+                    <div id="certifications-chips" class="chips chips-autocomplete"></div>
+                </div>
+
+                <div class="col s8 push-s2 modals--next">
+                    <!--submit con flecha-->
+                    <a href="#!" class=" col s5 btn modal-close waves-effect waves-green btn-flat">Cancelar </a>
+                    <div class="col s2"></div>
+                    <button class=" col s5 btn waves-effect waves-light modals--button"
+                            id="editCertifications" type="submit" name="action">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

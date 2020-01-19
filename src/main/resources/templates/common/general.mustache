@@ -12,6 +12,7 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="/css/production/output.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/production/mstepper.css" rel="stylesheet" />
 
     <style>
         div.error {
@@ -35,8 +36,17 @@
 
 <script type="text/javascript" src="/js/jquery/jquery-2.1.1.min.js" ></script>
 <script type="text/javascript" src="/js/bin/materialize.min.js"></script>
+<script type="text/javascript" src="/js/mstepper.js"></script>
+<script>
+    var stepper = document.querySelector('.stepper');
+    var stepperInstace = new MStepper(stepper, {
+        firstActive: 0
+    });
+</script>
 <script>
     $(document).ready(function(){
+        $('.materialboxed').materialbox();
+
         $('.dropdown-trigger').dropdown({
             coverTrigger: false
         });
@@ -45,7 +55,19 @@
         });
         $('.modal').modal();
     });
+
+    $('#new-tags-chips').chips({});
+    $('#new-attributes-chips').chips({});
+    $('#new-certifications-chips').chips({});
+
+    $('#modal-create').click(function(){
+        $('#new-tags').val(JSON.stringify(M.Chips.getInstance($('#new-tags-chips')).chipsData));
+        $('#new-attributes').val(JSON.stringify(M.Chips.getInstance($('#new-attributes-chips')).chipsData));
+        $('#new-certifications').val(JSON.stringify(M.Chips.getInstance($('#new-certifications-chips')).chipsData));
+    });
+
 </script>
+
 {{{footer}}}
 </body>
 

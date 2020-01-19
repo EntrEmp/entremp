@@ -11,7 +11,7 @@ import com.entremp.core.entremp.model.pricing.PricingAttachement
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.sample.Sample
 import com.entremp.core.entremp.model.user.User
-import com.entremp.core.entremp.support.FileStorageService
+import com.entremp.core.entremp.support.storage.FileStorageService
 import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.springframework.web.multipart.MultipartFile
 import java.net.URL

@@ -1,0 +1,58 @@
+<script type="application/javascript">
+    $(document).ready(function(){
+        $('.materialboxed').materialbox();
+    });
+
+    $('#certifications-chips').chips({
+        autocompleteOptions: {
+            data: {
+                {{#certifications}}
+                    '{{name}}': null,
+                {{/certifications}}
+            },
+            limit: 10,
+            minLength: 1
+        },
+        data: [
+            {{#certifications}}
+                {tag: '{{name}}'},
+            {{/certifications}}
+        ]
+    });
+
+    $('#attributes-chips').chips({
+        data: [
+        {{#attributes}}
+            {tag: '{{name}}'},
+        {{/attributes}}
+        ]
+    });
+
+    $('#tags-chips').chips({
+        data: [
+        {{#tags}}
+            {tag: '{{name}}'},
+        {{/tags}}
+        ]
+    });
+
+    $('#modalData').modal();
+    $('#modalStock').modal();
+    $('#modalTags').modal();
+    $('#modalCertifications').modal();
+
+    $('#description').val('{{description}}');
+    M.textareaAutoResize($('#description'));
+
+    $('#editData').click(function(){
+        $('#attributes').val(JSON.stringify(M.Chips.getInstance($('#attributes-chips')).chipsData));
+    });
+
+    $('#editTags').click(function(){
+        $('#tags').val(JSON.stringify(M.Chips.getInstance($('#tags-chips')).chipsData));
+    });
+
+    $('#editCertifications').click(function(){
+        $('#certifications').val(JSON.stringify(M.Chips.getInstance($('#certifications-chips')).chipsData));
+    });
+</script>

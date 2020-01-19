@@ -11,10 +11,10 @@ import com.entremp.core.entremp.model.product.ProductAttribute
 import com.entremp.core.entremp.model.product.ProductCategory
 import com.entremp.core.entremp.model.product.ProductImage
 import com.entremp.core.entremp.model.user.User
-import com.entremp.core.entremp.support.FileStorageService
 import com.entremp.core.entremp.support.JavaSupport.extension
 
 import com.entremp.core.entremp.support.JavaSupport.unwrap
+import com.entremp.core.entremp.support.storage.S3FileStorageService
 import org.springframework.web.multipart.MultipartFile
 import java.net.URL
 
@@ -24,7 +24,7 @@ class ProductService(
         private val productCategoriesRepository: ProductCategoryRepository,
         private val productAttributeRepository: ProductAttributeRepository,
         private val productImageRepository: ProductImageRepository,
-        private val fileStorageService: FileStorageService
+        private val fileStorageService: S3FileStorageService
 
 ) {
 

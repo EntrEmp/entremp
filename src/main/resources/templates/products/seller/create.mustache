@@ -1,0 +1,141 @@
+<div class="profile">
+    <div class="col s12 card--profile">
+
+        <div class="row">
+            <div class="col s12">
+
+                <form id="product" method="post" action="/products" enctype="multipart/form-data">
+
+                    <div class="col s12 card-panel z-depth-1 card--profile">
+                        <div class="col s12 profile--header">
+                            <div class="col s12 profile--img--seller">
+                                <div>
+                                    <img src="/images/logo/verde.png">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class=" col s12 profile--data no-divider">
+                            <div class="col s8 offset-s2">
+                                <label class="col s8" for="name">Nombre del producto</label>
+                                <input class="validate" type="text" name="name" id="name" required>
+                            </div>
+
+                            <div class="col s8 offset-s2">
+                                <label for="description" class="col s8">Descripción</label>
+                                <textarea id="description" name="description" class="materialize-textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 card-panel z-depth-1 card--profile">
+                        <div class=" col s12 profile--data no-divider">
+
+                            <div class="col s8 offset-s2">
+                                <label class="col s8" for="stock">Stock Disponible</label>
+                                <input class="validate" type="number" name="stock" id="stock" required>
+                            </div>
+
+                            <div class="col s8 offset-s2">
+                                <label class="col s8" for="batch">Lote Disponible</label>
+                                <input class="validate" type="number" name="batch" id="batch" required>
+                            </div>
+
+                            <div class="col s8 offset-s2">
+                                <label class="col s8" for="maximum">Maximo Disponible</label>
+                                <input class="validate" type="number" name="maximum" id="maximum" required>
+                            </div>
+
+                            <div class="col s8 offset-s2">
+                                <label class="col s8" for="minimum">Minimo Disponible</label>
+                                <input class="validate" type="number" name="minimum" id="minimum" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col s12 card-panel z-depth-1  card--profile">
+                        <div class=" col s12 profile--data no-divider">
+
+                            <div class="col s8 offset-s2">
+                                <label class="col s8" for="attributes">Atributos</label>
+                                <input type="hidden" name="attributes" id="attributes">
+                            </div>
+
+                            <div class="col s8 offset-s2">
+                                <div id="attributes-chips" class="chips chips-autocomplete"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col s12 card-panel z-depth-1  card--profile">
+                        <div class=" col s12 profile--data no-divider">
+
+                            <div class="col s8 offset-s2">
+                                <label class="col s8" for="tags">Tags</label>
+                                <input type="hidden" name="tags" id="tags">
+                            </div>
+
+                            <div class="col s8 offset-s2">
+                                <div id="tags-chips" class="chips chips-autocomplete"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col s12 card-panel z-depth-1  card--profile">
+                        <div class=" col s12 profile--data no-divider">
+
+                            <div class="col s8 offset-s2">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>Imágenes</span>
+                                        <input type="file" name="images" multiple>
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Subí una o más imágenes">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col s12 card-panel z-depth-1  card--profile">
+                        <div class=" col s12 profile--data no-divider">
+
+                            <div class="col s8 offset-s2">
+                                <label class="col s8" for="certifications">Certificaciones</label>
+                                <input type="hidden" name="certifications" id="certifications">
+                            </div>
+
+                            <div class="col s8 offset-s2">
+                                <div id="certifications-chips" class="chips chips-autocomplete"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col s12 card-panel z-depth-1  card--profile">
+                        <div class="col s12 profile--data no-divider">
+
+                            <div class="col s8 offset-s2">
+                                <a class="col s3 offset-s1 btn waves-effect waves-light btn-flat"
+                                   href="">Cancelar</a>
+
+                                <button class="col s3 offset-s3 waves-effect waves-light btn-small"
+                                        type="submit" id="create">Crear</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

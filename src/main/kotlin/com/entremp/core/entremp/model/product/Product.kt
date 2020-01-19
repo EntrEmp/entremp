@@ -59,4 +59,12 @@ data class Product(
     fun attributes(): List<String> = productAttributes.mapNotNull { item ->
         item.attribute?.name
     }
+
+    fun mainImage(): String {
+        return images.firstOrNull()?.s3Link() ?: ""
+    }
+
+    fun userName(): String {
+        return user?.name ?: ""
+    }
 }

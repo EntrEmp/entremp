@@ -4,57 +4,54 @@
             <!--Breadcrum-->
             <div class="col s12 m4 l12 detail-products--breadcrumb">
                 <p>Lorem ipsum </p> - <P>Lorem ipsum</P>
+                <a class="modal-trigger data--modify" href="#imagesModal">imagenes</a>
             </div>
 
             <!--Photo List-->
             <div class="col s12 m4 l2 detail-products--photo-min">
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
+                {{#images}}
+                    <span class="z-depth-1">
+                     <img class="materialboxed" src="{{s3Link}}">
+                    </span>
+                {{/images}}
             </div>
 
             <!--Selected photo-->
             <div class="col s12 m4 l10 detail-products--photo-container">
-                <span class="z-depth-1 ">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                 </span>
+                <div class="slider">
+                    <ul class="slides">
+                        {{#images}}
+                            <li>
+                                <img src="{{s3Link}}">
+                            </li>
+                        {{/images}}
+                    </ul>
+                </div>
             </div>
         </div>
 
         <!--View Card-->
         <div class="col s12 m4 l4 card card-detail">
-            <a  href="/web/seller/products/1/edit">Editar</a>
+            <a  href="/web/seller/products/{{id}}/edit">Editar</a>
             <div class="card-detail--information">
-                <h5> Sillas </h5>
-                <h6> Sillas Plegables </h6>
-                <p class="detail">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae natus</p>
+                <h5> {{name}} </h5>
+                <h6> TODO atributos </h6>
+                <p class="detail">{{description}}</p>
 
-                <p class="seller"> 479 productos disponibles</p>
-                <p class="addres"> <i class="material-icons">location_on</i> 479 productos disponibles</p>
+                <p class="seller"> {{minimum}} cantidad mínima de compra</p>
+                <p class="seller"> {{maximum}} productos disponibles</p>
+                <p class="seller"> {{batch}} lotes de product</p>
+
+                <p class="addres"> <i class="material-icons">location_on</i></p>
 
             </div>
         </div>
 
     </div>
 </div>
+
+<div id="imagesModal" class="modal">
+    <div class="modal-content">
+    </div>
+</div>
+

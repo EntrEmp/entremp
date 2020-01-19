@@ -21,6 +21,18 @@
                 }
             }
         }
+        .profile--img--seller{
+            background: #6AA996;
+            width: 100%;
+            padding-top: $spacing-16;
+            padding-bottom: $spacing-16;
+            @include flex-center;
+            div{
+                img{
+                width: 80px;
+                }
+            }
+        }
     }
     .profile--data{
         border-bottom: 1px solid $gray-250;

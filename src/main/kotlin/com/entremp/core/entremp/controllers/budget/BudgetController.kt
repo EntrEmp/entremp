@@ -17,7 +17,7 @@ import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.review.Review
 import com.entremp.core.entremp.model.review.ReviewQualification
 import com.entremp.core.entremp.model.user.User
-import com.entremp.core.entremp.support.FileStorageService
+import com.entremp.core.entremp.support.storage.FileStorageService
 import com.entremp.core.entremp.support.JavaSupport.extension
 import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.springframework.web.bind.annotation.*

@@ -4,7 +4,7 @@ import com.entremp.core.entremp.data.user.CertificationRepository
 import com.entremp.core.entremp.data.user.UsersRepository
 import com.entremp.core.entremp.model.user.Certification
 import com.entremp.core.entremp.model.user.User
-import com.entremp.core.entremp.support.FileStorageService
+import com.entremp.core.entremp.support.storage.FileStorageService
 import com.entremp.core.entremp.support.JavaSupport.extension
 
 import com.entremp.core.entremp.support.JavaSupport.unwrap
