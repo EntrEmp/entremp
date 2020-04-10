@@ -1,12 +1,52 @@
-.DS_Store
-.gradle
-/build/
-!gradle/wrapper/gradle-wrapper.jar
-/db/
-/target/
-/deploys/
-/node_module/
+#
+# Project specific excludes
+#
 
+tomcat
+
+#
+# Default excludes
+#
+out/
+
+# Binaries
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.war
+*.ear
+*.sar
+*.class
+
+# Maven & Gradle
+target/
+.gradle/
+
+# IntelliJ project files
+*.iml
+*.iws
+*.ipr
+.idea/
+
+# eclipse project file
+.settings/
+.classpath
+.project
+
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+/.nb-gradle/
 
 ### STS ###
 .apt_generated
@@ -17,16 +57,21 @@
 .springBeans
 .sts4-cache
 package-lock.json
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-/out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# OS
+.DS_Store
+
+# Misc
+*.swp
+release.properties
+pom.xml.releaseBackup
+pom.xml.tag
+
+.DS_Store
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+/db/
+/target/
+/deploys/
+/node_module/
