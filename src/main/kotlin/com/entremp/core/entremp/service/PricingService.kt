@@ -8,6 +8,7 @@ import com.entremp.core.entremp.data.sample.SampleRepository
 import com.entremp.core.entremp.model.DeliveryTerm
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.pricing.PricingAttachement
+import com.entremp.core.entremp.model.pricing.PricingStatus
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.sample.Sample
 import com.entremp.core.entremp.model.user.User
@@ -16,17 +17,68 @@ import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.springframework.web.multipart.MultipartFile
 import java.net.URL
 import com.entremp.core.entremp.support.JavaSupport.extension
+import com.entremp.core.entremp.support.storage.S3FileStorageService
 
 
 class PricingService(
         private val pricingRepository: PricingRepository,
         private val sampleRepository: SampleRepository,
         private val pricingAttachementRepository: PricingAttachementRepository,
-        private val fileStorageService: FileStorageService
+        private val fileStorageService: S3FileStorageService
 ) {
 
     fun getAll(): Iterable<Pricing> {
         return pricingRepository.findAll()
+    }
+
+    fun getActiveByProvider(provider: User): Iterable<Pricing> {
+        return pricingRepository.findByProviderAndStatus(
+            provider = provider,
+            status = PricingStatus.PENDING
+        )
+    }
+
+    fun getHistoryByProvider(provider: User): Iterable<Pricing> {
+        val active: List<String> = pricingRepository.
+            findByProviderAndStatus(
+                provider = provider,
+                status = PricingStatus.PENDING
+            )
+            .toList()
+            .mapNotNull {pricing ->
+                pricing.id
+            }
+
+        return pricingRepository
+            .findByProvider(provider)
+            .filterNot { pricing ->
+                active.contains(pricing.id!!)
+            }
+    }
+
+    fun getActiveByBuyer(buyer: User): Iterable<Pricing> {
+        return pricingRepository.findByBuyerAndStatus(
+            buyer = buyer,
+            status = PricingStatus.PENDING
+        )
+    }
+
+    fun getHistoryByBuyer(buyer: User): Iterable<Pricing> {
+        val active: List<String> = pricingRepository.
+            findByBuyerAndStatus(
+                buyer = buyer,
+                status = PricingStatus.PENDING
+            )
+            .toList()
+            .mapNotNull {pricing ->
+                pricing.id
+            }
+
+        return pricingRepository
+            .findByBuyer(buyer)
+            .filterNot { pricing ->
+                active.contains(pricing.id!!)
+            }
     }
 
     fun save(
@@ -142,7 +194,7 @@ class PricingService(
             )
 
         } else {
-            throw RuntimeException("Product not found for id $id")
+            throw RuntimeException("Pricing not found for id $id")
         }
     }
 

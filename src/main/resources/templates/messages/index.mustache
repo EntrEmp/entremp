@@ -8,7 +8,7 @@
                 <div class="messages--history-header">
                     <p>Bandeja de entrada</p>
                     <span>
-                        <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner" alt="">
+                        <i class="material-icons">inbox</i>
                     </span>
                 </div>
 
@@ -16,130 +16,29 @@
 
                     <!--Chat Searchbox-->
                     <div class="input-field col s12 ">
-                        <input placeholder="Buscar contacto" id="chat_searchbox" type="text" class="validate">
-                        <label for="first_name">Search</label>
                         <i class="material-icons prefix">search</i>
+                        <input placeholder="Buscar contacto" id="chat_searchbox" type="text" class="validate">
                     </div>
 
                     <!--Open Chats-->
                     <div class="open-chats">
                         <ul>
-                            <li>
-                                <div class="col s12 messages--list-item">
-                                    <div class="messages--list-item-header">
-                                        <div>
-                                            <span class="img-container">
-                                                <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner" alt="">
-                                            </span>
-                                            <p>Gabriel Algo</p>
-                                        </div>
-                                        <span>20/12/2019</span>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo pariatur expedita excepturi
-                                        delectus,
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="col s12 messages--list-item">
-                                    <div class="messages--list-item-header">
-                                        <div>
-                                            <span class="img-container">
-                                                <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner" alt="">
-                                            </span>
-                                            <p>Nacho Rodriguez Nuñez</p>
-                                        </div>
-                                        <span>19/11/2015</span>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo pariatur expedita excepturi
-                                        delectus,
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="col s12 messages--list-item">
-                                    <div class="messages--list-item-header">
-                                        <div>
-                                            <span class="img-container">
-                                                <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner" alt="">
-                                            </span>
-                                            <p>Alex Adem</p>
-                                        </div>
-                                        <span>14/09/2019</span>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo pariatur expedita excepturi
-                                        delectus,
-                                    </p>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="col s12 messages--list-item">
-                                    <div class="messages--list-item-header">
-                                        <div>
-                                            <span class="img-container">
-                                                <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner" alt="">
-                                            </span>
-                                            <p>Pollo Testori</p>
-                                        </div>
-                                        <span>12/09/2019</span>
-                                    </div>
-                                    <p>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo pariatur expedita excepturi
-                                        delectus,
-                                    </p>
-                                </div>
-                            </li>
-
+                            {{#chats}}
+                                {{> preview}}
+                            {{/chats}}
                         </ul>
-
                     </div>
 
                 </div>
-
             </div>
         </div>
 
         <!--Chat History-->
         <div class="col s6 m6 l8">
             <div class="card-panel messages--chat z-depth-1">
-                <p class="help-message">Chat con Gabriel</p>
+                <p class="help-message">Mensajes</p>
 
                 <ul class="chat">
-                    <li class="chat-question">
-                        <span class="img-container">
-                          <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner" alt="">
-                        </span>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quam ratione, assumenda quibusdam
-                            laudantium corporis sint iusto rerum amet necessitatibus temporibus placeat earum iste, veniam voluptate
-                            labore doloremque sit molestiae.
-                        </p>
-                    </li>
-
-                    <li class="chat-answers">
-                        <span class="img-container">
-                          <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner" alt="">
-                        </span>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quam ratione, assumenda quibusdam
-                            laudantium corporis sint iusto rerum amet necessitatibus temporibus placeat earum iste, veniam voluptate
-                            labore doloremque sit molestiae.
-                        </p>
-                    </li>
-
-                    <li class="chat-answers">
-                        <span class="img-container">
-                          <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner" alt="">
-                        </span>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quam ratione, assumenda quibusdam
-                            laudantium corporis sint iusto rerum amet necessitatibus temporibus placeat earum iste, veniam voluptate
-                            labore doloremque sit molestiae.
-                        </p>
-                    </li>
                 </ul>
             </div>
         </div>

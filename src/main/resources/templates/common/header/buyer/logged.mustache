@@ -10,15 +10,20 @@
                     </a>
                 </div>
 
-                <div class="col s6 header-component--input-search">
+                <div class="col s6 header-component--input-search input-field">
                     <a class="btn btn-default" href="/web/buyer/products">categoria</a>
-                    <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text">
-                    <span><i class="material-icons">search</i></span>
+                    <input value="{{searchCriteria}}"
+                           class="form-control autocomplete"
+                           placeholder="Search"
+                           name="srch-term"
+                           id="srch-term"
+                           type="text">
+                    <span class="header-span"><i class="material-icons">search</i></span>
                 </div>
 
                 <div class="col s5 header-component--menu">
                     <ul id="dropdown-user" class="dropdown-content">
-                        <li><a href="/web/buyer/profile/usuario1">Ver Perfil</a></li>
+                        <li><a href="/web/buyer/profile/{{loggedId}}">Ver Perfil</a></li>
                         <li class="divider"></li>
                         <li><a href="/web/seller/home">Cambiar Perfil</a></li>
                         <li class="divider"></li>
@@ -28,7 +33,7 @@
                     </ul>
                     <nav class="header-buyer">
                         <ul class="right hide-on-med-and-down">
-                            <li><a href="/web/buyer/pricings/favorites">Favoritos</a></li>
+                            <li><a href="/web/buyer/products/favorites">Favoritos</a></li>
                             <li><a href="/web/buyer/pricings">Cotizaciones</a></li>
                             <li><a href="/web/buyer/messages">Mensajes</a></li>
                             <!-- Dropdown Trigger -->

@@ -7,19 +7,18 @@
             <div class="col s8">
                 <div class="col s12 profileCard--img">
                     <div>
-                        <img src="/images/profile/rock.png" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+                        <img src="{{image}}" alt="profile" class="circle responsive-img materialboxed"> <!-- notice the "circle" class -->
                     </div>
                 </div>
                 <div class="col s12 center-align">
-                    <p><a href="/web/seller/profile/usuario1/edit">Editar</a></p>
+                    <p><a href="/web/seller/profile/{{id}}/edit">Editar</a></p>
                 </div>
                 <div class="col s12 card-panel z-depth-1 card--profile">
                     <div class=" col s12 profile--data no-divider">
                         <div class="col s12 data--left">
-                            <p class="col s6 data--right">Nombre o razón social: </p> <p class="col s6 data--left">Dwayne Johnson</p>
-                            <p class="col s6 data--right">Documento: </p> <p class="col s6 data--left">31483383</p>
-                            <p class="col s6 data--right">Teléfono: </p> <p class="col s6 data--left">1168723644</p>
-                            <p class="col s6 data--right">CUIT: </p> <p class="col s6 data--left">27-38291193-2</p>
+                            <p class="col s6 data--right">Nombre o razón social: </p> <p class="col s6 data--left">{{name}}</p>
+                            <p class="col s6 data--right">CUIT: </p> <p class="col s6 data--left">{{cuit}}</p>
+                            <p class="col s6 data--right">Teléfono: </p> <p class="col s6 data--left">{{phone}}</p>
                         </div>
                     </div>
                 </div>
@@ -30,11 +29,10 @@
                             <p class="col s12 data--right">Direcciones:</p>
                         </div>
                         <div class="col s6 data--left">
-                            <p>Avenida del Libertador 2700  </p>
-                            <p>Capital Federal, CABA, Argentina </p>
-                            <p>Blanco Encalada 900 </p>
-                            <p>San Isidro, CABA, Argentina </p>
-                            <p><a href="#">Agregar domicilio</a></p>
+                            {{#addresses}}
+                                <p>{{address}}</p>
+                                <p>{{wrapper}} </p>
+                            {{/addresses}}
                         </div>
                     </div>
                 </div>
@@ -47,7 +45,7 @@
                                 <p class="data--right">Clave: </p>
                             </div>
                             <div class="col s6">
-                                <p class="data--left">marianogomez@gmail.com</p>
+                                <p class="data--left">{{mail}}</p>
                                 <p class="data--left">*********</p>
                             </div>
                         </div>

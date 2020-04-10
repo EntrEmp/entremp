@@ -14,25 +14,60 @@
             minLength: 1
         },
         data: [
-            {{#certifications}}
+            {{#productCertifications}}
                 {tag: '{{name}}'},
-            {{/certifications}}
+            {{/productCertifications}}
+        ]
+    });
+
+    $('#categories-chips').chips({
+        autocompleteOptions: {
+            data: {
+                {{#categories}}
+                    '{{name}}': null,
+                {{/categories}}
+            },
+            limit: 10,
+            minLength: 1
+        },
+        data: [
+        {{#productCategories}}
+            {tag: '{{name}}'},
+        {{/productCategories}}
         ]
     });
 
     $('#attributes-chips').chips({
+        autocompleteOptions: {
+            data: {
+                {{#attributes}}
+                    '{{name}}': null,
+                {{/attributes}}
+            },
+            limit: 10,
+            minLength: 1
+        },
         data: [
-        {{#attributes}}
+        {{#activeAttributes}}
             {tag: '{{name}}'},
-        {{/attributes}}
+        {{/activeAttributes}}
         ]
     });
 
     $('#tags-chips').chips({
+        autocompleteOptions: {
+            data: {
+                {{#tags}}
+                    '{{name}}': null,
+                {{/tags}}
+            },
+            limit: 10,
+            minLength: 1
+        },
         data: [
-        {{#tags}}
+        {{#productTags}}
             {tag: '{{name}}'},
-        {{/tags}}
+        {{/productTags}}
         ]
     });
 
@@ -46,6 +81,7 @@
 
     $('#editData').click(function(){
         $('#attributes').val(JSON.stringify(M.Chips.getInstance($('#attributes-chips')).chipsData));
+        $('#categories').val(JSON.stringify(M.Chips.getInstance($('#categories-chips')).chipsData));
     });
 
     $('#editTags').click(function(){

@@ -1,0 +1,95 @@
+<div class="container availbl-cotzacns">
+
+    <div class="row">
+
+        <div class="col s12 availbl-cotzacns--header">
+
+            <!--Searchbox Pricings-->
+            <div class="input-field col s6 availbl-cotzacns-input">
+                <i class="material-icons prefix">search</i>
+                <input placeholder="Cotizacion 25 de enero 2019" type="text" class="autocomplete">
+                <label for="secondary_search">Search</label>
+            </div>
+
+            <!--Search Date Range-->
+            <!--TODO corregir ubicación-->
+            <div class="input-field col s6 card availbl-cotzacns-range">
+                <div class="row">
+                    <div class="input-field col s5">
+                        <input placeholder="dd/mm/aaaa" id="from_date" type="text" class="validate">
+                        <label for="disabled">Desde</label>
+                    </div>
+                    <div class="input-field col s5">
+                        <input placeholder="dd/mm/aaaa" id="to_date" type="text" class="validate">
+                        <label for="disabled">Hasta</label>
+                    </div>
+                    <i class="material-icons prefix col s2">date_range</i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row availbl-cotzacns-list">
+        <h4>Mis Favoritos</h4>
+
+        {{#favorites}}
+
+            <div class="col s12 availbl-cotzacns-items">
+            <div class="card-panel #ffffff z-depth-1 card-cotzacns-active">
+                <div class="row">
+                    <!--Preview Image-->
+                    <div class="col s3 card-cotzacns--img">
+                        <img alt="preview"
+                             class="materialboxed"
+                             width="220"
+                             height="300"
+                             src="{{mainImage}}">
+                    </div>
+
+                    <!--Preview Description-->
+                    <div class="col s6 title">
+                        <h6 class="blue-text">Musimundo</h6>
+                        <p class="grey-text lighten-1-text">
+                            <span><strong>Descripcion</strong></span>:
+                            {{description}}
+                        </p>
+                        <p class="grey-text lighten-1-text">
+                            <span><strong>Certificaciones</strong></span>:
+                            {{certificationsString}}
+                        </p>
+                        <p class="grey-text lighten-1-text">
+                            <span><strong>{{maximum}}</strong></span>: productos disponibles</p>
+                    </div>
+
+                    <!--Preview Status-->
+                    <div class="col s3 status">
+                        <!--Favorite-->
+                        <div class="row">
+                            <i class="material-icons">favorite</i>
+                        </div>
+
+                        <div class="row">
+                            <a class="waves-effect waves-light btn-small modal-trigger"
+                               data-target="pricingModal_{{id}}"
+                               href="#pricingModal_{{id}}">Solicitar cotización</a>
+                        </div>
+
+                        <div class="row">
+                            <a class="status-detail"
+                               href="/web/buyer/products/{{id}}">Ver detalle</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {{/favorites}}
+    </div>
+</div>
+
+{{#favorites}}
+    {{> ../pricings/buyer/create}}
+{{/favorites}}
+

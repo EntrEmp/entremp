@@ -56,8 +56,8 @@
     }
   }
       .messages--chat{
-        min-height: 85vh;
-        max-height: 84vh;
+        min-height: 70vh;
+        max-height: 69vh;
         padding: 0;
         overflow: scroll;
         .help-message{
@@ -82,7 +82,7 @@
           }
           li:nth-child(2n+1){
             align-self: flex-end;
-            width: 50%;
+            width: 100%;
             .img-container{
               float: right;
               margin: 0;
@@ -93,7 +93,7 @@
             }
           }
           li:nth-child(2n+2){
-            width: 50%;
+            width: 100%;
 
             .img-container{
               float: left;

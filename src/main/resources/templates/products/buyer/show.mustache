@@ -8,37 +8,27 @@
 
             <!--Photo List-->
             <div class="col s12 m4 l2 detail-products--photo-min">
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
-                <span class="z-depth-1">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                </span>
+                {{#images}}
+                    <span class="z-depth-1">
+                     <img class="materialboxed"
+                          width="80"
+                          height="80"
+                          src="{{s3Link}}">
+                    </span>
+                {{/images}}
             </div>
 
             <!--Selected photo-->
             <div class="col s12 m4 l10 detail-products--photo-container">
-                <span class="z-depth-1 ">
-                  <img src="https://http2.mlstatic.com/silla-eames-blanca-dsw-desillas-D_NQ_NP_744492-MLA31042170212_062019-F.webp">
-                 </span>
+                <div class="slider">
+                    <ul class="slides">
+                        {{#images}}
+                            <li>
+                                <img src="{{s3Link}}">
+                            </li>
+                        {{/images}}
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -46,15 +36,25 @@
         <div class="col s12 m4 l4 card card-detail">
             <i class="material-icons">favorite_border</i>
             <div class="card-detail--information">
-                <h5> Sillas </h5>
-                <h6> Sillas Plegables </h6>
-                <p class="detail">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae natus</p>
-                <a class="waves-effect waves-light btn">Solicitar cotización</a>
-                <p class="seller"> 479 productos disponibles</p>
-                <p class="addres"> <i class="material-icons">location_on</i> 479 productos disponibles</p>
-                <a class="waves-effect waves-light">Enviar mensaje</a>
+                <h5> {{name}} </h5>
+                <h6> TODO categorias</h6>
+                <p class="detail">{{description}}</p>
+
+                <a class="waves-effect waves-light btn modal-trigger" href="#pricingModal_{{id}}">Solicitar cotización</a>
+
+                <p class="seller"> {{minimum}} cantidad mínima de compra</p>
+                <p class="seller"> {{maximum}} productos disponibles</p>
+                <p class="seller"> {{batch}} lotes de product</p>
+
+                <p class="addres">
+                    <i class="material-icons">location_on</i>
+                </p>
+
+                <a class="waves-effect waves-light" href="#">Enviar mensaje</a>
             </div>
         </div>
 
     </div>
 </div>
+
+{{> ../../pricings/buyer/create}}

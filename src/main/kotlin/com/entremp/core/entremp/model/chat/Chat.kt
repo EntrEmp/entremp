@@ -25,4 +25,10 @@ data class Chat(
         @OneToMany(mappedBy = "chat")
         @JsonManagedReference
         val messages: List<Message> = emptyList()
-)
+) {
+        fun getLastMessage(): Message? = messages
+                .sortedByDescending { message ->
+                        message.sent.millis
+                }
+                .firstOrNull()
+}

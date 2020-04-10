@@ -1,5 +1,6 @@
 package com.entremp.core.entremp.controllers.chat
 
+import com.entremp.core.entremp.api.chat.CreateMessageDTO
 import com.entremp.core.entremp.api.chat.MessageDTO
 import com.entremp.core.entremp.controllers.Authenticated
 import com.entremp.core.entremp.data.chat.ChatRepository
@@ -11,6 +12,9 @@ import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import org.springframework.web.servlet.view.RedirectView
+import javax.servlet.http.HttpServletRequest
 
 
 @RestController
@@ -41,32 +45,32 @@ class ChatController(
     }
 
     @PostMapping("/{id}")
-    fun post(@PathVariable id: String, @RequestBody input: MessageDTO): Chat? {
-        val auth: User? = getAuthUser()
+    fun post(@PathVariable id: String,
+             @ModelAttribute request: CreateMessageDTO,
+             servletRequest: HttpServletRequest,
+             redirectAttributes: RedirectAttributes
+    ): RedirectView {
+        val auth: User = getAuthUser() !!
 
-        val chat: Chat? = chatRepository.findById(id).unwrap()
+        val chat: Chat? = chatRepository
+            .findById(id)
+            .unwrap()
 
-        if(auth!!.id != chat?.provider!!.id && auth.id != chat.buyer!!.id) {
+        if(auth.id != chat?.provider!!.id || auth.id != chat.buyer!!.id) {
             throw RuntimeException("Unauthorized: you have no access to this chat")
-        }
-
-        val receiver: User? = if(auth.id == chat.provider.id){
-            chat.buyer
         } else {
-            chat.provider
-        }
-
-        val message = Message(
+            val message = Message(
                 chat = chat,
-                sender = auth,
-                receiver = receiver,
-                message = input.message,
+                sender = auth.id!!,
+                role = request.role,
+                message = request.message,
                 sent = DateTime.now(DateTimeZone.UTC)
-        )
+            )
 
-        messageRepository.save(message)
+            messageRepository.save(message)
 
-        return chatRepository.findById(id).unwrap()
+            return RedirectView("/web/${request.role}/messages/$id")
+        }
     }
 
     //TODO agregar una duplicacion/actualizacion sobre la cotizacion asociada al chat (seria repetir el pedido)

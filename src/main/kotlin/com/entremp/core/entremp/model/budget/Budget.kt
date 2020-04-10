@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import lombok.EqualsAndHashCode
 import org.hibernate.annotations.GenericGenerator
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import javax.persistence.*
 
 @Entity
@@ -29,16 +31,30 @@ data class Budget(
         val review: Review? = null,
 
         val price: Double,
+        val quantity: Long,
+
         val iva: Double,
 
-        val deliveryTerm: DeliveryTerm = DeliveryTerm.IN_15_DAYS,
+        val total: Double,
 
-        val deliveryConditions: String,
-        val paymentConditions: String,
-        val specifications: String,
+        val billing: String,
+
+        val ttl: DateTime,
+        val deliveryAfterConfirm: Long,
+
+        val confirmationDate: DateTime? = null,
+        val deliveryDate: DateTime? = null,
+
 
         @OneToMany(mappedBy = "budget")
         @JsonManagedReference
         @EqualsAndHashCode.Exclude
         val budgetAttachement: List<BudgetAttachement> = emptyList()
-)
+){
+        fun ttlDate(): String = ttl.toString("MM/dd/yyyy")
+
+        fun expired(): Boolean {
+                val now: DateTime = DateTime.now(DateTimeZone.UTC)
+                return now.isAfter(ttl)
+        }
+}

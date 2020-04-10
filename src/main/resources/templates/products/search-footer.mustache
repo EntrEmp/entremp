@@ -1,0 +1,89 @@
+<script type="application/javascript">
+    $(document).ready(function(){
+        $('.page-control').click(function(e){
+            e.preventDefault();
+            var page = parseInt($(this).data('page'));
+            $('#searchPage').val(page);
+            $('#filter').submit();
+        });
+
+        $('.next-page').click(function(e){
+            e.preventDefault();
+            if(!$('#next').hasClass('inactive')) {
+                var page = parseInt($('#searchPage').val());
+                var next = page + 1;
+                $('#searchPage').val(next);
+                $('#filter').submit();
+            }
+        });
+
+        $('.previous-page').click(function(e){
+            e.preventDefault();
+            if(!$('#previous').hasClass('inactive')){
+                var page = parseInt($('#searchPage').val());
+                if(page > 1){
+                    var previous = page - 1;
+                    $('#searchPage').val(previous);
+                }
+                $('#filter').submit();
+            }
+        });
+
+        $('.dismiss').click(function (e) {
+            e.preventDefault();
+            var checkId = $(this).data('remove');
+            if(checkId === 'criteria'){
+                $('#criteria').val(null);
+            } else {
+                $('#' + checkId).prop('checked', false)
+            }
+        });
+
+        $('.materialboxed').materialbox();
+
+        {{#favorites}}
+            $('#fav_{{productId}}').html(
+                    '<i id="fav_{{productId}}" class="material-icons hoverable">favorite</i>'
+            );
+        {{/favorites}}
+
+        {{#products}}
+            $('#fav_{{id}}').click(function(){
+                var content = $( this ).html();
+
+                $.ajax({
+                    url: "/products/{{id}}/favorite",
+                    method: "GET",
+                    success: function (data) {
+                        if(content.search('favorite_border') >= 0){
+                            $('#fav_{{id}}').html(
+                                    '<i id="fav_{{id}}" class="material-icons hoverable">favorite</i>'
+                            );
+                        } else {
+                            $('#fav_{{id}}').html(
+                                    '<i id="fav_{{id}}" class="material-icons hoverable">favorite_border</i>'
+                            );
+                        }
+                    } ,
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+                    }
+                });
+            });
+        {{/products}}
+
+        {{#searchFilter}}
+            {{#categories}}
+                $('#{{.}}').prop('checked', true);
+            {{/categories}}
+
+            {{#attributes}}
+                $('#{{.}}').prop('checked', true);
+            {{/attributes}}
+
+            {{#certifications}}
+                $('#{{.}}').prop('checked', true);
+            {{/certifications}}
+        {{/searchFilter}}
+    });
+</script>

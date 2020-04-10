@@ -21,4 +21,6 @@ data class PricingAttachement(
         val pricing: Pricing? = null,
 
         private val fileLocation: String
-): Fileable(fileLocation)
+): Fileable(fileLocation){
+        fun s3Link(): String = "https://entremp.s3-sa-east-1.amazonaws.com/$id.jpg"
+}

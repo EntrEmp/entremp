@@ -26,42 +26,146 @@
             -o-transform: translateY(0%);
             transform: translateY(0%);
         }
+
+        favorite:hover {
+            background-color: slategrey;
+        }
+
+        ul.stepper.horizontal {
+            min-height: 558px;
+        }
+
+        .modal {
+            max-height: 85% !important ;
+        }
+
     </style>
 </head>
 
 <body>
 {{{header}}}
 
+<form id="searchForm" method="post" action="/products/text-search" enctype="multipart/form-data">
+    <input type="hidden" id="searchCriteria" name="searchCriteria">
+</form>
 {{{body}}}
 
 <script type="text/javascript" src="/js/jquery/jquery-2.1.1.min.js" ></script>
 <script type="text/javascript" src="/js/bin/materialize.min.js"></script>
 <script type="text/javascript" src="/js/mstepper.js"></script>
+
 <script>
     var stepper = document.querySelector('.stepper');
     var stepperInstace = new MStepper(stepper, {
         firstActive: 0
     });
 </script>
+
 <script>
     $(document).ready(function(){
+
+        $('input.autocomplete').autocomplete({
+            data: {
+            {{#tags}}
+                "{{name}}": null,
+            {{/tags}}
+            },
+            limit: 6,
+            onAutocomplete: function(val){
+                $('#searchCriteria').val(val);
+                $('#searchForm').submit();
+            }
+        });
+
+        $('#srch-term').keyup(function(event) {
+            if (event.keyCode === 13) {
+                var val = $('#srch-term').val();
+                $('#searchCriteria').val(val);
+                $('#searchForm').submit();
+            }
+        });
+
         $('.materialboxed').materialbox();
+
+        $('.collapsible').collapsible();
+
+        $('.collapsible.expandable').collapsible({
+            accordion: false
+        });
 
         $('.dropdown-trigger').dropdown({
             coverTrigger: false
         });
-        $('.collapsible.expandable').collapsible({
-            accordion: false
-        });
+
         $('.modal').modal();
+
+        $('select').formSelect();
     });
 
-    $('#new-tags-chips').chips({});
-    $('#new-attributes-chips').chips({});
-    $('#new-certifications-chips').chips({});
+    // Seller new product modal JS
+    $('#new-tags-chips').chips({
+        autocompleteOptions: {
+            data: {
+                {{#tags}}
+                    '{{name}}': null,
+                {{/tags}}
+            },
+            limit: Infinity,
+            minLength: 1
+        }
+    });
+
+    $('#categories').chips({
+        autocompleteOptions: {
+            data: {
+                {{#categories}}
+                    '{{name}}': null,
+                {{/categories}}
+            },
+            limit: Infinity,
+            minLength: 1
+        }
+    });
+
+    $('#new-categories-chips').chips({
+        autocompleteOptions: {
+            data: {
+                {{#categories}}
+                    '{{name}}': null,
+                {{/categories}}
+            },
+            limit: Infinity,
+            minLength: 1
+        }
+    });
+
+    $('#new-attributes-chips').chips({
+        autocompleteOptions: {
+            data: {
+                {{#attributes}}
+                    '{{name}}': null,
+                {{/attributes}}
+            },
+            limit: Infinity,
+            minLength: 1
+        }
+    });
+
+    $('#new-certifications-chips').chips({
+        autocompleteOptions: {
+            data: {
+                {{#certifications}}
+                    '{{name}}': null,
+                {{/certifications}}
+            },
+            limit: Infinity,
+            minLength: 1
+        }
+    });
 
     $('#modal-create').click(function(){
         $('#new-tags').val(JSON.stringify(M.Chips.getInstance($('#new-tags-chips')).chipsData));
+        $('#new-categories').val(JSON.stringify(M.Chips.getInstance($('#new-categories-chips')).chipsData));
         $('#new-attributes').val(JSON.stringify(M.Chips.getInstance($('#new-attributes-chips')).chipsData));
         $('#new-certifications').val(JSON.stringify(M.Chips.getInstance($('#new-certifications-chips')).chipsData));
     });

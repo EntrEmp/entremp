@@ -43,6 +43,16 @@ data class Product(
         @OneToMany(mappedBy = "product")
         @JsonManagedReference
         @EqualsAndHashCode.Exclude
+        val productTags: List<ProductTag> = emptyList(),
+
+        @OneToMany(mappedBy = "product")
+        @JsonManagedReference
+        @EqualsAndHashCode.Exclude
+        val productCertifications: List<ProductCertification> = emptyList(),
+
+        @OneToMany(mappedBy = "product")
+        @JsonManagedReference
+        @EqualsAndHashCode.Exclude
         val images: List<ProductImage> = emptyList(),
 
         @OneToMany(mappedBy = "product")
@@ -60,11 +70,35 @@ data class Product(
         item.attribute?.name
     }
 
+    fun activeAttributes(): List<ProductAttribute> =
+        productAttributes
+            .filter { attribute ->
+                attribute.active
+            }
+
     fun mainImage(): String {
         return images.firstOrNull()?.s3Link() ?: ""
     }
 
     fun userName(): String {
         return user?.name ?: ""
+    }
+
+    // TODO implement based on review
+    fun stars(): List<String> = listOf(
+        //"star",
+        "star_border",
+        "star_border",
+        "star_border",
+        "star_border",
+        "star_border"
+    )
+
+    fun certificationsString(): String {
+        return productCertifications
+            .mapNotNull { certification ->
+                certification.certification?.name
+            }
+            .joinToString(separator = ",")
     }
 }

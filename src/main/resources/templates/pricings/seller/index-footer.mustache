@@ -1,0 +1,14 @@
+<script>
+        {{#pricings}}
+            var stepper = document.querySelector('#stepper_{{id}}');
+            new MStepper(stepper, {
+                firstActive: 0
+            });
+                {{#budget}}
+                var budgetStepper = document.querySelector('#stepper_{{id}}');
+                new MStepper(budgetStepper, {
+                    firstActive: 0
+                });
+                {{/budget}}
+        {{/pricings}}
+</script>

@@ -1,0 +1,68 @@
+<div class="container-fluid messages">
+
+    <div class="row">
+
+        <div class="col s6 m6 l4 messages--history">
+            <div class="card-panel #ffffff z-depth-1">
+
+                <div class="messages--history-header">
+                    <p>Bandeja de entrada</p>
+                    <span>
+                        <i class="material-icons">inbox</i>
+                    </span>
+                </div>
+
+                <div class="messages--history-list">
+
+                    <!--Chat Searchbox-->
+                    <div class="input-field col s12 ">
+                        <i class="material-icons prefix">search</i>
+                        <input placeholder="Buscar contacto" id="chat_searchbox" type="text" class="validate">
+                    </div>
+
+                    <!--Open Chats-->
+                    <div class="open-chats">
+                        <ul>
+                            {{#chats}}
+                                {{> preview}}
+                            {{/chats}}
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--Chat History-->
+        <div class="col s6 m6 l8">
+            <div class="card-panel messages--chat z-depth-1">
+                <p class="help-message">{{with}}</p>
+
+                <ul class="chat">
+                    {{#messages}}
+                        {{> view}}
+                    {{/messages}}
+                </ul>
+
+
+            </div>
+            <div class="col s12">
+                <form method="post" action="/chat/{{chatId}}">
+                    <input type="hidden" name="role" value="{{role}}">
+                    <div class="input-field col s10">
+                        <i class="large material-icons prefix">message</i>
+                        <textarea id="send-send_message" name="message" class="materialize-textarea"></textarea>
+                    </div>
+                    <div class="input-field col s2">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                            Enviar <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,49 +1,46 @@
 package com.entremp.core.entremp.support.storage
 
-import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.AWSStaticCredentialsProvider
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.amazonaws.services.s3.model.CannedAccessControlList
+import com.amazonaws.services.s3.model.DeleteObjectRequest
 import com.amazonaws.services.s3.model.PutObjectRequest
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
+import java.io.FileOutputStream
 import java.net.URL
 
-@Service
-class S3FileStorageService {
+class S3FileStorageService(
+    val config: AwsConfig
+) {
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    private final val credentials: AWSCredentials = BasicAWSCredentials(
-        "AKIAZI725OW4K267XC7M",
-        "7F6hOcK7rZwchiBDulEJs6/l8Cm5pAFCVjTW7iXv"
-    )
-
-    private final val client : AmazonS3 = AmazonS3ClientBuilder
+    private val client : AmazonS3 = AmazonS3ClientBuilder
         .standard()
         .withCredentials(
-            AWSStaticCredentialsProvider(credentials)
+            AWSStaticCredentialsProvider(
+                BasicAWSCredentials(
+                    config.accessKey,
+                    config.secretKey
+                )
+            )
         )
         .withRegion(Regions.SA_EAST_1)
         .build()
 
-    private final val bucketName = "entremp"
-
-    private final val internalStorageService = FileStorageService()
-
     fun store(file: MultipartFile, fileName: String?): URL {
         createBucketIfNotExist()
 
-        internalStorageService.store(file, fileName)
-        val internalFile: File = internalStorageService.read(fileName)
+
+        val internalFile: File = transferToFile(file, fileName!!)
 
         val request = PutObjectRequest(
-            bucketName,
+            config.bucketName,
             fileName,
             internalFile
         )
@@ -52,25 +49,36 @@ class S3FileStorageService {
 
         client.putObject(request)
 
+        if(internalFile.delete()){
+            logger.info("deleted internal file $fileName")
+        }
+
         return internalFile.toURI().toURL()
     }
 
-    fun read(fileName: String) {
-        val s3Object = client.getObject(
-            bucketName,
+    fun remove(fileName: String) {
+        val request = DeleteObjectRequest(
+            config.bucketName,
             fileName
         )
 
-        s3Object.objectContent
+        client.deleteObject(request)
     }
 
-
     private fun createBucketIfNotExist(){
-        if(client.doesBucketExistV2(bucketName)){
+        if(client.doesBucketExistV2(config.bucketName)){
             logger.info("Bucket already exists")
         } else {
-            logger.info("Creating S3 bucket $bucketName")
-            client.createBucket(bucketName)
+            logger.info("Creating S3 bucket ${config.bucketName}")
+            client.createBucket(config.bucketName)
         }
+    }
+
+    private fun transferToFile(multipart: MultipartFile, fileName: String): File {
+        val converted = File("media/$fileName")
+        val fos = FileOutputStream(converted)
+        fos.write(multipart.bytes)
+        fos.close()
+        return converted
     }
 }

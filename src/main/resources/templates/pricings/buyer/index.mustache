@@ -8,7 +8,7 @@
             <div class="input-field col s7 availbl-cotzacns-input">
                 <i class="material-icons prefix">search</i>
                 <input placeholder="Cotizacion 25 de enero 2019" type="text" class="autocomplete">
-                <label for="first_name">Search</label>
+                <label for="secondary_search">Search</label>
             </div>
 
             <!--Search Date Range-->
@@ -16,11 +16,11 @@
             <div class="input-field col s5 card availbl-cotzacns-range">
                 <div class="row">
                     <div class="input-field col s6">
-                        <input placeholder="dd/mm/aaaa" id="first_name" type="text" class="validate">
+                        <input placeholder="dd/mm/aaaa" id="from_date" type="text" class="validate">
                         <label for="disabled">Desde</label>
                     </div>
                     <div class="input-field col s6">
-                        <input placeholder="dd/mm/aaaa" id="first_name" type="text" class="validate">
+                        <input placeholder="dd/mm/aaaa" id="to_date" type="text" class="validate">
                         <label for="disabled">Hasta</label>
                     </div>
                 </div>
@@ -30,208 +30,57 @@
     </div>
 
     <div class="row availbl-cotzacns-list">
-        <h4>Cotizaciónes vigentes </h4>
+        <h4>Cotizaciónes activas </h4>
 
-        <!--ACCEPTED-->
-        <!--Preview Item-->
-        <div class="col s12 availbl-cotzacns-items">
-            <div class="card-panel #ffffff z-depth-1 card-cotzacns-active">
+        {{#pricings}}
+            <div class="col s12 availbl-cotzacns-items">
+                <div class="card-panel #ffffff z-depth-1 card-cotzacns-active">
 
-                <div class="row">
+                    <div class="row">
 
-                    <!--Preview Image-->
-                    <div class="col s3 card-cotzacns--img">
-                        <img class="responsive-img z-depth-1"
-                             src="https://http2.mlstatic.com/silla-vestida-tap-chenille-raya-o-ecocuero-super-oferta-D_NQ_NP_643005-MLA31046658120_062019-F.webp"
-                             alt="comedor">
-                    </div>
+                        <!--Preview Product Image-->
+                        {{#product}}
+                            <div class="col s3 card-cotzacns--img">
+                                <img alt="preview"
+                                     width="220"
+                                     height="220"
+                                     class="materialboxed"
+                                     src="{{mainImage}}">
+                            </div>
+                        {{/product}}
 
-                    <!--Preview Description-->
-                    <div class="col s6 title">
-                        <h6 class="blue-text">Musimundo</h6>
-                        <p class="grey-text lighten-1-text"> <span><strong>Precio</strong></span>: $15000</p>
-                        <p class="grey-text lighten-1-text"> <span><strong>Cantidad</strong></span>: 20 sillas</p>
-                        <p class="grey-text lighten-1-text"> <span><strong>Plazo de Entrega</strong></span>: 90 días</p>
-                        <p class="grey-text lighten-1-text"> <span><strong>Cotizado</strong></span>: 02/02/2020</p>
-                    </div>
+                        <!--Preview Description-->
+                        <div class="col s6 title">
+                            <h6 class="blue-text">{{providerName}}</h6>
+                            {{#buyer}}
+                                <p class="grey-text lighten-1-text"> <span><strong>Solicitado por</strong></span>: {{name}}</p>
+                            {{/buyer}}
 
-                    <!--Preview Status-->
-                    <div class="col s3 status">
-                        <h6 style="color:#2196F3"> Solicitud activa </h6>
-
-                        <div class="row">
-                            <a class="waves-effect waves-light btn-small">Descargar Cotización</a>
+                            <p class="grey-text lighten-1-text"> <span><strong>Especificaciones</strong></span>: {{specifications}}</p>
+                            <p class="grey-text lighten-1-text"> <span><strong>Cantidad solicitada</strong></span>: {{quantity}}</p>
                         </div>
 
-                        <div class="row">
-                            <a class="waves-effect waves-light btn-small">Enviar Mensaje</a>
+                        <!--Preview Status-->
+                        <div class="col s3 status">
+                            <div class="col s12">
+                                {{{pricingState}}}
+                                <!--{{#budget}}-->
+                                    <!--<a class="waves-effect waves-light btn-small">Aprobar Cotización</a>-->
+                                <!--{{/budget}}-->
+                                <!--<a class="status-detail" href="/web/buyer/pricings/{{id}}">Ver detalle</a>-->
+                                {{{indexBuyerActions}}}
+                            </div>
+
                         </div>
 
-                        <div class="row">
-                            <a class="status-detail" href="#">Ver detalle</a>
-                        </div>
                     </div>
 
                 </div>
-
             </div>
-        </div>
-
-        <!--REJECTED-->
-        <!--Preview Item-->
-        <div class="col s12 availbl-cotzacns-items">
-            <div class="card-panel #ffffff z-depth-1 card-cotzacns-active">
-
-                <div class="row">
-
-                    <!--Preview Image-->
-                    <div class="col s3 card-cotzacns--img">
-                        <img class="responsive-img z-depth-1"
-                             src="https://http2.mlstatic.com/silla-vestida-tap-chenille-raya-o-ecocuero-super-oferta-D_NQ_NP_643005-MLA31046658120_062019-F.webp"
-                             alt="comedor">
-                    </div>
-
-                    <!--Preview Description-->
-                    <div class="col s6 title">
-                        <h5>Cotizado el 14 de junio de 2019</h5>
-                        <h6 class="blue-text">Musimundo</h6>
-                        <p class="grey-text lighten-1-text"> 465 sillas</p>
-                        <p class="grey-text lighten-1-text"> Caracteristicas: acolchadas</p>
-                    </div>
-
-                    <!--Preview Status-->
-                    <div class="col s3 status">
-                        <h6 style="color:darkred"> Solicitud rechazada</h6>
-                        <a class="status-detail" href="#">Ver detalle</a>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-        <!--ACCEPTED-->
-        <!--Preview Item-->
-        <div class="col s12 availbl-cotzacns-items">
-            <div class="card-panel #ffffff z-depth-1 card-cotzacns-active">
-
-                <div class="row">
-
-                    <!--Preview Image-->
-                    <div class="col s3 card-cotzacns--img">
-                        <img class="responsive-img z-depth-1"
-                             src="https://http2.mlstatic.com/silla-vestida-tap-chenille-raya-o-ecocuero-super-oferta-D_NQ_NP_643005-MLA31046658120_062019-F.webp"
-                             alt="comedor">
-                    </div>
-
-                    <!--Preview Description-->
-                    <div class="col s6 title">
-                        <h6 class="blue-text">Musimundo</h6>
-                        <p class="grey-text lighten-1-text"> <span><strong>Precio</strong></span>: $15000</p>
-                        <p class="grey-text lighten-1-text"> <span><strong>Cantidad</strong></span>: 20 sillas</p>
-                        <p class="grey-text lighten-1-text"> <span><strong>Plazo de Entrega</strong></span>: 90 días</p>
-                        <p class="grey-text lighten-1-text"> <span><strong>Cotizado</strong></span>: 02/02/2020</p>
-                    </div>
-
-                    <!--Preview Status-->
-                    <div class="col s3 status">
-                        <h6 style="color:#2196F3"> Solicitud activa </h6>
-
-                        <div class="row">
-                            <a class="waves-effect waves-light btn-small">Descargar Cotización</a>
-                        </div>
-
-                        <div class="row">
-                            <a class="waves-effect waves-light btn-small">Enviar Mensaje</a>
-                        </div>
-
-                        <div class="row">
-                            <a class="status-detail" href="#">Ver detalle</a>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-        <!--ACCEPTED-->
-        <!--Preview Item-->
-        <div class="col s12 availbl-cotzacns-items">
-            <div class="card-panel #ffffff z-depth-1 card-cotzacns-active">
-
-                <div class="row">
-
-                    <!--Preview Image-->
-                    <div class="col s3 card-cotzacns--img">
-                        <img class="responsive-img z-depth-1"
-                             src="https://http2.mlstatic.com/silla-vestida-tap-chenille-raya-o-ecocuero-super-oferta-D_NQ_NP_643005-MLA31046658120_062019-F.webp"
-                             alt="comedor">
-                    </div>
-
-                    <!--Preview Description-->
-                    <div class="col s6 title">
-                        <h6 class="blue-text">Musimundo</h6>
-                        <p class="grey-text lighten-1-text"> <span><strong>Precio</strong></span>: $15000</p>
-                        <p class="grey-text lighten-1-text"> <span><strong>Cantidad</strong></span>: 20 sillas</p>
-                        <p class="grey-text lighten-1-text"> <span><strong>Plazo de Entrega</strong></span>: 90 días</p>
-                        <p class="grey-text lighten-1-text"> <span><strong>Cotizado</strong></span>: 02/02/2020</p>
-                    </div>
-
-                    <!--Preview Status-->
-                    <div class="col s3 status">
-                        <h6 style="color:#2196F3"> Solicitud activa </h6>
-
-                        <div class="row">
-                            <a class="waves-effect waves-light btn-small">Descargar Cotización</a>
-                        </div>
-
-                        <div class="row">
-                            <a class="waves-effect waves-light btn-small">Enviar Mensaje</a>
-                        </div>
-
-                        <div class="row">
-                            <a class="status-detail" href="#">Ver detalle</a>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-
-        <!--REJECTED-->
-        <!--Preview Item-->
-        <div class="col s12 availbl-cotzacns-items">
-            <div class="card-panel #ffffff z-depth-1 card-cotzacns-active">
-
-                <div class="row">
-
-                    <!--Preview Image-->
-                    <div class="col s3 card-cotzacns--img">
-                        <img class="responsive-img z-depth-1"
-                             src="https://http2.mlstatic.com/silla-vestida-tap-chenille-raya-o-ecocuero-super-oferta-D_NQ_NP_643005-MLA31046658120_062019-F.webp"
-                             alt="comedor">
-                    </div>
-
-                    <!--Preview Description-->
-                    <div class="col s6 title">
-                        <h5>Cotizado el 25 de enero de 2019</h5>
-                        <h6 class="blue-text">Musimundo</h6>
-                        <p class="grey-text lighten-1-text"> 465 sillas</p>
-                        <p class="grey-text lighten-1-text"> Caracteristicas: acolchadas</p>
-                    </div>
-
-                    <!--Preview Status-->
-                    <div class="col s3 status">
-                        <h6 style="color:dimgrey"> Solicitud enviada</h6>
-                        <a class="status-detail" href="#">Ver detalle</a>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
+        {{/pricings}}
 
     </div>
 </div>
+{{#pricings}}
+    {{> accept}}
+{{/pricings}}

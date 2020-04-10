@@ -1,0 +1,31 @@
+<script type="application/javascript">
+    $(document).ready(function(){
+        $('.materialboxed').materialbox();
+    });
+
+    $('#certifications-chips').chips({
+        autocompleteOptions: {
+            data: {
+                {{#certifications}}
+                    '{{name}}': null,
+                {{/certifications}}
+            },
+            limit: 10,
+            minLength: 1
+        },
+        data: [
+            {{#productCertifications}}
+                {tag: '{{name}}'},
+            {{/productCertifications}}
+        ]
+    });
+
+    $('#modalData').modal();
+    $('#modalAddress').modal();
+    $('#modalPassword').modal();
+    $('#modalImage').modal();
+
+    $('#editCertifications').click(function(){
+        $('#certifications').val(JSON.stringify(M.Chips.getInstance($('#certifications-chips')).chipsData));
+    });
+</script>

@@ -1,0 +1,13 @@
+<script type="application/javascript">
+    $(document).ready(function(){
+        $('.materialboxed').materialbox();
+    });
+</script>
+<script>
+        {{#favorites}}
+        new MStepper(
+                document.querySelector('#stepper_{{id}}'), {
+                    firstActive: 0
+                });
+        {{/favorites}}
+</script>

@@ -1,6 +1,7 @@
 package com.entremp.core.entremp.controllers.user
 
 import com.entremp.core.entremp.api.user.UserRegistrationDTO
+import com.entremp.core.entremp.data.user.UserAddressRepository
 import com.entremp.core.entremp.data.user.UsersRepository
 import com.entremp.core.entremp.model.user.User
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -13,6 +14,7 @@ import java.util.*
 @RestController
 class RegisterController(
         private val usersRepository: UsersRepository,
+        private val userAddressRepository: UserAddressRepository,
         private val encoder: PasswordEncoder
 ) {
 
@@ -30,6 +32,7 @@ class RegisterController(
             cuit = prospect.cuit,
             token = UUID.randomUUID().toString()
         )
+
         usersRepository.save(user)
 
         redirectAttributes.addFlashAttribute("success", flashSuccess())

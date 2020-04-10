@@ -1,0 +1,24 @@
+<script type="application/javascript">
+    $(document).ready(function(){
+        $('.materialboxed').materialbox();
+        $('.slider').slider();
+    });
+
+    $('#imagesModal').modal({
+    });
+
+</script>
+<script>
+    {{#pricing}}
+        var stepper = document.querySelector('#stepper_{{id}}');
+        new MStepper(stepper, {
+            firstActive: 0
+        });
+        {{#budget}}
+            var budgetStepper = document.querySelector('#stepper_{{id}}');
+            new MStepper(budgetStepper, {
+                firstActive: 0
+            });
+        {{/budget}}
+    {{/pricing}}
+</script>

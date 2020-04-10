@@ -1,6 +1,7 @@
 package com.entremp.core.entremp.controllers.budget
 
-import com.entremp.core.entremp.api.budget.BudgetDTO
+import com.entremp.core.entremp.api.budget.CreateBudgetDTO
+import com.entremp.core.entremp.api.budget.EditBudgetDTO
 import com.entremp.core.entremp.api.review.ReviewDTO
 import com.entremp.core.entremp.api.review.ReviewQualificationDTO
 import com.entremp.core.entremp.controllers.Authenticated
@@ -14,22 +15,30 @@ import com.entremp.core.entremp.model.budget.Budget
 import com.entremp.core.entremp.model.budget.BudgetAttachement
 import com.entremp.core.entremp.model.chat.Chat
 import com.entremp.core.entremp.model.pricing.Pricing
+import com.entremp.core.entremp.model.pricing.PricingStatus
 import com.entremp.core.entremp.model.review.Review
 import com.entremp.core.entremp.model.review.ReviewQualification
 import com.entremp.core.entremp.model.user.User
+import com.entremp.core.entremp.service.BudgetService
+import com.entremp.core.entremp.service.PricingService
 import com.entremp.core.entremp.support.storage.FileStorageService
 import com.entremp.core.entremp.support.JavaSupport.extension
 import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import org.springframework.web.servlet.view.RedirectView
 import java.net.URL
 import java.util.*
 
 @RestController
 @RequestMapping("/budgets")
 class BudgetController(
-        private val budgetRepository: BudgetRepository,
-        private val budgetAttachementRepository: BudgetAttachementRepository,
+    private val pricingService: PricingService,
+    private val budgetService: BudgetService,
+
+    private val budgetRepository: BudgetRepository,
+    private val budgetAttachementRepository: BudgetAttachementRepository,
         private val pricingRepository: PricingRepository,
         private val reviewRepository: ReviewRepository,
         private val qualificationRepository: ReviewQualificationRepository,
@@ -49,25 +58,133 @@ class BudgetController(
                 .filterNotNull()
     }
 
-    @PostMapping
-    fun save(@RequestBody input: BudgetDTO): Budget {
+    @PostMapping("/{id}/accept")
+    fun accept(@PathVariable id: String,
+               redirectAttributes: RedirectAttributes): RedirectView {
         val auth: User? = getAuthUser()
 
-        val pricing: Pricing? = pricingRepository.findById(input.pricingId).unwrap()
+        if(auth != null) {
+            val budget: Budget = budgetService.find(id)
 
-        assert(pricing?.provider != auth)
+            budgetService.confirm(id)
 
-        val item = Budget(
+            val pricing: Pricing = budget.pricing!!
+            pricingRepository.save(
+                pricing.copy(
+                    status = PricingStatus.APPROVED
+                )
+            )
+
+            val chat: Chat = chatRepository.save(
+                Chat(
+                    buyer = pricing.buyer,
+                    provider = pricing.provider
+                )
+            )
+
+            return RedirectView("/web/buyer/messages/${chat.id!!}")
+        } else {
+            throw RuntimeException("Operation not allowed")
+        }
+    }
+
+    @PostMapping("/reject")
+    fun reject(@RequestParam pricingId: String,
+               redirectAttributes: RedirectAttributes): RedirectView {
+        val auth: User? = getAuthUser()
+
+        if(auth != null) {
+            val pricing: Pricing = pricingService.find(pricingId)
+
+            pricingRepository.save(
+                pricing.copy(
+                    status = PricingStatus.REJECTED
+                )
+            )
+
+            return RedirectView("/web/seller/pricings/$pricingId")
+        } else {
+            throw RuntimeException("Operation not allowed")
+        }
+    }
+
+    @PostMapping
+    fun save(@ModelAttribute storable: CreateBudgetDTO,
+             @RequestParam attachments: Array<MultipartFile> = emptyArray(),
+             redirectAttributes: RedirectAttributes
+    ): RedirectView {
+        val auth: User? = getAuthUser()
+
+        if(auth != null) {
+
+            val pricing: Pricing = pricingService.find(storable.pricingId)
+
+            val budget = budgetService.save(
                 pricing = pricing,
-                price = input.price,
-                iva = input.iva,
-                deliveryConditions = input.deliveryConditions,
-                paymentConditions = input.paymentConditions,
-                specifications = input.specifications,
-                deliveryTerm = input.deliveryTerm
-        )
+                price = storable.price,
+                quantity = storable.quantity,
+                iva = storable.iva(),
+                total = storable.total,
+                billing = storable.billing,
+                ttl = storable.ttlDateTime(),
+                deliveryAfterConfirm = storable.delivery
+            )
 
-        return budgetRepository.save(item)
+            // Save product loaded images
+            attachments.map { image: MultipartFile ->
+                budgetService.addAttachement(
+                    id = budget.id!!,
+                    file = image
+                )
+            }
+
+            val id: String = pricing.id !!
+
+            redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
+
+            return RedirectView("/web/seller/pricings/$id")
+        } else {
+            throw RuntimeException("Operation not allowed")
+        }
+    }
+
+    @PostMapping("/{id}/update")
+    fun update(@PathVariable id: String,
+               @ModelAttribute storable: EditBudgetDTO,
+               @RequestParam attachments: Array<MultipartFile> = emptyArray(),
+               redirectAttributes: RedirectAttributes
+    ): RedirectView {
+        val auth: User? = getAuthUser()
+
+        if(auth != null) {
+
+            val budget: Budget = budgetService.update(
+                id = id,
+                price = storable.price,
+                quantity = storable.quantity,
+                iva = storable.iva(),
+                total = storable.total,
+                billing = storable.billing,
+                ttl = storable.ttlDateTime(),
+                deliveryAfterConfirm = storable.delivery
+            )
+
+            // Save product loaded images
+            attachments.map { image: MultipartFile ->
+                budgetService.addAttachement(
+                    id = budget.id!!,
+                    file = image
+                )
+            }
+
+            val id: String = budget.pricing!!.id !!
+
+            redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
+
+            return RedirectView("/web/seller/pricings/$id")
+        } else {
+            throw RuntimeException("Operation not allowed")
+        }
     }
 
     @GetMapping("/{id}")
@@ -169,4 +286,15 @@ class BudgetController(
         return reviewRepository.findById(review.id!!).get()
     }
 
+    private fun flashSuccess(productId: String): String =
+        """
+            <div class="col s12">
+                <div class="card teal">
+                    <div class="card-content white-text">
+                        <h7>Tu producto se creo correctamente!</h7>
+                        <h7>ID $productId</h7>
+                    </div>
+                </div>
+            </div>
+        """.trimIndent()
 }

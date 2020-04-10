@@ -1,9 +1,7 @@
 package com.entremp.core.entremp.api.chat
 
-class MessageDTO(
-        val message: String
-) {
-    constructor(): this(
-            message = ""
-    )
-}
+data class MessageDTO(
+        val message: String,
+        val isQuestion: Boolean,
+        val isAnswer: Boolean
+)

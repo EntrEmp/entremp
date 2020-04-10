@@ -1,6 +1,7 @@
 package com.entremp.core.entremp.config.beans
 
 import com.entremp.core.entremp.support.ObjectMapperFactory
+import com.entremp.core.entremp.support.storage.AwsConfig
 import org.springframework.context.support.BeanDefinitionDsl
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder

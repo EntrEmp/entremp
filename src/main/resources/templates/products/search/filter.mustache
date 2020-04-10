@@ -1,33 +1,133 @@
-<!--Collapsable Filter-->
-<li class="active">
+<!--Search Filter-->
+<div class="col s12 m4 l3">
 
-    <!--Filter Category Header-->
-    <div class="collapsible-header">
-        <i class="material-icons">expand_more</i>
-        <p>Marca</p>
-    </div>
+    <form id="filter" method="post" action="/products/filter" enctype="multipart/form-data">
 
-    <!--Filter Item Checkbox-->
-    <div style="display: block;" class="collapsible-body">
-        <label>
-            <input type="checkbox" />
-            <span>Ikea</span>
-        </label>
-    </div>
+        <ul class="collapsible expandable filter-collapsible">
+            {{#showFilter}}
+                <li>
+                    {{#criteria}}
+                        <input type="hidden" id="criteria" name="criteria" value="{{.}}">
+                        <div class="chip">
+                            {{.}}
+                            <a class="dismiss" data-remove="criteria">
+                                <i class="close material-icons">close</i>
+                            </a>
+                        </div>
+                    {{/criteria}}
 
-    <!--Filter Item Checkbox-->
-    <div style="display: block;" class="collapsible-body">
-        <label>
-            <input type="checkbox" />
-            <span>Sofás y sillones</span>
-        </label>
-    </div>
+                    {{#categories}}
+                        <div class="chip">
+                            {{name}}
+                            <a class="dismiss" data-remove="{{id}}">
+                                <i class="close material-icons">close</i>
+                            </a>
+                        </div>
+                    {{/categories}}
+                    {{#attributes}}
+                        <div class="chip">
+                            {{name}}
+                            <a class="dismiss" data-remove="{{id}}">
+                                <i class="close material-icons">close</i>
+                            </a>
+                        </div>
+                    {{/attributes}}
+                    {{#certifications}}
+                        <div class="chip">
+                            {{name}}
+                            <a class="dismiss" data-remove="{{id}}">
+                                <i class="close material-icons">close</i>
+                            </a>
+                        </div>
+                    {{/certifications}}
+                </li>
+            {{/showFilter}}
 
-    <!--Filter Item Checkbox-->
-    <div style="display: block;" class="collapsible-body">
-        <label>
-            <input type="checkbox" />
-            <span>Easy</span>
-        </label>
-    </div>
-</li>
+            <li>
+                <div class="col s12">
+                    <h6>filtrar por cantidad</h6>
+                    <div class="input-field col s4">
+                        <input id="minimum" name="minimum" type="number" class="validate">
+                        <label for="minimum">min</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="maximum" name="maximum" type="number" class="validate">
+                        <label for="maximum">max</label>
+                    </div>
+                    <button type="submit" class="btn waves-effect waves-light col s2 inline">
+                        <i class="material-icons medium">check</i>
+                    </button>
+                </div>
+            </li>
+
+            <li>
+                <div class="col s12">
+                    <h6>filtrar por lote</h6>
+                    <div class="input-field col s4">
+                        <input id="minBatch" name="minBatch" type="number" class="validate">
+                        <label for="minBatch">min</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="maxBatch" name="maxBatch" type="number" class="validate">
+                        <label for="minBatch">min</label>
+                    </div>
+                    <button type="submit" class="btn waves-effect waves-light col s2 inline">
+                        <i class="material-icons medium">check</i>
+                    </button>
+                </div>
+            </li>
+
+            <!--Collapsable Filter-->
+            <li class="">
+                <div class="collapsible-header">
+                    <i class="material-icons">expand_more</i>
+                    <p>Certificaciones</p>
+                </div>
+                {{#certifications}}
+                    <div class="collapsible-body">
+                        <label>
+                            <input id="{{id}}" type="checkbox" name="certifications" value="{{id}}"/>
+                            <span>{{name}}</span>
+                        </label>
+                    </div>
+                {{/certifications}}
+            </li>
+
+            <!--Collapsable Filter-->
+            <li class="">
+                <div class="collapsible-header">
+                    <i class="material-icons">expand_more</i>
+                    <p>Categorias</p>
+                </div>
+                {{#categories}}
+                    <div class="collapsible-body">
+                        <label>
+                            <input id="{{id}}" type="checkbox" name="categories" value="{{id}}"/>
+                            <span>{{name}}</span>
+                        </label>
+                    </div>
+                {{/categories}}
+            </li>
+
+            <!--Collapsable Filter-->
+            <li class="">
+                <div class="collapsible-header">
+                    <i class="material-icons">expand_more</i>
+                    <p>Atributos</p>
+                </div>
+                {{#attributes}}
+                    <div class="collapsible-body">
+                        <label>
+                            <input id="{{id}}" type="checkbox" name="attributes" value="{{id}}"/>
+                            <span>{{name}}</span>
+                        </label>
+                    </div>
+                {{/attributes}}
+            </li>
+        </ul>
+
+        <input type="hidden" id="searchPage" name="searchPage" value="1">
+
+        <button type="submit" class="btn waves-effect waves-dark col s12 ">Aplicar</button>
+    </form>
+</div>

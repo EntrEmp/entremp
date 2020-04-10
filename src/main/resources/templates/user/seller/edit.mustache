@@ -9,49 +9,61 @@
                 </div>
                 <div class="col s12">
                     <div class=" col s12 profile--data">
+                        <div class="col s12 right-align">
+                            <a class="modal-trigger data--modify" href="#modalImage">Modificar</a>
+                        </div>
                         <div class="col s12 img--data">
-                            <img src="/images/profile/rock.png" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+                            <img src="{{image}}" alt="profile" class="circle responsive-img materialboxed"> <!-- notice the "circle" class -->
                         </div>
                     </div>
+
                     <div class=" col s12 profile--data">
                         <div class="col s8 data--left">
-                            <p class="col s6 data--right">Nombre o razón social: </p> <p class="col s6">Mariano Gomez</p>
-                            <p class="col s6 data--right">Documento: </p> <p class="col s6">31483383</p>
-                            <p class="col s6 data--right">Teléfono: </p> <p class="col s6">1168723644</p>
-                            <p class="col s6 data--right">CUIT: </p> <p class="col s6">27-38291193-2</p>
+                            <p class="col s6 data--right">Nombre o razón social: </p> <p class="col s6 data--left">{{name}}</p>
+                            <p class="col s6 data--right">CUIT: </p> <p class="col s6 data--left">{{cuit}}</p>
+                            <p class="col s6 data--right">Teléfono: </p> <p class="col s6 data--left">{{phone}}</p>
                         </div>
                         <div class="col s4 right-align">
                             <a class="modal-trigger data--modify" href="#modalData">Modificar</a>
                         </div>
                     </div>
+
                     <div class="col s12 profile--data">
                         <div class="col s4">
                             <p class="col s6 data--right">Direcciones:</p>
                         </div>
                         <div class="col s6 data--left">
-                            <p>Avenida del Libertador 2700  </p>
-                            <p>Capital Federal, CABA, Argentina </p>
-                            <p>Blanco Encalada 900 </p>
-                            <p>San Isidro, CABA, Argentina </p>
-                            <p><a href="#">Agregar domicilio</a></p>
+                            {{#addresses}}
+                                <p class="col s6">{{address}}</p>
+                                <p class="col s6">{{wrapper}} </p>
+                                <a class="col s12 modal-trigger data--modify" href="#edit_{{id}}">Modificar</a>
+                                <a class="col s12 modal-trigger data--modify" href="#delete_{{id}}">Eliminar</a>
+                            {{/addresses}}
+
                         </div>
                         <div class="col s2 right-align">
-                            <a class="modal-trigger data--modify" href="#modalAddress">Modificar</a>
+                            <a class="modal-trigger data--modify" href="#modalAddress">Agregar Domicilio</a>
                         </div>
                     </div>
+
                     <div class=" col s12 profile--data">
                         <div class="col s8">
                             <div class="col s6">
                                 <p class="data--right">Certificaciones: </p>
                             </div>
-                            <div class="col s6">
-                                <p class="data--left">ISO 14004, ISO 1909</p>
+                            <div class="col s6 data--left">
+                                {{#certifications}}
+                                    <div class="chip" tabindex="0">{{name}}</div>
+                                {{/certifications}}
+                                <div class="chip" tabindex="0">ISO 14004</div>
+                                <div class="chip" tabindex="0">ISO 1909</div>
                             </div>
                         </div>
                         <div class="col s4 right-align">
-                            <a class="modal-trigger data--modify" href="#modalPassword">Modificar</a>
+                            <a class="modal-trigger data--modify" href="#modalCertifications">Modificar</a>
                         </div>
                     </div>
+
                     <div class=" col s12 profile--data">
                         <div class="col s8">
                             <div class="col s6">
@@ -59,7 +71,7 @@
                                 <p class="data--right">Clave: </p>
                             </div>
                             <div class="col s6">
-                                <p class="data--left">marianogomez@gmail.com</p>
+                                <p class="data--left">{{mail}}</p>
                                 <p class="data--left">*********</p>
                             </div>
                         </div>
@@ -69,115 +81,293 @@
                     </div>
 
                 </div>
-                <section class="col s12 data--sumit">
-                    <button class="btn waves-effect waves-light center-align row" type="submit" name="action">Crea perfil comprador</button>
-                </section>
             </div>
         </div>
     </section>
+</div>
 
-    <!--Modal de datos-->
-    <div id="modalData" class="modal modals-container"> <!--modal-->
-        <div class="modal-content modals--profile">
-            <div class="row">
+<!--Modal de datos-->
+<div id="modalData" class="modal modals-container modals--product">
+    <div class="modal-content">
+
+        <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+            <i class="tiny material-icons close">clear</i>
+        </a>
+
+        <div class="row">
+
+            <form id="dataForm" method="post" action="/users/{{id}}/data">
+                <input type="hidden" name="role" value="seller">
                 <div class="col s12">
-                    <label class="blue-text darken-4-text" for="nombre">Nombre o Razón social:</label>
-                    <input type="text" name="nombre" id="">
-                </div>
-                <div class="col s12">
-                    <label class="blue-text darken-4-text" for="document">Documento:</label>
-                    <input type="number" name="document" id="">
-                </div>
-                <div class="col s12">
-                    <label class="blue-text darken-4-text" for="phone">Teléfono:</label>
-                    <input type="number" name="phone" id="">
-                </div>
-                <div class="col s12">
-                    <label class="blue-text darken-4-text" for="CUIT">CUIT/CUIL</label>
-                    <input type="number" name="CUIT" id="">
+                    <label for="name">Nombre o Razón social:</label>
+                    <input class="validate" type="text" name="name" value="{{name}}">
+
+                    <label for="phone">Teléfono:</label>
+                    <input class="validate" type="number" name="phone" value="{{phone}}">
+
+                    <label for="cuit">CUIT/CUIL:</label>
+                    <input class="validate" type="number" name="cuit" value="{{cuit}}">
+
                 </div>
 
-                <div class="col s12 modals--footer">
-                    <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
-                    <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Cancelar</button>
+                <div class="col s8 push-s2 modals--next">
+                    <!--submit con flecha-->
+                    <a href="#!" class=" col s5 btn modal-close waves-effect waves-green btn-flat">Cancelar </a>
+                    <div class="col s2"></div>
+                    <button class=" col s5 btn waves-effect waves-light modals--button"
+                            id="editData" type="submit" name="action">Guardar</button>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
+</div>
 
-    <!--Modal direccion-->
-    <div id="modalAddress" class="modal modals-container">
-        <div class="modal-content modals--profile">
-            <div class="row">
+<!--Modal Direcciones-->
+<div id="modalAddress" class="modal modals-container modals--product">
+    <div class="modal-content">
+
+        <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+            <i class="tiny material-icons close">clear</i>
+        </a>
+
+        <div class="row">
+
+            <form id="AddressForm" method="post" action="/users/{{userId}}/addresses">
+                <input type="hidden" name="role" value="seller">
+
                 <div class="col s12">
                     <div class="col s6">
                         <div class="col s12">
                             <label class="blue-text darken-4-text" for="country">País:</label>
-                            <input type="text" name="country" id="">
+                            <input class="validate" type="text" name="country" value="{{country}}">
                         </div>
                         <div class="col s12">
-                            <label class="blue-text darken-4-text" for="province">Provincia:</label>
-                            <input type="text" name="province" id="">
+                            <label class="blue-text darken-4-text" for="state">Provincia:</label>
+                            <input class="validate" type="text" name="state" value="{{state}}">
                         </div>
                         <div class="col s12">
                             <label class="blue-text darken-4-text" for="street">Calle:</label>
-                            <input type="number" name="street" id="">
+                            <input class="validate" type="text" name="street" value="{{street}}">
                         </div>
                         <div class="col s12">
                             <label class="blue-text darken-4-text" for="floor">Piso/ Departamento</label>
-                            <input type="number" name="floor" id="">
+                            <input class="validate" type="text" name="floor" value="{{floor}}">
                         </div>
                     </div>
+
                     <div class="col s6">
                         <div class="col s12">
-                            <label class="blue-text darken-4-text" for="CP">Código Postal:</label>
-                            <input type="number" name="CP" id="">
+                            <label class="blue-text darken-4-text" for="cp">Código Postal:</label>
+                            <input class="validate" type="number" name="cp" value="{{cp}}">
                         </div>
                         <div class="col s12">
                             <label class="blue-text darken-4-text" for="town">Localidad:</label>
-                            <input type="text" name="town" id="">
+                            <input class="validate" type="text" name="town" value="{{town}}">
                         </div>
                         <div class="col s12">
                             <label class="blue-text darken-4-text" for="number">Número:</label>
-                            <input type="number" name="number" id="">
+                            <input class="validate" type="number" name="number" value="{{number}}">
                         </div>
                         <div class="col s12">
-                            <label class="blue-text darken-4-text" for="contact-phone">Teléfono de contacto</label>
-                            <input type="number" name="contact-phone" id="">
+                            <label class="blue-text darken-4-text" for="contact">Teléfono de contacto</label>
+                            <input class="validate" type="tel" name="contact" value="{{contact}}">
                         </div>
                     </div>
+
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col s12 modals--footer">
-                    <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
-                    <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Cancelar</button>
+                <div class="col s8 push-s2 modals--next">
+                    <!--submit con flecha-->
+                    <a href="#!" class=" col s5 btn modal-close waves-effect waves-green btn-flat">Cancelar </a>
+                    <div class="col s2"></div>
+                    <button class=" col s5 btn waves-effect waves-light modals--button"
+                            id="editData" type="submit" name="action">Guardar</button>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!--Modal Pasword -->
-    <div id="modalPassword" class="modal modals-container">
-        <div class="modal-content modals--profile">
-            <div class="col s12">
-                <label class="blue-text darken-4-text" for="currentPassword">Contraseña actual:</label>
-                <input type="password" name="currentPassword" id="">
-            </div>
-            <div class="col s12">
-                <label class="blue-text darken-4-text" for="newPassword">Nueva contraseña:</label>
-                <input type="password" name="newPassword" id="">
-            </div>
-            <div class="col s12">
-                <label class="blue-text darken-4-text" for="password">Confirmar nueva contraseña:</label>
-                <input type="password" name="password" id="">
-            </div>
-
-            <div class="col s12 modals--footer">
-                <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Guardar</button>
-                <button class=" col s4 btn waves-effect waves-light modals--button" type="submit" name="action">Cancelar</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+
+<!--Modal Pasword -->
+<div id="modalPassword" class="modal modals-container modals--product">
+    <div class="modal-content">
+
+        <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+            <i class="tiny material-icons close">clear</i>
+        </a>
+
+        <div class="row">
+
+            <form id="dataForm" method="post" action="/users/{{userId}}/password">
+                <input type="hidden" name="role" value="seller">
+
+                <div class="col s12">
+                    <label for="current">Contraseña actual:</label>
+                    <input class="validate" type="password" name="current">
+
+                    <label for="password">Nueva contraseña:</label>
+                    <input class="validate" type="password" name="password">
+
+                    <label for="confirmation">Confirmar nueva contraseña:</label>
+                    <input class="validate" type="password" name="confirmation">
+
+                </div>
+
+                <div class="col s8 push-s2 modals--next">
+                    <!--submit con flecha-->
+                    <a href="#!" class=" col s5 btn modal-close waves-effect waves-green btn-flat">Cancelar </a>
+                    <div class="col s2"></div>
+                    <button class=" col s5 btn waves-effect waves-light modals--button"
+                            id="editData" type="submit" name="action">Guardar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalImage" class="modal modals-container modals--sucess">
+    <div class="modal-content">
+
+        <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+            <i class="tiny material-icons close">clear</i>
+        </a>
+
+        <div class="row">
+
+            <form id="imageForm" method="post" action="/users/{{userId}}/image" enctype="multipart/form-data">
+                <input type="hidden" name="role" value="seller">
+
+                <div class="col s12">
+                    <h5>Imagenes</h5>
+                </div>
+
+                <div class="col s12 modals--sucessCenter">
+                    <p>Elija su foto de perfil</p>
+                </div>
+
+                <div class="col s12 modals--sucessCenter">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Imagen</span>
+                            <input type="file" name="image">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Subí tu foto de perfil">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s8 push-s2 modals--next">
+                    <!--submit con flecha-->
+                    <a href="#!" class=" col s5 btn modal-close waves-effect waves-green btn-flat">Cancelar </a>
+                    <div class="col s2"></div>
+                    <button class=" col s5 btn waves-effect waves-light modals--button"
+                            id="editTags" type="submit" name="action">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{#addresses}}
+    <div id="edit_{{id}}" class="modal modals-container modals--product">
+        <div class="modal-content">
+
+            <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+                <i class="tiny material-icons close">clear</i>
+            </a>
+
+            <div class="row">
+
+                <form method="post" action="/users/{{userId}}/addresses/{{id}}">
+                    <input type="hidden" name="role" value="seller">
+
+                    <div class="col s12">
+                        <div class="col s6">
+                            <div class="col s12">
+                                <label class="blue-text darken-4-text" for="country">País:</label>
+                                <input class="validate" type="text" name="country" value="{{country}}">
+                            </div>
+                            <div class="col s12">
+                                <label class="blue-text darken-4-text" for="state">Provincia:</label>
+                                <input class="validate" type="text" name="state" value="{{state}}">
+                            </div>
+                            <div class="col s12">
+                                <label class="blue-text darken-4-text" for="street">Calle:</label>
+                                <input class="validate" type="text" name="street" value="{{street}}">
+                            </div>
+                            <div class="col s12">
+                                <label class="blue-text darken-4-text" for="floor">Piso/ Departamento</label>
+                                <input class="validate" type="text" name="floor" value="{{floor}}">
+                            </div>
+                        </div>
+
+                        <div class="col s6">
+                            <div class="col s12">
+                                <label class="blue-text darken-4-text" for="cp">Código Postal:</label>
+                                <input class="validate" type="number" name="cp" value="{{cp}}">
+                            </div>
+                            <div class="col s12">
+                                <label class="blue-text darken-4-text" for="town">Localidad:</label>
+                                <input class="validate" type="text" name="town" value="{{town}}">
+                            </div>
+                            <div class="col s12">
+                                <label class="blue-text darken-4-text" for="number">Número:</label>
+                                <input class="validate" type="number" name="number" value="{{number}}">
+                            </div>
+                            <div class="col s12">
+                                <label class="blue-text darken-4-text" for="contact">Teléfono de contacto</label>
+                                <input class="validate" type="tel" name="contact" value="{{contact}}">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col s8 push-s2 modals--next">
+                        <!--submit con flecha-->
+                        <a href="#!" class=" col s5 btn modal-close waves-effect waves-green btn-flat">Cancelar </a>
+                        <div class="col s2"></div>
+                        <button class=" col s5 btn waves-effect waves-light modals--button"
+                                id="editData" type="submit" name="action">Guardar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete_{{id}}" class="modal modals-container modals--product">
+        <div class="modal-content">
+
+            <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+                <i class="tiny material-icons close">clear</i>
+            </a>
+
+            <div class="row">
+
+                <form method="post" action="/users/{{userId}}/delete-addresses">
+                    <input type="hidden" name="role" value="seller">
+                    <input type="hidden" name="addressId" value="{{id}}">
+                    <div class="col s12">
+                        <p>Estas seguro que deseas eliminar esta dirección?</p>
+                        <p>{{address}}</p>
+                    </div>
+
+                    <div class="col s8 push-s2 modals--next">
+                        <!--submit con flecha-->
+                        <a href="#!" class=" col s5 btn modal-close waves-effect waves-green btn-flat">Cancelar </a>
+                        <div class="col s2"></div>
+                        <button class=" col s5 btn waves-effect waves-light modals--button"
+                                type="submit" name="action">Eliminar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{{/addresses}}
+

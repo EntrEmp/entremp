@@ -8,6 +8,10 @@ data class FullCreateProductDTO(
     val batch: Int,
     val minimum: Int,
     val maximum: Int,
+
     val tags: String,
-    val certifications: String
+
+    val certifications: String,
+    val categories: String,
+    val attributes: String
 )

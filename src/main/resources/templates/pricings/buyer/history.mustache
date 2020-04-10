@@ -1,0 +1,80 @@
+<div class="container availbl-cotzacns">
+
+    <div class="row">
+
+        <div class="col s12 availbl-cotzacns--header">
+
+            <!--Searchbox Pricings-->
+            <div class="input-field col s7 availbl-cotzacns-input">
+                <i class="material-icons prefix">search</i>
+                <input placeholder="Cotizacion 25 de enero 2019" type="text" class="autocomplete">
+                <label for="secondary_search">Search</label>
+            </div>
+
+            <!--Search Date Range-->
+            <!--TODO corregir ubicación-->
+            <div class="input-field col s5 card availbl-cotzacns-range">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="dd/mm/aaaa" id="from_date" type="text" class="validate">
+                        <label for="disabled">Desde</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="dd/mm/aaaa" id="to_date" type="text" class="validate">
+                        <label for="disabled">Hasta</label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row availbl-cotzacns-list">
+        <h4>Historial de Cotizaciones</h4>
+
+        {{#pricings}}
+            <div class="col s12 availbl-cotzacns-items">
+                <div class="card-panel #ffffff z-depth-1 card-cotzacns-active">
+
+                    <div class="row">
+
+                        <!--Preview Product Image-->
+                        {{#product}}
+                            <div class="col s3 card-cotzacns--img">
+                                <img alt="preview"
+                                     width="220"
+                                     height="220"
+                                     class="materialboxed"
+                                     src="{{mainImage}}">
+                            </div>
+                        {{/product}}
+
+                        <!--Preview Description-->
+                        <div class="col s6 title">
+                            <h6 class="blue-text">{{providerName}}</h6>
+                            {{#buyer}}
+                                <p class="grey-text lighten-1-text"> <span><strong>Solicitado por</strong></span>: {{name}}</p>
+                            {{/buyer}}
+
+                            <p class="grey-text lighten-1-text"> <span><strong>Especificaciones</strong></span>: {{specifications}}</p>
+                            <p class="grey-text lighten-1-text"> <span><strong>Cantidad solicitada</strong></span>: {{quantity}}</p>
+                        </div>
+
+                        <!--Preview Status-->
+                        <div class="col s3 status">
+                            <div class="col s12">
+                                {{{pricingState}}}
+                                {{{indexBuyerActions}}}
+                                <!--<a class="status-detail" href="/web/buyer/pricings/{{id}}">Ver detalle</a>-->
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        {{/pricings}}
+
+    </div>
+</div>

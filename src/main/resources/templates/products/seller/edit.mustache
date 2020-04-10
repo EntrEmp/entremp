@@ -20,18 +20,34 @@
 
                             <p class="col s6 data--right">Descripción: </p>
                             <p class="col s6 data--left"> {{description}} </p>
-
-                            <p class="col s6 data--right">Categoria: </p>
-                            <div class="col s6 data--left">
-                                {{#attributes}}
-                                    <div class="chip" tabindex="0">{{name}}</div>
-                                {{/attributes}}
-                            </div>
                         </div>
                         <div class="col s4 right-align">
                             <a class="modal-trigger data--modify" href="#modalData">Editar</a>
                         </div>
                     </div>
+
+                    <div class=" col s12 profile--data no-divider">
+                        <div class="col s12  data--left">
+                            <p class="col s4 data--right">Categoria: </p>
+                            <div class="col s8 data--left">
+                                {{#productCategories}}
+                                    <div class="chip">{{name}}</div>
+                                {{/productCategories}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" col s12 profile--data no-divider">
+                        <div class="col s12  data--left">
+                            <p class="col s4 data--right">Atributos: </p>
+                            <div class="col s8 data--left">
+                                {{#activeAttributes}}
+                                    <div class="chip">{{name}}</div>
+                                {{/activeAttributes}}
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="col s12 card-panel z-depth-1 card--profile">
@@ -54,9 +70,9 @@
 
                             <p class="col s6 data--right">Palabras claves: </p>
                             <div class="col s6 data--left">
-                                {{#tags}}
+                                {{#productTags}}
                                     <div class="chip" tabindex="0">{{name}}</div>
-                                {{/tags}}
+                                {{/productTags}}
                             </div>
 
                             <p class="col s6 data--right">Imagenes </p>
@@ -68,7 +84,10 @@
                     <div class="col s12">
                         {{#images}}
                             <div class="col s2 card-panel z-depth-1 cargar--product">
-                                <img class="materialboxed" src="{{s3Link}}">
+                                <img class="materialboxed"
+                                     height="80"
+                                     width="80"
+                                     src="{{s3Link}}">
                             </div>
                         {{/images}}
                     </div>
@@ -80,9 +99,9 @@
                         <div class="col s8 data--left">
                             <p class="col s6 data--right">Certificaciones: </p>
                             <div class="col s6 data--left">
-                                {{#certifications}}
+                                {{#productCertifications}}
                                     <div class="chip" tabindex="0">{{name}}</div>
-                                {{/certifications}}
+                                {{/productCertifications}}
                             </div>
                         </div>
                         <div class="col s4 right-align">
@@ -112,9 +131,12 @@
                     <label for="description" >Descripción</label>
                     <textarea id="description" name="description" class="materialize-textarea"></textarea>
 
+                    <label for="categories" >Categorías</label>
+                    <div id="categories-chips" class="chips chips-initial"></div>
+                    <input type="hidden" name="categories" id="categories">
+
                     <label for="attributes" >Atributos</label>
                     <div id="attributes-chips" class="chips chips-initial"></div>
-
                     <input type="hidden" name="attributes" id="attributes">
 
                 </div>

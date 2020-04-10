@@ -24,4 +24,5 @@ data class ProductImage(
 ): Fileable(fileLocation) {
 
         fun s3Link(): String = "https://entremp.s3-sa-east-1.amazonaws.com/$id.jpg"
+
 }

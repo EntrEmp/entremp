@@ -12,8 +12,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import com.fasterxml.jackson.module.kotlin.readValue
+import org.apache.commons.codec.binary.Base64
+import org.springframework.http.ResponseEntity
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import org.springframework.web.servlet.view.RedirectView
+import javax.servlet.http.Cookie
+import javax.servlet.http.HttpServletResponse
 
 
 @RestController
@@ -25,8 +29,50 @@ class ProductController(
     val mapper: ObjectMapper = ObjectMapperFactory.camelCaseMapper
 
     @GetMapping
-    fun all(): Iterable<Product> {
+    fun list(): Iterable<Product> {
         return productService.getAll()
+    }
+
+    @PostMapping("/filter")
+    fun filter(@ModelAttribute filter: ProductFilterDTO,
+               httpServletResponse: HttpServletResponse,
+               redirectAttributes: RedirectAttributes): RedirectView {
+
+        val filterCookie = Cookie(
+            "searchFilter",
+            Base64.encodeBase64String(
+                mapper.writeValueAsString(filter).toByteArray()
+            )
+        )
+        filterCookie.maxAge = 60*10
+        filterCookie.path = "/web/buyer/products"
+
+        httpServletResponse.addCookie(filterCookie)
+
+        return RedirectView("/web/buyer/products")
+    }
+
+    @PostMapping("/text-search")
+    fun search(@RequestParam searchCriteria: String,
+               httpServletResponse: HttpServletResponse,
+               redirectAttributes: RedirectAttributes): RedirectView {
+
+        val filter = ProductFilterDTO(
+            criteria = searchCriteria
+        )
+
+        val filterCookie = Cookie(
+            "searchFilter",
+            Base64.encodeBase64String(
+                mapper.writeValueAsString(filter).toByteArray()
+            )
+        )
+        filterCookie.maxAge = 60*10
+        filterCookie.path = "/web/buyer/products"
+
+        httpServletResponse.addCookie(filterCookie)
+
+        return RedirectView("/web/buyer/products")
     }
 
     @PostMapping
@@ -38,6 +84,8 @@ class ProductController(
 
         val tags: List<ChipDTO> = mapper.readValue(storable.tags)
         val certifications: List<ChipDTO> = mapper.readValue(storable.certifications)
+        val categories: List<ChipDTO> = mapper.readValue(storable.categories)
+        val attributes: List<ChipDTO> = mapper.readValue(storable.attributes)
 
         if(auth != null){
             val product: Product = productService.save(
@@ -50,14 +98,38 @@ class ProductController(
             )
 
             // Add tags to product
-            tags.forEach { tagChip: ChipDTO ->
-                //TODO associate tag & product
-            }
+            productService.addTags(
+                product = product,
+                tags = tags.map { chip ->
+                    chip.tag
+                }
+            )
 
             // Add tags to product
-            certifications.forEach { certification: ChipDTO ->
-                //TODO associate certification & product
-            }
+            productService.addCertifications(
+                product = product,
+                certifications = certifications.map { chip ->
+                    chip.tag
+                }
+            )
+
+            // Add attributes to product
+            productService.addCategories(
+                product = product,
+                categories = categories
+                    .map { chip ->
+                        chip.tag
+                    }
+            )
+
+            // Add attributes to product
+//            productService.inactivateAttributes(
+//                product = product,
+//                inactive = emptyList(),
+//                active = attributes.map { chip ->
+//                    chip.tag
+//                }
+//            )
 
             // Save product loaded images
             images.map { image: MultipartFile ->
@@ -118,6 +190,7 @@ class ProductController(
 
         val product: Product = productService.find(id)
 
+        val categories: List<ChipDTO> = mapper.readValue(storable.categories)
         val attributes: List<ChipDTO> = mapper.readValue(storable.attributes)
 
         return if(auth != null && auth.id == product.user?.id){
@@ -131,17 +204,44 @@ class ProductController(
                 description = storable.description
             )
 
-            // Add tags to product
-            attributes.forEach { attributeChip: ChipDTO ->
-                //TODO associate tag & product
-            }
+            val inactive: List<String> = edited
+                .productAttributes
+                .filter { attribute ->
+                    attribute.active
+                }
+                .mapNotNull { attribute ->
+                    attribute.attribute?.name
+                }
+                .minus(
+                    attributes
+                        .map { chip ->
+                            chip.tag
+                        }
+                        .toTypedArray()
+                )
+
+            // Add categories and attributes
+            productService.addCategories(
+                product = edited,
+                categories = categories
+                    .map { chip ->
+                        chip.tag
+                    }
+            )
+
+            productService.inactivateAttributes(
+                product = edited,
+                inactive = inactive,
+                active = attributes
+                    .map { chip ->
+                        chip.tag
+                    }
+            )
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
-
             RedirectView("/web/seller/products/$id/edit")
         } else {
             redirectAttributes.addFlashAttribute("error", flashSuccess(productId = id))
-
             RedirectView("/web/seller/products/$id/edit")
         }
     }
@@ -156,7 +256,7 @@ class ProductController(
         val product: Product = productService.find(id)
 
         return if(auth != null && auth.id == product.user?.id){
-            val edited = productService.update(
+            productService.update(
                 id = id,
                 user = auth,
                 name = product.name,
@@ -192,9 +292,12 @@ class ProductController(
         return if(auth != null && auth.id == product.user?.id){
 
             // Add tags to product
-            tags.forEach { tagsChip: ChipDTO ->
-                //TODO associate tag & product
-            }
+            productService.addTags(
+                product = product,
+                tags = tags.map { chip ->
+                    chip.tag
+                }
+            )
 
             // Remove previous images
             product.images.map { image: ProductImage ->
@@ -233,9 +336,12 @@ class ProductController(
         return if(auth != null && auth.id == product.user?.id){
 
             // Add tags to product
-            certifications.forEach { certificationsChip: ChipDTO ->
-                //TODO associate tag & product
-            }
+            productService.addCertifications(
+                product = product,
+                certifications = certifications.map { chip ->
+                    chip.tag
+                }
+            )
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
 
@@ -245,6 +351,18 @@ class ProductController(
 
             RedirectView("/web/seller/products/$id/edit")
         }
+    }
+
+    @GetMapping("/{id}/favorite")
+    fun favorite(@PathVariable id: String): ResponseEntity<String> {
+        val auth: User? = getAuthUser()
+
+        productService.favorite(
+            id = id,
+            user = auth !!
+        )
+
+        return ResponseEntity.ok("OK")
     }
 
     @PostMapping("/{id}/categories")

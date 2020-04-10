@@ -1,8 +1,8 @@
 package com.entremp.core.entremp.model.user
 
-import com.entremp.core.entremp.api.user.UserRegistrationDTO
 import com.entremp.core.entremp.model.chat.Chat
 import com.entremp.core.entremp.model.pricing.Pricing
+import com.entremp.core.entremp.model.product.FavoriteProduct
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.review.Review
 import com.fasterxml.jackson.annotation.JsonIgnore
@@ -45,7 +45,22 @@ data class User(
         @OneToMany(mappedBy = "user")
         @JsonManagedReference
         @EqualsAndHashCode.Exclude
+        val images: List<UserImage> = emptyList(),
+
+        @OneToMany(mappedBy = "user")
+        @JsonManagedReference
+        @EqualsAndHashCode.Exclude
+        val addresses: List<UserAddress> = emptyList(),
+
+        @OneToMany(mappedBy = "user")
+        @JsonManagedReference
+        @EqualsAndHashCode.Exclude
         val products: List<Product> = emptyList(),
+
+        @OneToMany(mappedBy = "user")
+        @JsonManagedReference
+        @EqualsAndHashCode.Exclude
+        val favoriteProducts: List<FavoriteProduct> = emptyList(),
 
         @OneToMany(mappedBy = "buyer")
         @JsonManagedReference

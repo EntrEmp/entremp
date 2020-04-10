@@ -1,21 +1,30 @@
 package com.entremp.core.entremp.service
 
+import com.entremp.core.entremp.api.user.EditUserDataDTO
+import com.entremp.core.entremp.api.user.EditUserPasswordDTO
+import com.entremp.core.entremp.api.user.UserAddressDTO
 import com.entremp.core.entremp.data.user.CertificationRepository
+import com.entremp.core.entremp.data.user.UserAddressRepository
+import com.entremp.core.entremp.data.user.UserImageRepository
 import com.entremp.core.entremp.data.user.UsersRepository
 import com.entremp.core.entremp.model.user.Certification
 import com.entremp.core.entremp.model.user.User
-import com.entremp.core.entremp.support.storage.FileStorageService
+import com.entremp.core.entremp.model.user.UserAddress
+import com.entremp.core.entremp.model.user.UserImage
 import com.entremp.core.entremp.support.JavaSupport.extension
 
 import com.entremp.core.entremp.support.JavaSupport.unwrap
+import com.entremp.core.entremp.support.storage.S3FileStorageService
 import org.springframework.web.multipart.MultipartFile
 import java.net.URL
 import java.util.*
 
 class UserService(
         private val usersRepository: UsersRepository,
+        private val userAddressRepository: UserAddressRepository,
         private val certificationRepository: CertificationRepository,
-        private val fileStorageService: FileStorageService
+        private val userImageRepository: UserImageRepository,
+        private val fileStorageService: S3FileStorageService
 ) {
 
     fun getAll(): Iterable<User>{
@@ -23,13 +32,112 @@ class UserService(
     }
 
     fun register(email: String, password: String): User {
-        return usersRepository.save(
-                User(
-                        email = email,
-                        passwd = password,
-                        token = UUID.randomUUID().toString()
-                )
+        val user: User = usersRepository.save(
+            User(
+                email = email,
+                passwd = password,
+                token = UUID.randomUUID().toString()
+            )
         )
+
+        return user
+
+    }
+
+    fun updateData(
+        id: String,
+        data: EditUserDataDTO
+    ): User {
+
+        val stored: User? = usersRepository.findById(id).unwrap()
+
+        if(stored != null){
+            val user: User = stored.copy(
+                name = data.name,
+                phone = data.phone,
+                cuit = data.cuit
+            )
+
+            return usersRepository.save(user)
+        } else {
+            throw RuntimeException("User not found for id $id")
+        }
+    }
+
+    fun updatePassword(
+        id: String,
+        encoded: String
+    ): User {
+
+        val stored: User? = usersRepository.findById(id).unwrap()
+
+        if(stored != null){
+            val user: User = stored.copy(
+                passwd = encoded
+            )
+
+            return usersRepository.save(user)
+        } else {
+            throw RuntimeException("User not found for id $id")
+        }
+
+    }
+
+    fun addAddress(
+        id: String,
+        data: UserAddressDTO
+    ) {
+        val stored: User? = usersRepository.findById(id).unwrap()
+
+        if(stored != null){
+            // TODO check values to be stored
+            userAddressRepository.save(
+                UserAddress(
+                    user = stored,
+                    address = "${data.street} ${data.number}",
+                    state = data.state,
+                    locality = data.town
+                )
+            )
+        } else {
+            throw RuntimeException("User not found for id $id")
+        }
+    }
+
+    fun editAddress(
+        id: String,
+        addressId: String,
+        data: UserAddressDTO
+    ) {
+        val stored: User? = usersRepository.findById(id).unwrap()
+        val address: UserAddress? = userAddressRepository.findById(addressId).unwrap()
+
+        if(stored != null && address != null){
+            // TODO check values to be stored
+            userAddressRepository.save(
+                address.copy(
+                    user = stored,
+                    address = "${data.street} ${data.number}",
+                    state = data.state,
+                    locality = data.town
+                )
+            )
+        } else {
+            throw RuntimeException("User not found for id $id")
+        }
+    }
+
+    fun removeAddress(
+        id: String,
+        userAddressId: String
+    ) {
+        val user: User? = usersRepository.findById(id).unwrap()
+        val address: UserAddress? = userAddressRepository.findById(userAddressId).unwrap()
+
+        if(user != null && address != null){
+            userAddressRepository.deleteById(userAddressId)
+        }
+
     }
 
     fun updateUserData(
@@ -46,6 +154,13 @@ class UserService(
                     cuit = cuit,
                     address = address,
                     phone = phone
+            )
+
+            userAddressRepository.save(
+                UserAddress(
+                    user = user,
+                    address =  address
+                )
             )
 
             return usersRepository.save(user)
@@ -99,8 +214,46 @@ class UserService(
     }
 
     fun removeCertification(certificationId: String){
-        // TODO remove image from file storage server
         certificationRepository.deleteById(certificationId)
+        fileStorageService.remove("$certificationId.pdf")
+    }
+
+    fun addImage(
+        id: String,
+        file: MultipartFile
+    ) {
+        val user: User? = usersRepository
+            .findById(id)
+            .unwrap()
+
+        if(user != null) {
+
+            user.images.forEach { image ->
+                userImageRepository.deleteById(image.id!!)
+            }
+
+            val storable = UserImage(
+                user = user,
+                fileLocation = ""
+            )
+            val image: UserImage = userImageRepository.save(storable)
+
+            val extension : String? = file.extension()
+            val fileName = "${image.id}.$extension"
+            val url: URL = fileStorageService.store(file, fileName)
+
+            userImageRepository.save(
+                image.copy(fileLocation = url.toString())
+            )
+
+        } else {
+            throw RuntimeException("Product not found for id $id")
+        }
+    }
+
+    fun removeImage(productImageId: String){
+        userImageRepository.deleteById(productImageId)
+        fileStorageService.remove("$productImageId.jpg")
     }
 
 }

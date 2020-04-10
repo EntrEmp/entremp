@@ -1,6 +1,5 @@
 package com.entremp.core.entremp.model.chat
 
-import com.entremp.core.entremp.model.user.User
 import com.fasterxml.jackson.annotation.JsonBackReference
 import lombok.EqualsAndHashCode
 import org.hibernate.annotations.GenericGenerator
@@ -21,15 +20,11 @@ data class Message(
         @JsonBackReference
         val chat: Chat? = null,
 
-        @ManyToOne
-        @JoinColumn(name="sender_id")
-        val sender: User? = null,
-
-        @ManyToOne
-        @JoinColumn(name="receiver_id")
-        val receiver: User? = null,
-
         val message: String,
+
+        val sender: String,
+
+        val role: String,
 
         val sent: DateTime = DateTime.now(DateTimeZone.UTC),
 

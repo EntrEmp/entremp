@@ -1,5 +1,6 @@
 package com.entremp.core.entremp.controllers.pricing
 
+import com.entremp.core.entremp.api.pricing.CreatePricingDTO
 import com.entremp.core.entremp.api.pricing.PricingDTO
 import com.entremp.core.entremp.controllers.Authenticated
 import com.entremp.core.entremp.model.pricing.Pricing
@@ -9,6 +10,8 @@ import com.entremp.core.entremp.service.PricingService
 import com.entremp.core.entremp.service.ProductService
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import org.springframework.web.servlet.view.RedirectView
 
 @RestController
 @RequestMapping("/pricings")
@@ -22,20 +25,37 @@ class PricingController(
     }
 
     @PostMapping
-    fun save(@RequestBody input: PricingDTO): Pricing {
+    fun save(@ModelAttribute storable: CreatePricingDTO,
+             @RequestParam attachments: Array<MultipartFile> = emptyArray(),
+             redirectAttributes: RedirectAttributes
+    ): RedirectView {
         val auth: User? = getAuthUser()
 
         if(auth != null) {
-            val product: Product = productService.find(input.productId)
+            val product: Product = productService.find(storable.productId)
 
-            return pricingService.save(
-                    buyer = auth,
-                    product = product,
-                    quantity = input.quantity,
-                    specifications = input.specifications,
-                    sample = input.sample,
-                    deliveryTerm = input.deliveryTerm
+            val pricing: Pricing = pricingService.save(
+                buyer = auth,
+                product = product,
+                quantity = storable.quantity,
+                specifications = storable.specifications,
+                sample = storable.sample,
+                deliveryTerm = storable.deliveryTerm
             )
+
+            // Save product loaded images
+            attachments.map { image: MultipartFile ->
+                pricingService.addAttachement(
+                    id = pricing.id!!,
+                    file = image
+                )
+            }
+
+            val id: String = pricing.id !!
+
+            redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
+
+            return RedirectView("/web/buyer/pricings/$id")
         } else {
             throw RuntimeException("Operation not allowed")
         }
@@ -82,4 +102,16 @@ class PricingController(
         pricingService.removettachement(attachementId)
     }
 
+
+    private fun flashSuccess(productId: String): String =
+        """
+            <div class="col s12">
+                <div class="card teal">
+                    <div class="card-content white-text">
+                        <h7>Tu producto se creo correctamente!</h7>
+                        <h7>ID $productId</h7>
+                    </div>
+                </div>
+            </div>
+        """.trimIndent()
 }

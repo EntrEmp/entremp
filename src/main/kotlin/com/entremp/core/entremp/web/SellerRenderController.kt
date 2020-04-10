@@ -1,12 +1,30 @@
 package com.entremp.core.entremp.web
 
-import com.entremp.core.entremp.model.Attribute
+import com.entremp.core.entremp.api.chat.MessagePreviewDTO
+import com.entremp.core.entremp.api.chat.ShowMessageDTO
+import com.entremp.core.entremp.api.product.ProductFilterDTO
+import com.entremp.core.entremp.controllers.Authenticated
+import com.entremp.core.entremp.data.AttributesRepository
+import com.entremp.core.entremp.data.CategoriesRepository
+import com.entremp.core.entremp.data.CertificationTagsRepository
+import com.entremp.core.entremp.data.TagsRepository
+import com.entremp.core.entremp.model.*
+import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.user.Certification
+import com.entremp.core.entremp.model.user.User
+import com.entremp.core.entremp.service.ChatService
+import com.entremp.core.entremp.service.PricingService
 import com.entremp.core.entremp.service.ProductService
+import com.entremp.core.entremp.service.UserService
+import com.entremp.core.entremp.support.ObjectMapperFactory
 import com.entremp.core.entremp.support.templates.TemplateBuilder
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.mustachejava.DefaultMustacheFactory
 import com.github.mustachejava.MustacheFactory
+import org.apache.commons.codec.binary.Base64
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
@@ -16,15 +34,43 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.servlet.ModelAndView
 import java.util.jar.Attributes
+import javax.servlet.http.Cookie
+import javax.servlet.http.HttpServletRequest
 
 @Controller
 @RequestMapping("/web/seller")
 class SellerRenderController(
-    private val productService: ProductService
-) {
+    private val userService: UserService,
+    private val productService: ProductService,
+    private val pricingService: PricingService,
+    private val tagsRepository: TagsRepository,
+    private val certificationTagsRepository: CertificationTagsRepository,
+    private val chatService: ChatService,
+    private val categoriesRepository: CategoriesRepository,
+    private val attributesRepository: AttributesRepository
+): Authenticated {
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
     private val factory: MustacheFactory = DefaultMustacheFactory()
+
+    private val mapper: ObjectMapper = ObjectMapperFactory.camelCaseMapper
+
+    private val categories: List<Category> = categoriesRepository
+        .findAll()
+        .toList()
+
+    private val attributes: List<Attribute> = attributesRepository
+        .findAll()
+        .toList()
+
+    val certifications: List<CertificationTag> = certificationTagsRepository
+        .findAll()
+        .toList()
+
+    val tags: List<Tag> = tagsRepository
+        .findAll()
+        .toList()
+
 
     /**
      * Home Routes
@@ -35,25 +81,15 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun home(): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
-
-        val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications
-        )
-
-        val body = template(
-            resource = "templates/common/home.mustache",
-            data = data
-        )
+        val body = template(resource = "templates/common/home.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
             .addObject("footer", "")
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("attributes", attributes)
     }
 
     /**
@@ -64,18 +100,14 @@ class SellerRenderController(
         method = [RequestMethod.GET],
         produces = [MediaType.TEXT_HTML_VALUE]
     )
-    fun products(): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
+    fun products(request: HttpServletRequest): ModelAndView {
+        val authenticated: User? = getAuthUser()
 
-        val products: List<Product> = productService.getAll().toList()
+        val filter: ProductFilterDTO? = productSearchFilter(request)
+
+        val products: List<Product> = productService.findByUser(authenticated!!)
 
         val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications,
-
             "products" to products
         )
 
@@ -85,9 +117,14 @@ class SellerRenderController(
         )
 
         return ModelAndView("common/general")
-            .addObject("header", header())
+            .addObject("header", header(filter?.criteria))
             .addObject("body", body)
             .addObject("footer", "")
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("attributes", attributes)
+            .addObject("categories", categories)
+
     }
 
     @RequestMapping(
@@ -96,30 +133,11 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun createProduct(): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
-
         val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications,
-
-            "attributes" to listOf(
-                Attribute(name = "Apple"),
-                Attribute(name = "Microsoft"),
-                Attribute(name = "Google")
-            ),
-            "tags" to listOf(
-                Attribute(name = "Apple"),
-                Attribute(name = "Microsoft"),
-                Attribute(name = "Google")
-            ),
-            "certifications" to listOf(
-                Certification(name = "ISO 9001", fileLocation = ""),
-                Certification(name = "ISO 14023", fileLocation = "")
-            )
-
+            "categories" to categories,
+            "attributes" to attributes,
+            "tags" to tags,
+            "certifications" to certifications
         )
 
         val body = template(
@@ -136,6 +154,11 @@ class SellerRenderController(
             .addObject("header", header())
             .addObject("body", body)
             .addObject("footer", footer)
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("attributes", attributes)
+            .addObject("categories", categories)
+
     }
 
     @RequestMapping(
@@ -144,19 +167,11 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun showProduct(@PathVariable id: String): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
-
         val product: Product = productService.find(id)
 
         val address: String = product.user?.address ?: ""
 
         val data: Map<String, Any> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications,
-
             "id" to product.id!!,
             "name" to product.name,
             "description" to product.description,
@@ -181,6 +196,11 @@ class SellerRenderController(
             .addObject("header", header())
             .addObject("body", body)
             .addObject("footer", footer)
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("attributes", attributes)
+            .addObject("categories", categories)
+
     }
 
     @RequestMapping(
@@ -189,23 +209,9 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun editProduct(@PathVariable id: String): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
-
         val product: Product = productService.find(id)
 
-        val attributes: List<Attribute> = product
-            .productAttributes
-            .mapNotNull { item ->
-                item.attribute
-            }
-
         val data: Map<String, Any> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications,
-
             "id" to product.id!!,
             "name" to product.name,
             "description" to product.description,
@@ -213,16 +219,37 @@ class SellerRenderController(
             "maximum" to product.maximum,
             "batch" to product.batchSize,
             "images" to product.images,
+            "productCategories" to product
+                .productCategories
+                .mapNotNull { item ->
+                    item.category
+                },
+
+            "productAttributes" to product
+                .productAttributes
+                .mapNotNull { item ->
+                    item.attribute
+                },
+            "activeAttributes" to product
+                .activeAttributes()
+                .mapNotNull { item ->
+                    item.attribute
+                },
+
+            "productTags" to product
+                .productTags
+                .mapNotNull { item ->
+                    item.tag
+                },
+            "productCertifications" to product
+                .productCertifications
+                .mapNotNull { item ->
+                    item.certification
+                },
+            "categories" to categories,
             "attributes" to attributes,
-            "tags" to listOf(
-                Attribute(name = "Apple"),
-                Attribute(name = "Microsoft"),
-                Attribute(name = "Google")
-            ),
-            "certifications" to listOf(
-                Certification(name = "ISO 9001", fileLocation = ""),
-                Certification(name = "ISO 14023", fileLocation = "")
-            )
+            "tags" to tags,
+            "certifications" to certifications
         )
 
         val body = template(
@@ -239,6 +266,11 @@ class SellerRenderController(
             .addObject("header", header())
             .addObject("body", body)
             .addObject("footer", footer)
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("attributes", attributes)
+            .addObject("categories", categories)
+
     }
 
     /**
@@ -250,14 +282,18 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun pricings(): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
+        val pricings: List<Pricing> = pricingService
+            .getActiveByProvider(
+                provider = getAuthUser() !!
+            )
+            .toList()
 
         val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications
+            "categories" to categories,
+            "attributes" to attributes,
+            "tags" to tags,
+            "certifications" to certifications,
+            "pricings" to pricings
         )
 
         val body = template(
@@ -265,37 +301,21 @@ class SellerRenderController(
             data = data
         )
 
-        return ModelAndView("common/general")
-            .addObject("header", header())
-            .addObject("body", body)
-            .addObject("footer", "")
-    }
-
-    @RequestMapping(
-        "/pricings/favorites",
-        method = [RequestMethod.GET],
-        produces = [MediaType.TEXT_HTML_VALUE]
-    )
-    fun favoritePricings(): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
-
-        val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications
-        )
-
-        val body = template(
-            resource = "templates/pricings/favorites.mustache",
+        val footer = template(
+            resource = "templates/pricings/seller/index-footer.mustache",
             data = data
         )
 
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
-            .addObject("footer", "")
+            .addObject("footer", footer)
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("attributes", attributes)
+            .addObject("categories", categories)
+
+
     }
 
     @RequestMapping(
@@ -304,25 +324,38 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun pricingsHistory(): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
+        val pricings: List<Pricing> = pricingService
+            .getHistoryByProvider(
+                provider = getAuthUser() !!
+            )
+            .toList()
 
         val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications
+            "categories" to categories,
+            "attributes" to attributes,
+            "tags" to tags,
+            "certifications" to certifications,
+            "pricings" to pricings
         )
 
         val body = template(
-            resource = "templates/pricings/history.mustache",
+            resource = "templates/pricings/seller/history.mustache",
+            data = data
+        )
+
+        val footer = template(
+            resource = "templates/pricings/seller/history-footer.mustache",
             data = data
         )
 
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
-            .addObject("footer", "")
+            .addObject("footer", footer)
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("categories", categories)
+            .addObject("attributes", attributes)
     }
 
     @RequestMapping(
@@ -331,25 +364,54 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun showPricing(@PathVariable id: String): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
+        val pricing: Pricing = pricingService.find(id)
+
+        val deliveryTerm: String = when(pricing.deliveryTerm){
+            DeliveryTerm.IN_15_DAYS ->
+                "15 dias"
+            DeliveryTerm.IN_30_DAYS ->
+                "30 dias"
+            DeliveryTerm.IN_45_DAYS ->
+                "45 dias"
+        }
+
+        val sample: String =
+            if(pricing.sample){
+                "SI"
+            } else {
+                "NO"
+            }
 
         val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications
+            "categories" to categories,
+            "attributes" to attributes,
+            "tags" to tags,
+            "certifications" to certifications,
+            "pricing" to pricing,
+            "deliveryTerm" to deliveryTerm,
+            "sample" to sample
         )
 
+
         val body = template(
-            resource = "templates/pricings/show.mustache",
+            resource = "templates/pricings/seller/show.mustache",
+            data = data
+        )
+
+        val footer = template(
+            resource = "templates/pricings/seller/show-footer.mustache",
             data = data
         )
 
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
-            .addObject("footer", "")
+            .addObject("footer", footer)
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("categories", categories)
+            .addObject("attributes", attributes)
+
     }
 
     /**
@@ -361,14 +423,20 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun showProfile(@PathVariable id: String): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
+        val user: User? = userService.find(id)
+        val image: String = user?.images
+            ?.firstOrNull()
+            ?.s3Link()
+            ?: "/images/profile/user.png"
 
         val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications
+            "id" to id,
+            "name" to user?.name,
+            "mail" to user?.email,
+            "phone" to user?.phone,
+            "cuit" to user?.cuit,
+            "image" to image,
+            "addresses" to user?.addresses
         )
 
         val body = template(
@@ -376,10 +444,20 @@ class SellerRenderController(
             data = data
         )
 
+        val footer = template(
+            resource = "templates/user/seller/show-footer.mustache",
+            data = data
+        )
+
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
-            .addObject("footer", "")
+            .addObject("footer", footer)
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("categories", categories)
+            .addObject("attributes", attributes)
+
     }
 
     @RequestMapping(
@@ -388,14 +466,25 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun createProfile(@PathVariable id: String): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
+        val user: User? = userService.find(id)
+        val image: String = user?.images
+            ?.firstOrNull()
+            ?.s3Link()
+            ?: "/images/profile/rock.png"
 
         val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications
+            "userId" to id,
+            "name" to user?.name,
+            "mail" to user?.email,
+            "phone" to user?.phone,
+            "cuit" to user?.cuit,
+            "image" to image,
+            "addresses" to user?.addresses
+        )
+
+        val footer = template(
+            resource = "templates/user/seller/edit-footer.mustache",
+            data = data
         )
 
         val body = template(
@@ -406,7 +495,12 @@ class SellerRenderController(
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
-            .addObject("footer", "")
+            .addObject("footer", footer)
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("categories", categories)
+            .addObject("attributes", attributes)
+
     }
 
     /**
@@ -418,26 +512,133 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun messages(): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
+        val auth: User? = getAuthUser()
 
-        val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications
+        val chats: List<MessagePreviewDTO> = chatService.findChats(
+            user = auth!!,
+            role = "seller"
+        ).map { chat ->
+            val preview: String = chat
+                .getLastMessage()
+                .let { message ->
+                    message
+                        ?.message
+                        ?: ""
+                }
+
+            MessagePreviewDTO(
+                name = chat.provider!!.name,
+                date = chat
+                    .getLastMessage()
+                    .let { message ->
+                        message
+                            ?.sent
+                            ?: DateTime.now(DateTimeZone.UTC)
+                    }
+                    .toString("dd/MM/yyyy"),
+                message = "$preview...",
+                chatId = chat.id!!,
+                role = "seller"
+            )
+        }
+
+        val data: Map<String,Any> = mapOf(
+            "role" to "seller",
+            "chats" to chats
         )
 
         val body = template(
             resource = "templates/messages/index.mustache",
+            data = data)
+
+        return ModelAndView("common/general")
+            .addObject("header", header())
+            .addObject("body", body)
+            .addObject("footer", "")
+            .addObject("tags", tags)
+    }
+
+    /**
+     * Messages Routes
+     */
+    @RequestMapping(
+        "/messages/{id}",
+        method = [RequestMethod.GET],
+        produces = [MediaType.TEXT_HTML_VALUE]
+    )
+    fun showChat(@PathVariable id: String): ModelAndView {
+        val auth: User? = getAuthUser()
+        val role: String = "seller"
+
+        val chats: List<MessagePreviewDTO> = chatService.findChats(
+            user = auth!!,
+            role = role
+        ).map { chat ->
+            val preview: String = chat
+                .getLastMessage()
+                .let { message ->
+                    message
+                        ?.message
+                        ?: ""
+                }
+
+            MessagePreviewDTO(
+                name = chat.provider!!.name,
+                date = chat
+                    .getLastMessage()
+                    .let { message ->
+                        message
+                            ?.sent
+                            ?: DateTime.now(DateTimeZone.UTC)
+                    }
+                    .toString("dd/MM/yyyy"),
+                message =
+                if(preview.isEmpty()){
+                    preview
+                } else {
+                    "$preview..."
+                },
+                chatId = chat.id!!,
+                role = role
+            )
+        }
+
+        val messages: List<ShowMessageDTO> = chatService
+            .getMessages(id)
+            .map { message ->
+                ShowMessageDTO(
+                    message = message.message,
+                    styleClass = if(role == message.role){
+                        "chat-question"
+                    } else {
+                        "chat-answers"
+                    }
+                )
+            }
+
+        val data: Map<String,Any> = mapOf(
+            "role" to role,
+            "chatId" to id,
+            "chats" to chats,
+            "messages" to messages
+        )
+
+        val body = template(
+            resource = "templates/messages/show.mustache",
+            data = data)
+
+        val footer = template(
+            resource = "templates/messages/show-footer.mustache",
             data = data
         )
 
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
-            .addObject("footer", "")
+            .addObject("footer", footer)
+            .addObject("tags", tags)
     }
+
 
     @RequestMapping(
         "/chatbox",
@@ -445,22 +646,16 @@ class SellerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun chatbox(): ModelAndView {
-        val newAttributes: List<Attributes> = listOf()
-        val newTags: List<Attributes> = listOf()
-        val newCertifications: List<Certification> = listOf()
-
-        val data: Map<String, Any?> = mapOf(
-            "newTags" to newTags,
-            "newAttributes" to newAttributes,
-            "newCertifications" to newCertifications
-        )
-
         val body = template("templates/messages/chatbox.mustache")
 
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
             .addObject("footer", "")
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("attributes", attributes)
+
     }
 
     /**
@@ -483,9 +678,15 @@ class SellerRenderController(
         return ModelAndView("modals")
     }
 
-    private fun header(): String = TemplateBuilder(
+    private fun header(searchCriteria: String? = null): String = TemplateBuilder(
         templateName = "templates/common/header/seller/logged.mustache",
         factory = factory)
+        .data(
+            mapOf(
+                "loggedId" to getAuthUser()?.id,
+                "searchCriteria" to searchCriteria
+            )
+        )
         .build()
 
     private fun template(resource: String): String {
@@ -503,5 +704,29 @@ class SellerRenderController(
             .data(data)
             .build()
     }
+
+    private fun productSearchFilter(request: HttpServletRequest): ProductFilterDTO? =
+        readCookie(request, "searchFilter")
+            .let { cookie ->
+                if(cookie == null){
+                    null
+                } else {
+                    mapper.readValue(
+                        String(
+                            Base64.decodeBase64(
+                                cookie.value
+                            )
+                        ),
+                        ProductFilterDTO::class.java
+                    )
+                }
+            }
+
+    private fun readCookie(request: HttpServletRequest,
+                           key: String): Cookie? =
+        request.cookies
+            .find { cookie ->
+                cookie.name == key
+            }
 
 }

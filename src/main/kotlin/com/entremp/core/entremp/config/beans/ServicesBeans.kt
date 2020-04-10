@@ -1,30 +1,49 @@
 package com.entremp.core.entremp.config.beans
 
-import com.entremp.core.entremp.service.BudgetService
-import com.entremp.core.entremp.service.PricingService
-import com.entremp.core.entremp.service.ProductService
-import com.entremp.core.entremp.service.UserService
+import com.entremp.core.entremp.service.*
+import com.entremp.core.entremp.support.storage.AwsConfig
+import com.entremp.core.entremp.support.storage.S3FileStorageService
 import org.springframework.context.support.BeanDefinitionDsl
 
 object ServicesBeans {
 
     fun beans(): BeanDefinitionDsl = org.springframework.context.support.beans {
         bean {
+            val config: AwsConfig = ref()
+            S3FileStorageService(
+                config = config
+            )
+        }
+        bean {
             UserService(
-                    usersRepository = ref(),
-                    certificationRepository = ref(),
-                    fileStorageService = ref()
+                usersRepository = ref(),
+                userAddressRepository = ref(),
+                userImageRepository = ref(),
+                certificationRepository = ref(),
+                fileStorageService = ref()
             )
         }
 
         bean {
             ProductService(
-                    productsRepository = ref(),
-                    categoriesRepository = ref(),
-                    productCategoriesRepository = ref(),
-                    productAttributeRepository = ref(),
-                    productImageRepository = ref(),
-                    fileStorageService = ref()
+                productsRepository = ref(),
+
+                favoriteProductRepository = ref(),
+
+                attributeRepository = ref(),
+                categoriesRepository = ref(),
+                productCategoriesRepository = ref(),
+
+                productAttributeRepository = ref(),
+                productImageRepository = ref(),
+
+                tagsRepository = ref(),
+                productTagRepository = ref(),
+
+                certificationTagsRepository = ref(),
+                productCertificationRepository = ref(),
+
+                fileStorageService = ref()
             )
         }
 
@@ -43,6 +62,12 @@ object ServicesBeans {
                     budgetRepository = ref(),
                     budgetAttachementRepository = ref(),
                     fileStorageService = ref()
+            )
+        }
+
+        bean {
+            ChatService(
+                chatRepository = ref()
             )
         }
     }

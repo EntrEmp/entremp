@@ -5,23 +5,24 @@ package com.entremp.core.entremp.service
 import com.entremp.core.entremp.data.budget.BudgetAttachementRepository
 import com.entremp.core.entremp.data.budget.BudgetRepository
 import com.entremp.core.entremp.data.pricing.PricingRepository
-import com.entremp.core.entremp.model.DeliveryTerm
 import com.entremp.core.entremp.model.budget.Budget
 import com.entremp.core.entremp.model.budget.BudgetAttachement
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.user.User
-import com.entremp.core.entremp.support.storage.FileStorageService
-import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.springframework.web.multipart.MultipartFile
 import java.net.URL
 import com.entremp.core.entremp.support.JavaSupport.extension
+import com.entremp.core.entremp.support.storage.S3FileStorageService
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 
+import com.entremp.core.entremp.support.JavaSupport.unwrap
 
 class BudgetService(
         private val pricingRepository: PricingRepository,
         private val budgetRepository: BudgetRepository,
         private val budgetAttachementRepository: BudgetAttachementRepository,
-        private val fileStorageService: FileStorageService
+        private val fileStorageService: S3FileStorageService
 ) {
 
     fun getApplicantBudgets(buyer: User): Iterable<Budget> {
@@ -43,48 +44,71 @@ class BudgetService(
     }
 
     fun save(
-            pricing: Pricing,
-            price: Double,
-            iva: Double,
-            deliveryConditions: String,
-            paymentConditions: String,
-            specifications: String,
-            deliveryTerm: DeliveryTerm
+        pricing: Pricing,
+        price: Double,
+        quantity: Long,
+        iva: Double,
+        total: Double,
+        billing: String,
+        ttl: DateTime,
+        deliveryAfterConfirm: Long
     ): Budget {
 
         return budgetRepository.save(
-                Budget(
-                        pricing = pricing,
-                        price = price,
-                        iva = iva,
-                        deliveryConditions = deliveryConditions,
-                        paymentConditions = paymentConditions,
-                        specifications = specifications,
-                        deliveryTerm = deliveryTerm
-                )
+            Budget(
+                pricing = pricing,
+
+                price = price,
+                quantity = quantity,
+                iva = iva,
+                total = total,
+
+                billing = billing,
+                ttl = ttl,
+                deliveryAfterConfirm = deliveryAfterConfirm
+            )
         )
+    }
+
+    fun confirm(id: String): Budget {
+        val budget: Budget? = budgetRepository.findById(id).unwrap()
+
+        if(budget != null && budget.confirmationDate ==  null){
+            val now: DateTime = DateTime.now(DateTimeZone.UTC)
+            return budgetRepository.save(
+                budget.copy(
+                    confirmationDate = now,
+                    deliveryDate = now.plusDays(budget.deliveryAfterConfirm.toInt())
+                )
+            )
+        } else {
+            throw RuntimeException("Budget not found for id $id")
+        }
     }
 
     fun update(
             id: String,
             price: Double,
+            quantity: Long,
             iva: Double,
-            deliveryConditions: String,
-            paymentConditions: String,
-            specifications: String,
-            deliveryTerm: DeliveryTerm
+            total: Double,
+            billing: String,
+            ttl: DateTime,
+            deliveryAfterConfirm: Long
     ): Budget {
         val budget: Budget? = budgetRepository.findById(id).unwrap()
 
         if(budget != null){
             return budgetRepository.save(
                     budget.copy(
-                            price = price,
-                            iva = iva,
-                            deliveryConditions = deliveryConditions,
-                            paymentConditions = paymentConditions,
-                            specifications = specifications,
-                            deliveryTerm = deliveryTerm
+                        price = price,
+                        quantity = quantity,
+                        iva = iva,
+                        total = total,
+
+                        billing = billing,
+                        ttl = ttl,
+                        deliveryAfterConfirm = deliveryAfterConfirm
                     )
             )
         } else {
@@ -106,7 +130,7 @@ class BudgetService(
         if(budget != null) {
             return budget
         } else {
-            throw RuntimeException("Pricing not found for id $id")
+            throw RuntimeException("Budget not found for id $id")
         }
     }
 
@@ -135,7 +159,7 @@ class BudgetService(
             )
 
         } else {
-            throw RuntimeException("Product not found for id $id")
+            throw RuntimeException("Budget not found for id $id")
         }
     }
 

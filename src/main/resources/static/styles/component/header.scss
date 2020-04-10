@@ -16,6 +16,7 @@
 
   &--input-search{
     @include flex-start;
+    margin: 1.75% !important;
     align-content: center;
     align-items: center;
     position: relative;
@@ -32,7 +33,7 @@
       border-radius: 0 10px 10px 0;
       margin-bottom: 0;
     }
-    span{
+    .header-span{
       position: absolute;
       right: 24px;
       .material-icons{
@@ -68,4 +69,8 @@
 
 .header-seller{
   background-color: $brand-seller;
+}
+
+.btn-seller {
+  background: $brand-seller !important;
 }

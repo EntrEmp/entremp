@@ -3,17 +3,20 @@
     <!--Catalog by Category-->
     <div class="row">
         <div class="home--title">
-            <h3>Muebles</h3>
+            <h3>Catálogo</h3>
         </div>
 
         {{#products}}
-            <div class="col s12 m2">
+            <div class="col s12 m3">
 
                 <div class="card card-products">
 
                     <!--Preview Image-->
                     <div class="card-image card-products--image z-depth-1">
-                        <img alt="Product Preview" class="materialboxed"
+                        <img alt="Product Preview"
+                             class="materialboxed"
+                             width="220"
+                             height="300"
                              src="{{mainImage}}">
                     </div>
 
@@ -26,17 +29,15 @@
 
                     <!--Rank-->
                     <div class="card-products--ranking">
-                        <i class="material-icons">star</i>
-                        <i class="material-icons">star</i>
-                        <i class="material-icons">star</i>
-                        <i class="material-icons">star_border</i>
-                        <i class="material-icons">star_border</i>
+                        {{#stars}}
+                            <i class="material-icons">{{.}}</i>
+                        {{/stars}}
                     </div>
 
                     <!--Description-->
                     <div class="card-products--extra-information">
                         <p>{{description}}</p>
-                        <p>Certificaciones: ISO 9001, ISO 14001</p>
+                        <p>Certificaciones: {{certificationsString}}</p>
                         <p> {{maximum}} productos disponibles</p>
                         <a href="/web/seller/products/{{id}}">Ver detalle</a>
                     </div>
