@@ -2,16 +2,27 @@ package com.entremp.core.entremp.config.beans
 
 import com.entremp.core.entremp.service.*
 import com.entremp.core.entremp.support.storage.AwsConfig
+import com.entremp.core.entremp.support.storage.FileStorageService
 import com.entremp.core.entremp.support.storage.S3FileStorageService
 import org.springframework.context.support.BeanDefinitionDsl
+import java.nio.file.Path
+import java.nio.file.Paths
 
 object ServicesBeans {
 
+    private val storagePath: Path = Paths.get("media")
+
     fun beans(): BeanDefinitionDsl = org.springframework.context.support.beans {
+        bean {
+            FileStorageService(
+                storagePath = storagePath
+            )
+        }
         bean {
             val config: AwsConfig = ref()
             S3FileStorageService(
-                config = config
+                config = config,
+                localStorage = ref()
             )
         }
         bean {

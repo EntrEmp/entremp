@@ -1,5 +1,7 @@
 <div class="login">
     <div class="card-panel z-depth-1 card--login">
+        {{{flashError}}}
+        {{{flashSuccess}}}
 
         <div class="row login--img">
             <div class="col s8 offset-s2">
@@ -7,17 +9,22 @@
             </div>
         </div>
         <div class="row col s12 login--input">
-            <section class="col s12">
-                <h6>Recuperar contraseña!</h6>
-                <p>Escribe la dirección de correo electrónico asociado a tu cuenta 4BZ</p>
-                <div class="col s12">
-                    <label class="col s12" for="email">Correo electrónico</label>
-                    <input type="email" name="email" id="">
-                </div>
-                <div class="col s12">
-                    <button class=" col s12 btn waves-effect waves-light center-align row" type="submit" name="action">Continuar</button>
-                </div>
-            </section>
+            <form id="recover" method="post" action="/recover">
+
+                <section class="col s12">
+                    <h6>Recuperar contraseña!</h6>
+                    <p>Escribe la dirección de correo electrónico asociado a tu cuenta EntrEmp</p>
+                    <div class="col s12">
+                        <label class="col s12" for="email">Correo electrónico</label>
+                        <input type="email" name="email" value="{{mail}}">
+                    </div>
+                    <div class="col s12">
+                        <button class="col s12 btn waves-effect waves-light center-align row"
+                                type="submit" name="action">Continuar</button>
+                    </div>
+                </section>
+
+            </form>
         </div>
 
     </div>

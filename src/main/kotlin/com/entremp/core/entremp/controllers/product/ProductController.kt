@@ -300,16 +300,19 @@ class ProductController(
             )
 
             // Remove previous images
-            product.images.map { image: ProductImage ->
-                productService.removeImage(image.id!!)
+            product
+                .images
+                .map { image: ProductImage ->
+                    productService.removeImage(image.id!!)
             }
 
             // SSave new images
-            images.map { image: MultipartFile ->
-                productService.addImage(
-                    id = product.id!!,
-                    file = image
-                )
+            images
+                .map { image: MultipartFile ->
+                    productService.addImage(
+                        id = product.id!!,
+                        file = image
+                    )
             }
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))

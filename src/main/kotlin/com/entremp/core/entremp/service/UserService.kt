@@ -1,7 +1,6 @@
 package com.entremp.core.entremp.service
 
 import com.entremp.core.entremp.api.user.EditUserDataDTO
-import com.entremp.core.entremp.api.user.EditUserPasswordDTO
 import com.entremp.core.entremp.api.user.UserAddressDTO
 import com.entremp.core.entremp.data.user.CertificationRepository
 import com.entremp.core.entremp.data.user.UserAddressRepository
@@ -16,7 +15,7 @@ import com.entremp.core.entremp.support.JavaSupport.extension
 import com.entremp.core.entremp.support.JavaSupport.unwrap
 import com.entremp.core.entremp.support.storage.S3FileStorageService
 import org.springframework.web.multipart.MultipartFile
-import java.net.URL
+import java.io.File
 import java.util.*
 
 class UserService(
@@ -48,7 +47,6 @@ class UserService(
         id: String,
         data: EditUserDataDTO
     ): User {
-
         val stored: User? = usersRepository.findById(id).unwrap()
 
         if(stored != null){
@@ -68,7 +66,6 @@ class UserService(
         id: String,
         encoded: String
     ): User {
-
         val stored: User? = usersRepository.findById(id).unwrap()
 
         if(stored != null){
@@ -80,7 +77,6 @@ class UserService(
         } else {
             throw RuntimeException("User not found for id $id")
         }
-
     }
 
     fun addAddress(
@@ -197,14 +193,19 @@ class UserService(
                     )
             )
 
-            val extension : String? = file.extension()
-            val fileName = "${certification.id}.$extension"
-
-            val url: URL = fileStorageService.store(file, fileName)
+            val extension : String = file.extension() ?: "pdf"
+            val certificationFile: File = fileStorageService.store(
+                file = file,
+                filename = "${certification.id}",
+                defaultExtension = extension
+            )
 
             return certificationRepository.save(
                     certification.copy(
-                            fileLocation = url.toString()
+                        fileLocation = certificationFile
+                            .toURI()
+                            .toURL()
+                            .toString()
                     )
             )
 
@@ -214,8 +215,16 @@ class UserService(
     }
 
     fun removeCertification(certificationId: String){
-        certificationRepository.deleteById(certificationId)
-        fileStorageService.remove("$certificationId.pdf")
+        val certification: Certification? = certificationRepository
+            .findById(certificationId)
+            .unwrap()
+
+        if(certification != null){
+            certificationRepository.deleteById(certificationId)
+            fileStorageService.remove(
+                filename = certification.filename()
+            )
+        }
     }
 
     fun addImage(
@@ -227,33 +236,42 @@ class UserService(
             .unwrap()
 
         if(user != null) {
-
-            user.images.forEach { image ->
-                userImageRepository.deleteById(image.id!!)
-            }
+            user
+                .images
+                .forEach { image: UserImage ->
+                    userImageRepository.deleteById(image.id!!)
+                    if(image.fileLocation != null){
+                        fileStorageService.remove(
+                            filename = image.filename()
+                        )
+                    }
+                }
 
             val storable = UserImage(
                 user = user,
                 fileLocation = ""
             )
+
             val image: UserImage = userImageRepository.save(storable)
 
-            val extension : String? = file.extension()
-            val fileName = "${image.id}.$extension"
-            val url: URL = fileStorageService.store(file, fileName)
+            val extension : String = file.extension() ?: "jpg"
+            val imageFile: File = fileStorageService.store(
+                file = file,
+                filename = "${image.id}",
+                defaultExtension = extension
+            )
 
             userImageRepository.save(
-                image.copy(fileLocation = url.toString())
+                image.copy(
+                    fileLocation = imageFile
+                        .toURI()
+                        .toURL()
+                        .toString()
+                )
             )
 
         } else {
             throw RuntimeException("Product not found for id $id")
         }
     }
-
-    fun removeImage(productImageId: String){
-        userImageRepository.deleteById(productImageId)
-        fileStorageService.remove("$productImageId.jpg")
-    }
-
 }

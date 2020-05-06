@@ -12,11 +12,10 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
-import java.io.FileOutputStream
-import java.net.URL
 
 class S3FileStorageService(
-    val config: AwsConfig
+    private val config: AwsConfig,
+    private val localStorage: FileStorageService
 ) {
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
@@ -33,36 +32,45 @@ class S3FileStorageService(
         .withRegion(Regions.SA_EAST_1)
         .build()
 
-    fun store(file: MultipartFile, fileName: String?): URL {
+    fun store(file: MultipartFile,
+              filename: String,
+              defaultExtension: String): File {
         createBucketIfNotExist()
 
-
-        val internalFile: File = transferToFile(file, fileName!!)
+        val internal: File = localStorage.store(
+            file,
+            filename,
+            defaultExtension
+        )
 
         val request = PutObjectRequest(
             config.bucketName,
-            fileName,
-            internalFile
+            internal.name,
+            internal
         )
 
         request.cannedAcl = CannedAccessControlList.PublicRead
 
         client.putObject(request)
 
-        if(internalFile.delete()){
-            logger.info("deleted internal file $fileName")
+        if(internal.delete()){
+            logger.info("deleted internal file $internal")
         }
 
-        return internalFile.toURI().toURL()
+        return internal
     }
 
-    fun remove(fileName: String) {
-        val request = DeleteObjectRequest(
-            config.bucketName,
-            fileName
-        )
+    fun remove(filename: String): Unit {
+        try {
+            val request = DeleteObjectRequest(
+                config.bucketName,
+                filename
+            )
 
-        client.deleteObject(request)
+            client.deleteObject(request)
+        } catch(exception: Throwable){
+            logger.error("Could not delete file from AWS S3 for file $filename", exception)
+        }
     }
 
     private fun createBucketIfNotExist(){
@@ -72,13 +80,5 @@ class S3FileStorageService(
             logger.info("Creating S3 bucket ${config.bucketName}")
             client.createBucket(config.bucketName)
         }
-    }
-
-    private fun transferToFile(multipart: MultipartFile, fileName: String): File {
-        val converted = File("media/$fileName")
-        val fos = FileOutputStream(converted)
-        fos.write(multipart.bytes)
-        fos.close()
-        return converted
     }
 }

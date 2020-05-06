@@ -1,7 +1,6 @@
 package com.entremp.core.entremp.controllers.pricing
 
 import com.entremp.core.entremp.api.pricing.CreatePricingDTO
-import com.entremp.core.entremp.api.pricing.PricingDTO
 import com.entremp.core.entremp.controllers.Authenticated
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.product.Product
@@ -99,7 +98,7 @@ class PricingController(
 
     @DeleteMapping("/{id}/attachment/{attachementId}")
     fun removeAttachment(@PathVariable id: String, @PathVariable attachementId: String){
-        pricingService.removettachement(attachementId)
+        pricingService.removeAttachement(attachementId)
     }
 
 

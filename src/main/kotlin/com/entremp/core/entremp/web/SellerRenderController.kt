@@ -11,7 +11,6 @@ import com.entremp.core.entremp.data.TagsRepository
 import com.entremp.core.entremp.model.*
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.product.Product
-import com.entremp.core.entremp.model.user.Certification
 import com.entremp.core.entremp.model.user.User
 import com.entremp.core.entremp.service.ChatService
 import com.entremp.core.entremp.service.PricingService
@@ -33,7 +32,6 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.servlet.ModelAndView
-import java.util.jar.Attributes
 import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 
@@ -637,25 +635,6 @@ class SellerRenderController(
             .addObject("body", body)
             .addObject("footer", footer)
             .addObject("tags", tags)
-    }
-
-
-    @RequestMapping(
-        "/chatbox",
-        method = [RequestMethod.GET],
-        produces = [MediaType.TEXT_HTML_VALUE]
-    )
-    fun chatbox(): ModelAndView {
-        val body = template("templates/messages/chatbox.mustache")
-
-        return ModelAndView("common/general")
-            .addObject("header", header())
-            .addObject("body", body)
-            .addObject("footer", "")
-            .addObject("tags", tags)
-            .addObject("certifications", certifications)
-            .addObject("attributes", attributes)
-
     }
 
     /**

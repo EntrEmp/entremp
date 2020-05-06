@@ -21,4 +21,16 @@ data class BudgetAttachement(
         val budget: Budget? = null,
 
         private val fileLocation: String
-): Fileable(fileLocation)
+): Fileable(fileLocation){
+        fun extension(): String =
+                fileLocation
+                        ?.let {it ->
+                                it.substringAfterLast(".")
+                        }
+                        ?: "jpg"
+
+        fun filename(): String = "$id.${extension()}"
+
+        fun s3Link(): String = "https://entremp.s3-sa-east-1.amazonaws.com/${filename()}"
+
+}

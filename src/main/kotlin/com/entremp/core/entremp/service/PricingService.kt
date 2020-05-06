@@ -1,7 +1,6 @@
 package com.entremp.core.entremp.service
 
 
-
 import com.entremp.core.entremp.data.pricing.PricingAttachementRepository
 import com.entremp.core.entremp.data.pricing.PricingRepository
 import com.entremp.core.entremp.data.sample.SampleRepository
@@ -12,12 +11,13 @@ import com.entremp.core.entremp.model.pricing.PricingStatus
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.sample.Sample
 import com.entremp.core.entremp.model.user.User
-import com.entremp.core.entremp.support.storage.FileStorageService
-import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.springframework.web.multipart.MultipartFile
-import java.net.URL
-import com.entremp.core.entremp.support.JavaSupport.extension
+
 import com.entremp.core.entremp.support.storage.S3FileStorageService
+
+import com.entremp.core.entremp.support.JavaSupport.unwrap
+import com.entremp.core.entremp.support.JavaSupport.extension
+import java.io.File
 
 
 class PricingService(
@@ -183,14 +183,19 @@ class PricingService(
                     )
             )
 
-            val extension : String? = file.extension()
-            val fileName = "${attachement.id}.$extension"
-            val url: URL = fileStorageService.store(file, fileName)
-
+            val extension : String = file.extension() ?: "jpg"
+            val attachementFile: File = fileStorageService.store(
+                file = file,
+                filename = "${attachement.id}",
+                defaultExtension = extension
+            )
             pricingAttachementRepository.save(
-                    attachement.copy(
-                            fileLocation = url.toString()
-                    )
+                attachement.copy(
+                    fileLocation = attachementFile
+                        .toURI()
+                        .toURL()
+                        .toString()
+                )
             )
 
         } else {
@@ -198,9 +203,17 @@ class PricingService(
         }
     }
 
-    fun removettachement(productAttachementId: String){
-        // TODO remove image from file storage server
-        pricingAttachementRepository.deleteById(productAttachementId)
+    fun removeAttachement(attachementId: String){
+        val attachement: PricingAttachement? = pricingAttachementRepository
+            .findById(attachementId)
+            .unwrap()
+
+        if(attachement != null) {
+            pricingAttachementRepository.deleteById(attachementId)
+            fileStorageService.remove(
+                filename = attachement.filename()
+            )
+        }
     }
 
     private fun sampleRequested(old: Boolean, new: Boolean): Boolean {

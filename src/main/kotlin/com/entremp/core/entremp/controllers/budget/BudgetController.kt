@@ -22,14 +22,16 @@ import com.entremp.core.entremp.model.user.User
 import com.entremp.core.entremp.service.BudgetService
 import com.entremp.core.entremp.service.PricingService
 import com.entremp.core.entremp.support.storage.FileStorageService
-import com.entremp.core.entremp.support.JavaSupport.extension
-import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import org.springframework.web.servlet.view.RedirectView
 import java.net.URL
 import java.util.*
+
+import com.entremp.core.entremp.support.JavaSupport.extension
+import com.entremp.core.entremp.support.JavaSupport.unwrap
+import java.io.File
 
 @RestController
 @RequestMapping("/budgets")
@@ -236,14 +238,20 @@ class BudgetController(
         )
 
         if (budget != null) {
-            val extension : String? = file.extension()
-            val fileName = "${image.id}.$extension"
-            val url: URL = fileStorageService.store(file, fileName)
+            val extension : String = file.extension() ?: "pdf"
+            val storedFile: File = fileStorageService.store(
+                file = file,
+                filename = "${image.id}",
+                defaultExtension = extension
+            )
 
             val budgetImage = BudgetAttachement(
-                    id = image.id,
-                    budget = budget,
-                    fileLocation = url.toString()
+                id = image.id,
+                budget = budget,
+                fileLocation = storedFile
+                    .toURI()
+                    .toURL()
+                    .toString()
             )
 
             budgetAttachementRepository.save(budgetImage)

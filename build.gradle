@@ -106,7 +106,12 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:${property('kotlin.version')}"
 	compile "org.jetbrains.kotlin:kotlin-reflect:${property('kotlin.version')}"
 
-	testCompile "junit:junit:${property('junit.version')}"
+    // Apache
+    compile "org.apache.commons:commons-io:${property('apache-commons-io.version')}"
+
+
+    testCompile "junit:junit:${property('junit.version')}"
+	testCompile "org.mockito:mockito-all:${property('mockito.version')}"
 	testCompile "org.springframework.boot:spring-boot-starter-test"
 	testCompile "org.jetbrains.kotlin:kotlin-test-junit:${property('kotlin.version')}"
 }

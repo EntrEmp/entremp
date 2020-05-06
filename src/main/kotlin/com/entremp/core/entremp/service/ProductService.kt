@@ -15,11 +15,11 @@ import com.entremp.core.entremp.support.JavaSupport.extension
 
 import com.entremp.core.entremp.support.storage.S3FileStorageService
 import org.springframework.web.multipart.MultipartFile
-import java.net.URL
 
 import com.entremp.core.entremp.support.JavaSupport.unwrap
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import java.io.File
 
 class ProductService(
         private val productsRepository: ProductsRepository,
@@ -262,12 +262,20 @@ class ProductService(
             )
             val image: ProductImage = productImageRepository.save(storable)
 
-            val extension : String? = file.extension()
-            val fileName = "${image.id}.$extension"
-            val url: URL = fileStorageService.store(file, fileName)
+            val extension : String = file.extension() ?: "jpg"
+            val imageFile: File = fileStorageService.store(
+                    file = file,
+                    filename = "${image.id}",
+                    defaultExtension = extension
+                )
 
             productImageRepository.save(
-                image.copy(fileLocation = url.toString())
+                image.copy(
+                    fileLocation = imageFile
+                        .toURI()
+                        .toURL()
+                        .toString()
+                )
             )
 
         } else {
@@ -276,8 +284,16 @@ class ProductService(
     }
 
     fun removeImage(productImageId: String){
-        productImageRepository.deleteById(productImageId)
-        fileStorageService.remove("$productImageId.jpg")
+        val image: ProductImage? = productImageRepository
+            .findById(productImageId)
+            .unwrap()
+
+        if(image != null){
+            productImageRepository.deleteById(productImageId)
+            fileStorageService.remove(
+                filename = image.filename()
+            )
+        }
     }
 
     fun addTags(product: Product, tags: List<String>) {

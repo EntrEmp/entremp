@@ -32,52 +32,193 @@ class EntrEmpApp {
 		)
 
 		val categories = mapOf(
-			"Agriculture, Forestry, Fishing and Hunting" to listOf(
-				"Crop Production",
-				"Animal Production",
-				"Forestry and Logging",
-				"Fishing, Hunting and Trapping",
-				"Support Activities for Agriculture and Forestry"
+			"Insumos agricolas" to listOf(
+				"Semillas e hibridos",
+				"Proteccion de cultivos",
+				"Fertilizantes",
+				"Otros Insumos agricolas",
+				"Insumos para agricultura de precision",
+				"Otros insumos agricolas"
 			),
 
-			"Mining, Quarrying, and Oil and Gas Extraction" to listOf(
-				"Oil and Gas Extraction",
-				"Mining (except Oil and Gas)",
-				"Support Activities for Mining"
+			"Insumos para ganaderia" to listOf(
+				"Insumos veterinarios",
+				"Nutricion animal",
+				"Reproduccion y geneticas",
+				"Otros insumos para ganaderia"
 			),
 
-			"Construction" to listOf(
-				"Construction of Buildings",
-				"Heavy and Civil Engineering Construction",
-				"Specialty Trade Contractors"
+			"Maquinaria agricola" to listOf(
+				"Implementos agricolas",
+				"Herramientas de labranza",
+				"Equipamiento forrajero",
+				"Otro equipamiento",
+				"Transporte de Productos",
+				"Maquinaria Frutihorticola"
 			),
 
-			"Manufacturing" to listOf(
-				"Food Manufacturing",
-				"Beverage and Tobacco Product Manufacturing",
-				"Textile Mills",
-				"Textile Product Mills",
-				"Apparel Manufacturing",
-				"Leather and Allied Product Manufacturing",
-				"Wood Product Manufacturing",
-				"Paper Manufacturing",
-				"Printing and Related Support Activities",
-				"Petroleum and Coal Products Manufacturing",
-				"Chemical Manufacturing",
-				"Plastics and Rubber Products Manufacturing",
-				"Nonmetallic Mineral Product Manufacturing",
-				"Primary Metal Manufacturing",
-				"Fabricated Metal Product Manufacturing",
-				"Machinery Manufacturing",
-				"Computer and Electronic Product Manufacturing",
-				"Electrical Equipment, Appliance, and Component Manufacturing",
-				"Transportation Equipment Manufacturing",
-				"Furniture and Related Product Manufacturing",
-				"Miscellaneous Manufacturing"
+			"Maquinaria Pesada" to listOf(
+				"Maquinaria Vial",
+				"Maquinaria ferroviaria",
+				"Otra maquinaria pesada"
 			),
 
-			"Trade, Transportation, and Utilities" to listOf(
-				"Merchant Wholesalers, Durable Goods"
+			"Repuestos Automotor" to listOf(
+				"Neumaticos",
+				"Bujias",
+				"Otros repuestos automor"
+			),
+
+			"Mineria" to listOf(
+				"Exploracion",
+				"Explotacion",
+				"Transporte",
+				"Barras",
+				"Explosivos",
+				"Otros mineri"
+			),
+
+			"Petroleo y gas" to listOf(
+				"Tubing",
+				"Casing",
+				"Sucker Rods",
+				"Perforating Guns",
+				"Tubos de conduccion",
+				"Manometros",
+				"Bombas presurizadoras",
+				"Estaciones de Compresion",
+				"Articulos para terminacion",
+				"Otros petroleo y gas"
+			),
+
+			"Vehiculos y motos" to listOf(
+				"Autos",
+				"Camionetas",
+				"Camiones",
+				"Semiremolques",
+				"Carrocerias",
+				"Acoplados",
+				"Motos",
+				"Otros vehículos y motos"
+			),
+
+			"Construccion" to listOf(
+				"Griferia",
+				"Cemento y complementos",
+				"Aberturas",
+				"Aislamientos",
+				"Escaleras y accesorios",
+				"Hierro y acero",
+				"Ladrillos  y bloques",
+				"Cal",
+				"quimicos",
+				"Morteros",
+				"Techos",
+				"Acopio",
+				"Aridos",
+				"Pintura",
+				"Viguetas",
+				"Baldosones",
+				"Refractarios",
+				"Decoracion",
+				"Refrigeracion",
+				"Otros construccó"
+			),
+
+			"Bienes de consumo" to listOf(
+				"Libreria y oficina",
+				"Alimentos y bebidas",
+				"Otros bienes de consumo"
+			),
+
+			"Electronica e informatica" to listOf(
+				"Camaras y accesorios",
+				"Sensores y actuadores",
+				"Motores DC",
+				"Motores AC",
+				"Microelectronica",
+				"Heladeras",
+				"Electrodomesticos",
+				"Drones",
+				"Robotica",
+				"Radiofrecuencia",
+				"Cableado",
+				"Herramientas electronica",
+				"Telefonia",
+				"Computadoras de escritorio",
+				"Notebooks y netbooks",
+				"Tablets",
+				"PLC",
+				"HIdraulicos",
+				"Neumaticos",
+				"Otros Electrónica e Informática"
+			),
+
+			"Textil" to listOf(
+				"Indumentaria",
+				"Bolsos y mochilas",
+				"Ignifuga",
+				"Estampados",
+				"Calzado",
+				"Tela por pieza",
+				"Accesorios de moda",
+				"Cuero e insumos mayoristas",
+				"Otros textil"
+			),
+
+			"Salud y medicina" to listOf(
+				"Insumos medicos",
+				"Precursores quimicos",
+				"Equipamiento dental",
+				"Equipamiento Optica",
+				"Radiologia",
+				"Traumatologia",
+				"Instrumental quirurgico",
+				"Equipamiento enfermeria",
+				"Suplementos medicinales",
+				"Laboratiorio Medico",
+				"Instrumental emergencia e internacion",
+				"Diagnostico General",
+				"Esterilizacion y sanidad",
+				"Equipo optico y ultrasonico",
+				"Farmaceutica",
+				"Otros Salud y Medicina"
+			),
+
+			"Profesionales" to listOf(
+				"Juridico y escribania",
+				"Consultoria",
+				"RRHH",
+				"Otros Profesionales"
+			),
+
+			"Seguros" to listOf(
+				"De vida",
+				"ART",
+				"Vehiculos",
+				"Inmobiliarios",
+				"Otros Seguros"
+			),
+
+			"Logistica y transporte" to listOf(
+				"Nacional",
+				"Internacional"
+			),
+
+			"Servicios de Almacenamiento" to emptyList(),
+			"Servicios de Educacion" to emptyList(),
+			"Servicios de Salud" to emptyList(),
+			"Alojamiento y recreacion" to emptyList(),
+
+			"Servicios Financieros" to listOf(
+				"Creditos",
+				"Bancarios",
+				"Otros Servicios Financieros"
+			),
+
+			"Servicios Agrícolas" to listOf(
+				"Acopio",
+				"Otros Servicios agrícolas"
 			)
 		)
 

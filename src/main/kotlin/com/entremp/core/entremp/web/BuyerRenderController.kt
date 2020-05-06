@@ -591,21 +591,6 @@ class BuyerRenderController(
             .addObject("tags", tags)
     }
 
-    @RequestMapping(
-        "/chatbox",
-        method = [RequestMethod.GET],
-        produces = [MediaType.TEXT_HTML_VALUE]
-    )
-    fun chatbox(): ModelAndView {
-        val body = template("templates/messages/chatbox.mustache")
-
-        return ModelAndView("common/general")
-            .addObject("header", header())
-            .addObject("body", body)
-            .addObject("footer", "")
-            .addObject("tags", tags)
-    }
-
     private fun header(searchCriteria: String? = null): String = TemplateBuilder(
         templateName = "templates/common/header/buyer/logged.mustache",
         factory = factory)

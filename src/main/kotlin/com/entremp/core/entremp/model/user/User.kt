@@ -104,7 +104,7 @@ data class User(
         }
 
         @JsonIgnore
-        override fun isEnabled(): Boolean = true
+        override fun isEnabled(): Boolean = active
 
         override fun getUsername(): String = email
 

@@ -1,5 +1,7 @@
 package com.entremp.core.entremp.support
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.core.io.ClassPathResource
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender
@@ -12,18 +14,26 @@ import javax.mail.internet.MimeMessage
 class EmailService(
         private val sender: JavaMailSender
 ) {
+    private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
     fun sendMail(
             recipients: List<String>,
             subject: String,
             text: String
     ) {
+
+        logger.info("Sending email with subject $subject")
+
         val message = SimpleMailMessage()
         message.setTo(*recipients.toTypedArray())
         message.setSubject(subject)
         message.setText(text)
 
-        sender.send(message)
+        try {
+            sender.send(message)
+        } catch (throwable: Throwable){
+            logger.error("Could not sent email", throwable)
+        }
     }
 
     fun sendMailWithAttachement(

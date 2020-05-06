@@ -1,5 +1,7 @@
 <div class="row login">
     <div class="col card-panel z-depth-1 card--login">
+        {{{flashError}}}
+        {{{flashSuccess}}}
 
         <div class="row login--img">
             <div class="col s12">
@@ -11,11 +13,11 @@
             <form id="register" method="post" action="/register">
                 <div class="col s12">
                     <label class="col s12" for="name" >Nombre</label>
-                    <input class="validate" type="text" name="name" required>
+                    <input class="validate" type="text" name="name" value="{{prospect.name}}" required>
                 </div>
                 <div class="col s12">
                     <label class="col s12" for="email">Correo electrónico</label>
-                    <input class="validate" type="email" name="email" required>
+                    <input class="validate" type="email" name="email" value="{{prospect.email}}" required>
                 </div>
                 <div class="col s12">
                     <label class="col s12" for="password">Contraseña</label>
@@ -27,11 +29,11 @@
                 </div>
                 <div class="col s12">
                     <label class="col s12" for="phone">Teléfono</label>
-                    <input class="validate" type="number" name="phone" required>
+                    <input class="validate" type="number" name="phone" value="{{prospect.phone}}" required>
                 </div>
                 <div class="col s12">
                     <label class="col s12" for="cuit">CUIT</label>
-                    <input class="validate" type="number" name="cuit" required>
+                    <input class="validate" type="number" name="cuit" value="{{prospect.cuit}}" required>
                 </div>
                 <div class="col s12">
                     <button class=" col s12 btn waves-effect waves-light center-align row" type="submit" name="action">Crea tu cuenta</button>

@@ -16,7 +16,8 @@ class EmailSupportController(
         emailService.sendMail(
                 recipients = listOf(
                         "franco.testori@ing.austral.edu.ar",
-                        "franco.testori@despegar.com"
+                        "franco.testori@despegar.com",
+                        "franco.testori@hotmail.com"
                 ),
                 subject = "TEST",
                 text = "TEST"

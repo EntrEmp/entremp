@@ -1,29 +1,37 @@
 package com.entremp.core.entremp.support.storage
 
-import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
-import java.net.URL
+import java.io.FileOutputStream
 
-@Service
-class FileStorageService {
+import com.entremp.core.entremp.support.JavaSupport.extension
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import java.nio.file.Path
 
-    private final val storagePath: String = "/resources/"
+data class FileStorageService(private val storagePath : Path) {
 
-    fun store(file: MultipartFile, fileName: String?): URL {
-        val destination = getFile(fileName)
+    private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
-        file.transferTo(destination)
+    fun store(file: MultipartFile,
+              filename: String,
+              defaultExtension: String): File {
+        val directory: File = storagePath.toFile()
 
-        return destination.toURI().toURL()
-    }
+        val extension: String = file.extension()
+            ?: defaultExtension
 
-    fun read(fileName: String?): File {
-        return getFile(fileName)
-    }
+        val name = "$filename.$extension"
 
-    private fun getFile(fileName: String?): File {
-        val classLoaderPath: String = javaClass.classLoader.getResource(".").path.removeSuffix("/classes/")
-        return File("$classLoaderPath$storagePath$fileName")
+        val destination = File(
+            directory,
+            name
+        )
+
+        val fos = FileOutputStream(destination)
+        fos.write(file.bytes)
+        fos.close()
+
+        return destination
     }
 }
