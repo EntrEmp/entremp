@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest
 
 
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/api/chat")
 class ChatController(
         private val chatRepository: ChatRepository,
         private val messageRepository: MessageRepository
@@ -56,7 +56,12 @@ class ChatController(
             .findById(id)
             .unwrap()
 
-        if(auth.id != chat?.provider!!.id || auth.id != chat.buyer!!.id) {
+        val enabledUsers: List<String?> = listOf(
+            chat?.provider!!.id,
+            chat?.buyer!!.id
+        )
+
+        if(!enabledUsers.contains(auth.id)) {
             throw RuntimeException("Unauthorized: you have no access to this chat")
         } else {
             val message = Message(
@@ -69,7 +74,7 @@ class ChatController(
 
             messageRepository.save(message)
 
-            return RedirectView("/web/${request.role}/messages/$id")
+            return RedirectView("/${request.role}/messages/$id")
         }
     }
 

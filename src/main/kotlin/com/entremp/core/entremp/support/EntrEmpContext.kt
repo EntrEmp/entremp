@@ -16,7 +16,7 @@ class EntrEmpContext {
 
 
     fun toServerAddress(): String =
-        if(port.isEmpty()){
+        if(port.isEmpty() || port == "80"){
             "$protocol://$address"
         } else {
             "$protocol://$address:$port"

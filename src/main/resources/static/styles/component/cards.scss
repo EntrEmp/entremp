@@ -3,6 +3,8 @@
   padding: $spacing-8;
   padding-bottom: $spacing-24;
   .card-products--image{
+    min-width: 230px;
+    max-width: 230px;
     min-height: 300px;
     max-height: 300px;
     margin-bottom: $spacing-12;
@@ -13,6 +15,8 @@
     }
   }
   .card-products--title{
+    min-height: 110px;
+    max-height: 110px;
     .card-title{
       font-weight: 500;
     }
@@ -38,6 +42,14 @@
   }
   .card-products--extra-information{
     padding:0 $spacing-8;
+    .description{
+      min-height: 58px;
+      max-height: 58px;
+    }
+    .certifications{
+      min-height: 80px;
+      max-height: 80px;
+    }
     p:nth-child(1){
       font-size: 12px;
       font-weight: 300;

@@ -9,12 +9,18 @@
     <title>r4</title>
 
     <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="/css/production/output.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="/css/production/mstepper.css" rel="stylesheet" />
 
     <style>
+
+        .flex {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
         div.error {
             position: relative;
             top: -1rem;
@@ -45,7 +51,7 @@
 <body>
 {{{header}}}
 
-<form id="searchForm" method="post" action="/products/text-search" enctype="multipart/form-data">
+<form id="searchForm" method="post" action="/api/products/text-search" enctype="multipart/form-data">
     <input type="hidden" id="searchCriteria" name="searchCriteria">
 </form>
 {{{body}}}

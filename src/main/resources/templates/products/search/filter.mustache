@@ -1,7 +1,7 @@
 <!--Search Filter-->
-<div class="col s12 m4 l3">
+<div class="col s12 m3 l2">
 
-    <form id="filter" method="post" action="/products/filter" enctype="multipart/form-data">
+    <form id="filter" method="post" action="/api/products/filter" enctype="multipart/form-data">
 
         <ul class="collapsible expandable filter-collapsible">
             {{#showFilter}}
@@ -43,35 +43,29 @@
                 </li>
             {{/showFilter}}
 
-            <li>
-                <div class="col s12">
-                    <h6>filtrar por cantidad</h6>
-                    <div class="input-field col s4">
-                        <input id="minimum" name="minimum" type="number" class="validate">
-                        <label for="minimum">min</label>
-                    </div>
-                    <div class="input-field col s4">
-                        <input id="maximum" name="maximum" type="number" class="validate">
-                        <label for="maximum">max</label>
-                    </div>
-                    <button type="submit" class="btn waves-effect waves-light col s2 inline">
+            <li class="active">
+                <div class="collapsible-header">
+                    <i class="material-icons">expand_more</i>
+                    <p>filtrar por cantidad</p>
+                </div>
+                <div class="collapsible-body collapsible-filter-body col s12">
+                    <input id="minimum" name="minimum" type="number" class="col s3 validate collapsible-input" placeholder="min">
+                    <input id="maximum" name="maximum" type="number" class="col s3 offset-s1 validate collapsible-input" placeholder="max">
+                    <button type="submit" class="btn waves-effect waves-light col s3 offset-s1">
                         <i class="material-icons medium">check</i>
                     </button>
                 </div>
             </li>
 
-            <li>
-                <div class="col s12">
-                    <h6>filtrar por lote</h6>
-                    <div class="input-field col s4">
-                        <input id="minBatch" name="minBatch" type="number" class="validate">
-                        <label for="minBatch">min</label>
-                    </div>
-                    <div class="input-field col s4">
-                        <input id="maxBatch" name="maxBatch" type="number" class="validate">
-                        <label for="minBatch">min</label>
-                    </div>
-                    <button type="submit" class="btn waves-effect waves-light col s2 inline">
+            <li class="active">
+                <div class="collapsible-header">
+                    <i class="material-icons">expand_more</i>
+                    <p>filtrar por lote</p>
+                </div>
+                <div class="collapsible-body collapsible-filter-body col s12">
+                    <input id="minBatch" name="minBatch" type="number" class="col s3 validate collapsible-input" placeholder="min">
+                    <input id="maxBatch" name="maxBatch" type="number" class="col s3 offset-s1  validate collapsible-input" placeholder="max">
+                    <button type="submit" class="btn waves-effect waves-light col s3 offset-s1">
                         <i class="material-icons medium">check</i>
                     </button>
                 </div>

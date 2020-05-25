@@ -15,7 +15,8 @@ class WebSecurityConfiguration(
         private val passwordEncoder: PasswordEncoder
 ): WebSecurityConfigurerAdapter() {
     override fun configure(auth: AuthenticationManagerBuilder) {
-        auth.userDetailsService(bitnessUserDetailsService)
+        auth
+            .userDetailsService(bitnessUserDetailsService)
             .passwordEncoder(passwordEncoder)
     }
 
@@ -24,19 +25,19 @@ class WebSecurityConfiguration(
             http.csrf().disable()
 
             http.authorizeRequests()
-                .antMatchers("/web/seller/*")
+                .antMatchers("/seller/*")
         }
 
         http?.csrf()?.disable()
             ?.authorizeRequests()
-                ?.antMatchers("/web/seller/**")?.authenticated()
-                ?.antMatchers("/web/buyer/**")?.authenticated()
+                ?.antMatchers("/seller/**")?.authenticated()
+                ?.antMatchers("/buyer/**")?.authenticated()
                 ?.antMatchers("/resources/**")?.permitAll()
                 ?.anyRequest()?.permitAll()
             ?.and()
                 ?.formLogin()
-                    ?.loginPage("/web/login")
-                    ?.defaultSuccessUrl("/web/buyer/home")
+                    ?.loginPage("/login")
+                    ?.defaultSuccessUrl("/buyer/home")
             ?.and()
                 ?.logout()
             ?.and()

@@ -193,7 +193,7 @@ class ProductService(
                     ),
                     PageRequest.of(
                         (page - 1),
-                        6
+                        8
                     )
                 )
         } else {
@@ -201,7 +201,7 @@ class ProductService(
                 .findAll(
                     PageRequest.of(
                         (page - 1),
-                        6
+                        8
                     )
                 )
 

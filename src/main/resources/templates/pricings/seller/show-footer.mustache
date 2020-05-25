@@ -21,4 +21,23 @@
             });
         {{/budget}}
     {{/pricing}}
+
+    $(window).load(function(){
+        $('#budget_price').on('change', function() {
+            var price = parseFloat($( "#budget_price" ).val());
+            var quantity = parseInt($( "#budget_quantity" ).val());
+
+            var total = price * quantity;
+
+            $('#total_price').val(total);
+        });
+        $('#budget_quantity').on('change', function() {
+            var price = parseFloat($( "#budget_price" ).val());
+            var quantity = parseInt($( "#budget_quantity" ).val());
+
+            var total = price * quantity;
+
+            $('#total_price').val(total);
+        });
+    });
 </script>

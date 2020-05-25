@@ -3,31 +3,31 @@
         <div class="col s12 m4 l8 detail-products--photos">
             <!--Breadcrum-->
             <div class="col s12 m4 l12 detail-products--breadcrumb">
-                <p><a href="javascript:history.back()">Productos</a></p> - <p>{{name}}</p>
+                <p><a href="javascript:history.back()">Productos</a></p> - <p>{{product.name}}</p>
                 <!--<a class="modal-trigger data--modify" href="#imagesModal">imagenes</a>-->
             </div>
 
             <!--Photo List-->
             <div class="col s12 m4 l2 detail-products--photo-min">
-                {{#images}}
+                {{#product.images}}
                     <span class="z-depth-1">
                      <img class="materialboxed"
                           width="80"
                           height="80"
                           src="{{s3Link}}">
                     </span>
-                {{/images}}
+                {{/product.images}}
             </div>
 
             <!--Selected photo-->
             <div class="col s12 m4 l10 detail-products--photo-container">
                 <div class="slider">
                     <ul class="slides">
-                        {{#images}}
+                        {{#product.images}}
                             <li>
                                 <img src="{{s3Link}}">
                             </li>
-                        {{/images}}
+                        {{/product.images}}
                     </ul>
                 </div>
             </div>
@@ -35,17 +35,52 @@
 
         <!--View Card-->
         <div class="col s12 m4 l4 card card-detail">
-            <a  href="/web/seller/products/{{id}}/edit">Editar</a>
+            <a  href="/seller/products/{{product.id}}/edit">Editar</a>
+
             <div class="card-detail--information">
-                <h5> {{name}} </h5>
-                <h6> TODO atributos </h6>
-                <p class="detail">{{description}}</p>
+                <h5> {{product.name}} </h5>
 
-                <p class="seller"> Cantidad mínima de compra: {{minimum}} </p>
-                <p class="seller"> {{maximum}} productos disponibles</p>
-                <p class="seller"> {{batch}} lotes de product</p>
+                <div class="col s12 container">
+                    <h6>Categorias</h6>
+                    <hr>
+                    {{#product.productCategories}}
+                        <div class="chip">
+                            {{category.name}}
+                        </div>
+                    {{/product.productCategories}}
+                </div>
 
-                <p class="addres"> <i class="material-icons">location_on</i></p>
+                <div class="col s12 container">
+                    <h6>Atributos</h6>
+                    <hr>
+                    {{#product.productAttributes}}
+                        <div class="chip">
+                            {{attribute.name}}
+                        </div>
+                    {{/product.productAttributes}}
+                </div>
+
+                <div class="col s12 container">
+                    <h6>Descripción</h6>
+                    <hr>
+                    <p class="detail">{{product.description}}</p>
+                </div>
+
+                <div class="col s12 container">
+                    <p class="seller">
+                        Cantidad mínima de compra: <strong>{{product.minimum}} unidades</strong>
+                    </p>
+                    <p class="seller">
+                        Tamaño de lote: <strong>{{product.batchSize}} unidades</strong>
+                    </p>
+                    <p class="seller"> {{product.maximum}} productos disponibles</p>
+                </div>
+
+                <div class="col s12 container">
+                    <p class="addres">
+                        <i class="material-icons">location_on</i>
+                    </p>
+                </div>
 
             </div>
         </div>

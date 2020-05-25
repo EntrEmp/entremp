@@ -52,7 +52,7 @@
                 var content = $( this ).html();
 
                 $.ajax({
-                    url: "/products/{{id}}/favorite",
+                    url: "/api/products/{{id}}/favorite",
                     method: "GET",
                     success: function (data) {
                         if(content.search('favorite_border') >= 0){

@@ -6,4 +6,12 @@ data class MessagePreviewDTO(
     val message: String,
     val chatId: String,
     val role: String
-)
+){
+    fun previewMessage(): String {
+        return if(message.length > 47){
+            "${message.substring(0, 44)}..."
+        } else {
+            message
+        }
+    }
+}

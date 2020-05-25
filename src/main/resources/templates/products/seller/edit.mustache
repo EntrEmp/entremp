@@ -123,7 +123,7 @@
 
         <div class="row">
 
-            <form id="dataForm" method="post" action="/products/{{id}}/data">
+            <form id="dataForm" method="post" action="/api/products/{{id}}/data">
                 <div class="col s12">
                     <label for="name">Nombre del producto</label>
                     <input class="validate" type="text" name="name" value="{{name}}">
@@ -163,7 +163,7 @@
 
         <div class="row">
 
-            <form id="stockForm" method="post" action="/products/{{id}}/stock">
+            <form id="stockForm" method="post" action="/api/products/{{id}}/stock">
                 <div class="col s12">
                     <label for="stock">Stock disponible</label>
                     <input type="number" name="stock" value="{{maximum}}">
@@ -199,7 +199,7 @@
 
         <div class="row">
 
-            <form id="tagsForm" method="post" action="/products/{{id}}/tags-and-images" enctype="multipart/form-data">
+            <form id="tagsForm" method="post" action="/api/products/{{id}}/tags-and-images" enctype="multipart/form-data">
 
                 <div class="col s12">
                     <h5>Tags</h5>
@@ -255,7 +255,7 @@
 
         <div class="row">
 
-            <form id="certificationsForm" method="post" action="/products/{{id}}/certifications">
+            <form id="certificationsForm" method="post" action="/api/products/{{id}}/certifications">
 
                 <div class="col s12">
                     <h5>Certificaciones del producto</h5>

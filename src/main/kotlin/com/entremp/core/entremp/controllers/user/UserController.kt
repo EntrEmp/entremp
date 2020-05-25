@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.RedirectView
 import java.util.*
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 class UserController(
         private val userService: UserService,
         private val encoder: PasswordEncoder
@@ -96,7 +96,7 @@ class UserController(
 
         redirectAttributes.addFlashAttribute("success", flashSuccess())
 
-        return RedirectView("/web/${data.role}/profile/$id/edit")
+        return RedirectView("/${data.role}/profile/$id/edit")
     }
 
     @RequestMapping("/{id}/password", method = [RequestMethod.POST])
@@ -124,11 +124,11 @@ class UserController(
 
             redirectAttributes.addFlashAttribute("success", flashSuccess())
 
-            return RedirectView("/web/${data.role}/profile/$id/edit")
+            return RedirectView("/${data.role}/profile/$id/edit")
         } else {
             redirectAttributes.addFlashAttribute("error", flushError())
 
-            return RedirectView("/web/${data.role}/profile/$id/edit")
+            return RedirectView("/${data.role}/profile/$id/edit")
 
         }
 
@@ -145,7 +145,7 @@ class UserController(
 
         redirectAttributes.addFlashAttribute("success", flashSuccess())
 
-        return RedirectView("/web/${data.role}/profile/$id/edit")
+        return RedirectView("/${data.role}/profile/$id/edit")
     }
 
     @RequestMapping("/{id}/delete-addresses", method = [RequestMethod.POST])
@@ -159,7 +159,7 @@ class UserController(
 
         redirectAttributes.addFlashAttribute("success", flashSuccess())
 
-        return RedirectView("/web/${data.role}/profile/$id/edit")
+        return RedirectView("/${data.role}/profile/$id/edit")
     }
 
     @RequestMapping("/{id}/addresses/{addressId}", method = [RequestMethod.POST])
@@ -174,7 +174,7 @@ class UserController(
 
         redirectAttributes.addFlashAttribute("success", flashSuccess())
 
-        return RedirectView("/web/${data.role}/profile/$id/edit")
+        return RedirectView("/${data.role}/profile/$id/edit")
     }
 
     @PostMapping("/{id}/image")
@@ -187,7 +187,7 @@ class UserController(
 
         redirectAttributes.addFlashAttribute("success", flashSuccess())
 
-        return RedirectView("/web/$role/profile/$id/edit")
+        return RedirectView("/$role/profile/$id/edit")
     }
 
     private fun flashSuccess(): String =

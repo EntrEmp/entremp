@@ -8,7 +8,7 @@
         <h5>Deseas aprobar esta cotización?</h5>
 
         <div class="row">
-            <form method="post" action="/budgets/{{budget.id}}/accept" enctype="multipart/form-data">
+            <form method="post" action="/api/budgets/{{budget.id}}/accept" enctype="multipart/form-data">
                 <input type="hidden" name="pricingId" value="{{id}}">
 
                 <div class="col s12">

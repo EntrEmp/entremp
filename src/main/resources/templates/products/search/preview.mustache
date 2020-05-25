@@ -1,27 +1,21 @@
-<!--Product Preview-->
-<div class="col s12 m4">
+<!-- Product Preview -->
+<div class="col s12 m3">
 
     <div class="card card-products">
 
-        <!--Preview Image-->
-        <div class="card-image card-products--image z-depth-1">
-            <img alt="preview"
-                 width="280"
-                 height="220"
-                 class="materialboxed"
-                 src="{{mainImage}}">
-        </div>
+        <!-- Preview Image -->
+        <img class="card-image card-products--image z-depth-1 materialboxed"
+             src="{{mainImage}}">
 
-        <div class="card-products--title">
-            <div>
-                <span class="card-title">{{name}}</span>
+        <div class="card-products--title col s12">
+            <!-- Product & Seller Name -->
+            <div class="col s9">
+                <span class="card-title">{{previewName}}</span>
                 <p>{{userName}}</p>
             </div>
 
-            <!--Favorite-->
-            <div>
-                <i id="fav_{{id}}" class="material-icons hoverable">favorite_border</i>
-            </div>
+            <!--Favorite span-->
+            <i id="fav_{{id}}" class="material-icons hoverable col s3">favorite_border</i>
         </div>
 
         <!--Rank-->
@@ -33,10 +27,10 @@
 
         <!--Description-->
         <div class="card-products--extra-information">
-            <p>{{description}}</p>
-            <p>Certificaciones: {{certificationsString}}</p>
+            <p class="description">{{previewDescription}}</p>
+            <p class="certifications    ">Certificaciones: {{certificationsString}}</p>
             <p> {{maximum}} productos disponibles</p>
-            <a href="/web/buyer/products/{{id}}">Ver detalle</a>
+            <a href="/buyer/products/{{id}}">Ver detalle</a>
         </div>
 
     </div>

@@ -84,6 +84,23 @@ data class Product(
         return user?.name ?: ""
     }
 
+    fun previewName(): String {
+        return if(name.length > 18){
+            "${name.substring(0,15)}..."
+        } else {
+            name
+        }
+    }
+
+    fun previewDescription(): String {
+        return if(description.length > 89){
+            "${description.substring(0,86)}..."
+        } else {
+            description
+        }
+    }
+
+
     // TODO implement based on review
     fun stars(): List<String> = listOf(
         //"star",

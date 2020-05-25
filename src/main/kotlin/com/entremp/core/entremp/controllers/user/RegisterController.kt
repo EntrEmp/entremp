@@ -63,13 +63,13 @@ class RegisterController(
 
             val message = "Tu usuario se creo correctamente!"
             redirectAttributes.addFlashAttribute("success", flashSuccess(message))
-            RedirectView("/web/verify")
+            RedirectView("/verify")
         }
         catch (throwable: Throwable) {
             logger.error("Error registering user", throwable)
             redirectAttributes.addFlashAttribute("error", flashError(throwable.message))
             redirectAttributes.addFlashAttribute("prospect", prospect)
-            RedirectView("/web/sign-up")
+            RedirectView("/sign-up")
         }
 
     }
@@ -84,13 +84,13 @@ class RegisterController(
         val verificationToken: VerificationToken? = verificationTokenRepository.findByToken(token)
         if(verificationToken == null){
             redirectAttributes.addFlashAttribute("error", flashError("Token de confirmación inválido"))
-            return RedirectView("/web/login")
+            return RedirectView("/login")
         }
 
         val user: User = verificationToken.user
         if(verificationToken.expiration.isBeforeNow) {
             redirectAttributes.addFlashAttribute("error", flashError("Token de confirmación expirado"))
-            return RedirectView("/web/login")
+            return RedirectView("/login")
         }
 
         usersRepository.save(
@@ -99,7 +99,7 @@ class RegisterController(
 
         val message = "Tu usuario se validó correctamente!"
         redirectAttributes.addFlashAttribute("success", flashSuccess(message))
-        return RedirectView("/web/login")
+        return RedirectView("/login")
     }
 
     @RequestMapping("recover", method = [RequestMethod.POST])
@@ -123,7 +123,7 @@ class RegisterController(
             )
 
             val server: String = context.toServerAddress()
-            val url: String = "$server/web/reset?token=$token"
+            val url: String = "$server/reset?token=$token"
 
             val text =
                 """
@@ -140,14 +140,14 @@ class RegisterController(
             val message = "Se envío el mail de recuperación de contraseña!"
             redirectAttributes.addFlashAttribute("success", flashSuccess(message))
             redirectAttributes.addFlashAttribute("mail", email)
-            RedirectView("/web/login")
+            RedirectView("/login")
         }
         catch (throwable: Throwable) {
             logger.error("Error recovering user password", throwable)
 
             redirectAttributes.addFlashAttribute("error", flashError(throwable.message))
             redirectAttributes.addFlashAttribute("mail", email)
-            RedirectView("/web/recover")
+            RedirectView("/recover")
         }
     }
 
@@ -166,12 +166,12 @@ class RegisterController(
 
         if(token == null){
             redirectAttributes.addFlashAttribute("error", flashError("Token de recuperación inválido"))
-            return RedirectView("/web/login")
+            return RedirectView("/login")
         }
 
         if(token.expiration.isBeforeNow) {
             redirectAttributes.addFlashAttribute("error", flashError("Token de recuperación expirado"))
-            return RedirectView("/web/login")
+            return RedirectView("/login")
         }
 
         return try {
@@ -184,12 +184,12 @@ class RegisterController(
                 )
             )
             redirectAttributes.addFlashAttribute("success", flashSuccess("Se reseteo su contraseña con exito!"))
-            RedirectView("/web/login")
+            RedirectView("/login")
         }
         catch (throwable: Throwable) {
             logger.error("Error during new password reset", throwable)
             redirectAttributes.addFlashAttribute("error", flashError(throwable.message))
-            RedirectView("/web/reset?token=${resetPassword.token}")
+            RedirectView("/reset?token=${resetPassword.token}")
         }
 
     }

@@ -96,7 +96,7 @@
 
         <div class="row">
 
-            <form id="dataForm" method="post" action="/users/{{id}}/data">
+            <form id="dataForm" method="post" action="/api/users/{{userId}}/data">
                 <input type="hidden" name="role" value="seller">
                 <div class="col s12">
                     <label for="name">Nombre o Razón social:</label>
@@ -133,7 +133,7 @@
 
         <div class="row">
 
-            <form id="AddressForm" method="post" action="/users/{{userId}}/addresses">
+            <form id="AddressForm" method="post" action="/api/users/{{userId}}/addresses">
                 <input type="hidden" name="role" value="seller">
 
                 <div class="col s12">
@@ -201,7 +201,7 @@
 
         <div class="row">
 
-            <form id="dataForm" method="post" action="/users/{{userId}}/password">
+            <form id="dataForm" method="post" action="/api/users/{{userId}}/password">
                 <input type="hidden" name="role" value="seller">
 
                 <div class="col s12">
@@ -238,7 +238,7 @@
 
         <div class="row">
 
-            <form id="imageForm" method="post" action="/users/{{userId}}/image" enctype="multipart/form-data">
+            <form id="imageForm" method="post" action="/api/users/{{userId}}/image" enctype="multipart/form-data">
                 <input type="hidden" name="role" value="seller">
 
                 <div class="col s12">
@@ -283,7 +283,7 @@
 
             <div class="row">
 
-                <form method="post" action="/users/{{userId}}/addresses/{{id}}">
+                <form method="post" action="/api/users/{{userId}}/addresses/{{id}}">
                     <input type="hidden" name="role" value="seller">
 
                     <div class="col s12">
@@ -349,7 +349,7 @@
 
             <div class="row">
 
-                <form method="post" action="/users/{{userId}}/delete-addresses">
+                <form method="post" action="/api/users/{{userId}}/delete-addresses">
                     <input type="hidden" name="role" value="seller">
                     <input type="hidden" name="addressId" value="{{id}}">
                     <div class="col s12">

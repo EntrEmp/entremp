@@ -96,7 +96,7 @@ data class Pricing(
                     <a class="waves-effect waves-light btn-small modal-trigger"
                        href="#budgetCancel_$id">Rechazar Cotización</a>
                 </div>
-                <a class="status-detail" href="/web/seller/pricings/$id">Ver detalle</a>
+                <a class="status-detail" href="/seller/pricings/$id">Ver detalle</a>
                 """.trimIndent()
             } else {
                 """
@@ -104,7 +104,7 @@ data class Pricing(
                     <a class="waves-effect waves-light btn-small modal-trigger"
                        href="#budgetEdit_$id">Editar Cotización</a>
                 </div>
-                <a class="status-detail" href="/web/seller/pricings/$id">Ver detalle</a>    
+                <a class="status-detail" href="/seller/pricings/$id">Ver detalle</a>    
                 """.trimIndent()
             }
 
@@ -113,7 +113,7 @@ data class Pricing(
                  <div class="row">
                     <a class="waves-effect waves-light btn">Ver Mensajes</a>
                 </div>
-                <a class="status-detail" href="/web/seller/pricings/$id">Ver detalle</a>    
+                <a class="status-detail" href="/seller/pricings/$id">Ver detalle</a>    
             """.trimIndent()
         else ->
             """
@@ -164,7 +164,7 @@ data class Pricing(
                     <a class="waves-effect waves-light btn-small"
                        href="#$id">Descargar Cotización</a>
                 </div>
-                <a class="status-detail" href="/web/buyer/pricings/$id">Ver detalle</a>
+                <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
                 """.trimIndent()
             } else {
                 "<p> Aguardando una respuesta del proveedor</p>"
@@ -181,7 +181,7 @@ data class Pricing(
                     <a class="waves-effect waves-light btn-small"
                        href="#">Enviar Mensaje</a>
                 </div>
-                <a class="status-detail" href="/web/buyer/pricings/$id">Ver detalle</a>
+                <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
                 """.trimIndent()
             } else{
                 """

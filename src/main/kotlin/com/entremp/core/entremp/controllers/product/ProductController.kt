@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse
 
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 class ProductController(
     private val productService: ProductService
 ): Authenticated {
@@ -45,11 +45,11 @@ class ProductController(
             )
         )
         filterCookie.maxAge = 60*10
-        filterCookie.path = "/web/buyer/products"
+        filterCookie.path = "/buyer/products"
 
         httpServletResponse.addCookie(filterCookie)
 
-        return RedirectView("/web/buyer/products")
+        return RedirectView("/buyer/products")
     }
 
     @PostMapping("/text-search")
@@ -68,11 +68,11 @@ class ProductController(
             )
         )
         filterCookie.maxAge = 60*10
-        filterCookie.path = "/web/buyer/products"
+        filterCookie.path = "/buyer/products"
 
         httpServletResponse.addCookie(filterCookie)
 
-        return RedirectView("/web/buyer/products")
+        return RedirectView("/buyer/products")
     }
 
     @PostMapping
@@ -143,7 +143,7 @@ class ProductController(
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
 
-            return RedirectView("/web/seller/products/$id")
+            return RedirectView("/seller/products/$id")
         } else {
             throw RuntimeException("Operation not allowed")
         }
@@ -239,10 +239,10 @@ class ProductController(
             )
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
-            RedirectView("/web/seller/products/$id/edit")
+            RedirectView("/seller/products/$id/edit")
         } else {
             redirectAttributes.addFlashAttribute("error", flashSuccess(productId = id))
-            RedirectView("/web/seller/products/$id/edit")
+            RedirectView("/seller/products/$id/edit")
         }
     }
 
@@ -268,11 +268,11 @@ class ProductController(
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
 
-            RedirectView("/web/seller/products/$id/edit")
+            RedirectView("/seller/products/$id/edit")
         } else {
             redirectAttributes.addFlashAttribute("error", flashSuccess(productId = id))
 
-            RedirectView("/web/seller/products/$id/edit")
+            RedirectView("/seller/products/$id/edit")
         }
     }
 
@@ -317,11 +317,11 @@ class ProductController(
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
 
-            RedirectView("/web/seller/products/$id/edit")
+            RedirectView("/seller/products/$id/edit")
         } else {
             redirectAttributes.addFlashAttribute("error", flashSuccess(productId = id))
 
-            RedirectView("/web/seller/products/$id/edit")
+            RedirectView("/seller/products/$id/edit")
         }
     }
 
@@ -348,11 +348,11 @@ class ProductController(
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
 
-            RedirectView("/web/seller/products/$id/edit")
+            RedirectView("/seller/products/$id/edit")
         } else {
             redirectAttributes.addFlashAttribute("error", flashSuccess(productId = id))
 
-            RedirectView("/web/seller/products/$id/edit")
+            RedirectView("/seller/products/$id/edit")
         }
     }
 

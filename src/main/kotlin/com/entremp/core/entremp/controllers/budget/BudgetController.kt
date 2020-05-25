@@ -34,7 +34,7 @@ import com.entremp.core.entremp.support.JavaSupport.unwrap
 import java.io.File
 
 @RestController
-@RequestMapping("/budgets")
+@RequestMapping("/api/budgets")
 class BudgetController(
     private val pricingService: PricingService,
     private val budgetService: BudgetService,
@@ -84,7 +84,7 @@ class BudgetController(
                 )
             )
 
-            return RedirectView("/web/buyer/messages/${chat.id!!}")
+            return RedirectView("/buyer/messages/${chat.id!!}")
         } else {
             throw RuntimeException("Operation not allowed")
         }
@@ -104,7 +104,7 @@ class BudgetController(
                 )
             )
 
-            return RedirectView("/web/seller/pricings/$pricingId")
+            return RedirectView("/seller/pricings/$pricingId")
         } else {
             throw RuntimeException("Operation not allowed")
         }
@@ -144,7 +144,7 @@ class BudgetController(
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
 
-            return RedirectView("/web/seller/pricings/$id")
+            return RedirectView("/seller/pricings/$id")
         } else {
             throw RuntimeException("Operation not allowed")
         }
@@ -183,7 +183,7 @@ class BudgetController(
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
 
-            return RedirectView("/web/seller/pricings/$id")
+            return RedirectView("/seller/pricings/$id")
         } else {
             throw RuntimeException("Operation not allowed")
         }

@@ -41,7 +41,7 @@ import javax.servlet.http.Cookie
 import javax.servlet.http.HttpServletRequest
 
 @Controller
-@RequestMapping("/web/buyer")
+@RequestMapping("/buyer")
 class BuyerRenderController(
     private val userService: UserService,
     private val productService: ProductService,
@@ -84,8 +84,16 @@ class BuyerRenderController(
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun home(): ModelAndView {
-        val body = template("templates/common/home.mustache")
+        val image = "azul.png"
 
+        val data: Map<String, Any?> = mapOf(
+            "image" to image
+        )
+
+        val body = template(
+            resource = "templates/common/home.mustache",
+            data = data
+        )
         return ModelAndView("common/general")
             .addObject("header", header())
             .addObject("body", body)
@@ -171,6 +179,7 @@ class BuyerRenderController(
         val product: Product = productService.find(id)
 
         val data: Map<String, Any?> = mapOf(
+            "product" to product,
             "images" to product.images,
             "name" to product.name,
             "description" to product.description,
@@ -464,22 +473,19 @@ class BuyerRenderController(
     )
     fun messages(): ModelAndView {
         val auth: User? = getAuthUser()
+        val role = "buyer"
 
         val chats: List<MessagePreviewDTO> = chatService.findChats(
             user = auth!!,
-            role = "buyer"
+            role = role
         ).map { chat ->
-            val preview: String = chat
-                .getLastMessage()
-                .let { message ->
-                    message
-                        ?.message
-                        ?.slice(IntRange(0, 97))
-                        ?: ""
-                }
+
+            val seller: String = chat
+                .provider!!
+                .name
 
             MessagePreviewDTO(
-                name = chat.provider!!.name,
+                name = seller,
                 date = chat
                     .getLastMessage()
                     .let { message ->
@@ -488,14 +494,17 @@ class BuyerRenderController(
                             ?: DateTime.now(DateTimeZone.UTC)
                     }
                     .toString("dd/MM/yyyy"),
-                message = "$preview...",
+                message = chat
+                    .getLastMessage()
+                    ?.message
+                    ?: "$seller ha aceptado tu cotización.",
                 chatId = chat.id!!,
-                role = "buyer"
+                role = role
             )
         }
 
         val data: Map<String,Any> = mapOf(
-            "role" to "buyer",
+            "role" to role,
             "chats" to chats
         )
 
@@ -520,22 +529,19 @@ class BuyerRenderController(
     )
     fun showChat(@PathVariable id: String): ModelAndView {
         val auth: User? = getAuthUser()
-        val role: String = "buyer"
+        val role = "buyer"
 
         val chats: List<MessagePreviewDTO> = chatService.findChats(
             user = auth!!,
             role = role
         ).map { chat ->
-            val preview: String = chat
-                .getLastMessage()
-                .let { message ->
-                    message
-                        ?.message
-                        ?: ""
-                }
+
+            val seller: String = chat
+                .provider!!
+                .name
 
             MessagePreviewDTO(
-                name = chat.provider!!.name,
+                name = seller,
                 date = chat
                     .getLastMessage()
                     .let { message ->
@@ -544,12 +550,10 @@ class BuyerRenderController(
                             ?: DateTime.now(DateTimeZone.UTC)
                     }
                     .toString("dd/MM/yyyy"),
-                message =
-                if(preview.isEmpty()){
-                    preview
-                } else {
-                    "$preview..."
-                },
+                message = chat
+                    .getLastMessage()
+                    ?.message
+                    ?: "$seller ha aceptado tu cotización.",
                 chatId = chat.id!!,
                 role = role
             )
@@ -560,7 +564,8 @@ class BuyerRenderController(
             .map { message ->
                 ShowMessageDTO(
                     message = message.message,
-                    styleClass = if(role == message.role){
+                    styleClass =
+                    if(message.role == role){
                         "chat-question"
                     } else {
                         "chat-answers"

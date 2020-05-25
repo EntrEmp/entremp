@@ -20,4 +20,12 @@
     padding: $spacing-8;
     border-bottom: 0;
   }
+  .collapsible-filter-body{
+    .collapsible-input{
+      height: 2rem !important;
+    }
+    .btn{
+      height:33px !important;
+    }
+  }
 }

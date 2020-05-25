@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import org.springframework.web.servlet.view.RedirectView
 
 @RestController
-@RequestMapping("/pricings")
+@RequestMapping("/api/pricings")
 class PricingController(
         private val pricingService: PricingService,
         private val productService: ProductService
@@ -54,7 +54,7 @@ class PricingController(
 
             redirectAttributes.addFlashAttribute("success", flashSuccess(productId = id))
 
-            return RedirectView("/web/buyer/pricings/$id")
+            return RedirectView("/buyer/pricings/$id")
         } else {
             throw RuntimeException("Operation not allowed")
         }

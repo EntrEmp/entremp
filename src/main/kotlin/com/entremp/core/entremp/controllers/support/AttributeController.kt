@@ -17,7 +17,7 @@ class AttributeController(
         private val categoriesRepository: CategoriesRepository,
         private val attributesRepository: AttributesRepository
 ) {
-    @GetMapping("/categories/{categoryId}/attributes")
+    @GetMapping("/api/categories/{categoryId}/attributes")
     fun allByCategory(@PathVariable categoryId: String): Iterable<Attribute> {
         val category: Category? = categoriesRepository.findById(categoryId).unwrap()
 

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.support.RequestContextUtils
 import javax.servlet.http.HttpServletRequest
 
 @Controller
-@RequestMapping("/web")
+@RequestMapping("")
 class BasicRenderController {
 
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
@@ -23,7 +23,7 @@ class BasicRenderController {
     private val factory: MustacheFactory = DefaultMustacheFactory()
 
     @RequestMapping(
-        "/index",
+        "/",
         method = [RequestMethod.GET],
         produces = [MediaType.TEXT_HTML_VALUE]
     )
@@ -142,7 +142,10 @@ class BasicRenderController {
             "flashError" to flashMap?.get("error")
         )
 
-        val body = template("templates/auth/verify.mustache", dataMap)
+        val body = template(
+            resource = "templates/auth/verify.mustache",
+            dataMap = dataMap
+        )
 
         return ModelAndView("common/general")
             .addObject("header", header())
@@ -156,9 +159,13 @@ class BasicRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun faq(): ModelAndView {
+        val body = template(
+            resource = "templates/common/faq.mustache"
+        )
+
         return ModelAndView("common/general")
             .addObject("header", header())
-            .addObject("body", "")
+            .addObject("body", body)
             .addObject("footer", "")
     }
 
