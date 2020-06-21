@@ -32,6 +32,64 @@
                                 </div>
 
                                 <div class="col s12">
+                                    <div class="input-field col s6">
+                                        <select name="iva" id="iva">
+                                            <option value="0">0 %</option>
+                                            <option value="10.5">10.5 %</option>
+                                            <option value="21">21 %</option>
+                                        </select>
+                                        <label>Porcentaje IVA</label>
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                        <select id="selectedBilling" name="selectedBilling">
+                                            {{#pricing}}
+                                                {{#requestedBilling}}
+                                                    <option value="{{name}}">{{toHTMLString}}</option>
+                                                {{/requestedBilling}}
+                                            {{/pricing}}
+                                        </select>
+                                        <label>Facturación</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col s12">
+                                    <div class="col s6">
+                                        <label for="total">Precio Total (s/ IVA)</label>
+                                        <input id="total_price" type="number" name="total" step="0.01" style='pointer-events: none;'>
+                                    </div>
+
+                                    <div class="input-field col s6">
+                                    </div>
+                                </div>
+
+                                <div class="col s12">
+                                    <div class="col s6">
+                                    <span class="taxes" id="taxes">
+                                    </span>
+                                    </div>
+
+                                    <div class="col s6">
+                                    </div>
+                                </div>
+
+
+                                <div class="step-actions">
+                                    <button class="col s5 waves-effect waves-dark btn next-step">Siguiente</button>
+                                    <div class="col s1"></div>
+                                    <button class="col s5 waves-effect waves-dark btn btn-flat previous-step">Anterior</button>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="step">
+                            <div class="step-title waves-effect">Vigencia</div>
+                            <div class="step-content">
+
+                                <input type="hidden" name="pricingId" value="{{id}}">
+
+                                <div class="col s12">
                                     <div class="col s6">
                                         <label for="delivery">Plazo de Entrega (días)</label>
                                         <input type="number" name="delivery" min="0" max="90" value="{{deliveryAfterConfirm}}" required>
@@ -41,23 +99,6 @@
                                         <input type="number" name="ttl" min="0" max="14" required>
                                     </div>
                                 </div>
-
-                                <div class="col s12">
-                                    <div class="col s6">
-                                        <label for="total">Precio Total (s/ IVA)</label>
-                                        <input type="number" name="total" value={{total}} step="0.01" required>
-                                    </div>
-
-                                    <div class="input-field col s6">
-                                        <select name="billing">
-                                            <option value="" disabled selected>Selecciona una opcion</option>
-                                            <option value="FINAL_CONSUMER">CONSUMIDOR FINAL</option>
-                                            <option value="ENROLLED">RESPONSABLE INSCRIPTO</option>
-                                        </select>
-                                        <label>Facturación</label>
-                                    </div>
-                                </div>
-
 
                                 <div class="step-actions">
                                     <button class="col s5 waves-effect waves-dark btn next-step">Siguiente</button>

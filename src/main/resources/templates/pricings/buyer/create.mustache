@@ -51,11 +51,24 @@
                             <div class="step-title waves-effect">Especificaciones</div>
                             <div class="step-content">
 
-                                <div class="col s12">
-                                    <label>
-                                        <input name="sample" type="checkbox" class="filled-in" />
-                                        <span>Solicita envío de muestra</span>
-                                    </label>
+                                <div class="input-field col s12">
+                                    <select name="billing" multiple>
+                                        <optgroup label="Factura Tipo A">
+                                            <option value="TYPE_A">Factura Tipo A</option>
+                                            <option value="TYPE_A_RETENTION">Factura Tipo A (operacion sujeta a retencion)</option>
+                                            <option value="TYPE_M">Factura Tipo M</option>
+                                        </optgroup>
+                                        <optgroup label="Factura Tipo B">
+                                            <option value="TYPE_B">Factura Tipo B</option>
+                                        </optgroup>
+                                        <optgroup label="Factura Tipo C">
+                                            <option value="TYPE_C">Factura Tipo C</option>
+                                        </optgroup>
+                                        <optgroup label="Factura Tipo E">
+                                            <option value="TYPE_E">Factura Tipo E</option>
+                                        </optgroup>
+                                    </select>
+                                    <label>Facturacion</label>
                                 </div>
 
                                 <div class="input-field col s12">
@@ -73,6 +86,13 @@
                                     <textarea name="specifications" class="materialize-textarea"></textarea>
 
                                     <input type="hidden" name="productId" value="{{id}}">
+                                </div>
+
+                                <div class="col s12">
+                                    <label>
+                                        <input name="sample" type="checkbox" class="filled-in" />
+                                        <span>Solicita envío de muestra</span>
+                                    </label>
                                 </div>
 
                                 <div class="step-actions">

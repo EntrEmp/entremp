@@ -3826,8 +3826,8 @@ $jscomp.polyfill = function (e, r, p, m) {
       _this21.options = $.extend({}, Parallax.defaults, options);
       _this21._enabled = window.innerWidth > _this21.options.responsiveThreshold;
 
-      _this21.$img = _this21.$el.find('images').first();
-      _this21.$img.each(function () {
+      _this21.$img = el.children;
+      $(_this21.$img).each(function () {
         var el = this;
         if (el.complete) $(el).trigger('load');
       });

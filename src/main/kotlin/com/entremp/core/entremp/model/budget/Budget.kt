@@ -1,6 +1,5 @@
 package com.entremp.core.entremp.model.budget
 
-import com.entremp.core.entremp.model.DeliveryTerm
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.review.Review
 import com.fasterxml.jackson.annotation.JsonBackReference
@@ -39,6 +38,8 @@ data class Budget(
 
         val billing: String,
 
+        val selectedBilling: String? = null,
+
         val ttl: DateTime,
         val deliveryAfterConfirm: Long,
 
@@ -57,4 +58,6 @@ data class Budget(
                 val now: DateTime = DateTime.now(DateTimeZone.UTC)
                 return now.isAfter(ttl)
         }
+
+        fun priceWithTaxes(): String =  String.format("%.2f", total + (total * iva))
 }

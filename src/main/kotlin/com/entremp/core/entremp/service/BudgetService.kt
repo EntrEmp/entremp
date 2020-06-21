@@ -49,6 +49,7 @@ class BudgetService(
         iva: Double,
         total: Double,
         billing: String,
+        selectedBilling: String,
         ttl: DateTime,
         deliveryAfterConfirm: Long
     ): Budget {
@@ -59,10 +60,12 @@ class BudgetService(
 
                 price = price,
                 quantity = quantity,
+
+                billing = billing,
+                selectedBilling = selectedBilling,
                 iva = iva,
                 total = total,
 
-                billing = billing,
                 ttl = ttl,
                 deliveryAfterConfirm = deliveryAfterConfirm
             )
@@ -92,6 +95,7 @@ class BudgetService(
             iva: Double,
             total: Double,
             billing: String,
+            selectedBilling: String,
             ttl: DateTime,
             deliveryAfterConfirm: Long
     ): Budget {
@@ -102,10 +106,12 @@ class BudgetService(
                     budget.copy(
                         price = price,
                         quantity = quantity,
+
+                        billing = billing,
+                        selectedBilling = billing,
                         iva = iva,
                         total = total,
 
-                        billing = billing,
                         ttl = ttl,
                         deliveryAfterConfirm = deliveryAfterConfirm
                     )

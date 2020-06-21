@@ -8,6 +8,7 @@ import com.entremp.core.entremp.model.DeliveryTerm
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.pricing.PricingAttachement
 import com.entremp.core.entremp.model.pricing.PricingStatus
+import com.entremp.core.entremp.model.pricing.RequestedBilling
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.sample.Sample
 import com.entremp.core.entremp.model.user.User
@@ -87,26 +88,26 @@ class PricingService(
             quantity: Long,
             specifications: String,
             sample: Boolean,
-            deliveryTerm: DeliveryTerm
+            deliveryTerm: DeliveryTerm,
+            billing: List<RequestedBilling>
     ): Pricing {
         val pricing: Pricing = pricingRepository.save(
-                Pricing(
-                        buyer = buyer,
-                        provider = product.user,
-                        product = product,
-                        quantity = quantity,
-                        specifications = specifications,
-                        sample = sample,
-                        deliveryTerm = deliveryTerm
-                )
+            Pricing(
+                buyer = buyer,
+                provider = product.user,
+                product = product,
+                quantity = quantity,
+                specifications = specifications,
+                sample = sample,
+                deliveryTerm = deliveryTerm,
+                requestedBilling = billing
+            )
         )
 
         // Create a Sample only if requested
         if(sample){
             sampleRepository.save(
-                    Sample(
-                            pricing = pricing
-                    )
+                Sample(pricing = pricing)
             )
         }
 

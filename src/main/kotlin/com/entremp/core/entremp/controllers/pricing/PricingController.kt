@@ -3,10 +3,14 @@ package com.entremp.core.entremp.controllers.pricing
 import com.entremp.core.entremp.api.pricing.CreatePricingDTO
 import com.entremp.core.entremp.controllers.Authenticated
 import com.entremp.core.entremp.model.pricing.Pricing
+import com.entremp.core.entremp.model.pricing.RequestedBilling
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.user.User
 import com.entremp.core.entremp.service.PricingService
 import com.entremp.core.entremp.service.ProductService
+import com.entremp.core.entremp.support.ObjectMapperFactory
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
@@ -18,6 +22,8 @@ class PricingController(
         private val pricingService: PricingService,
         private val productService: ProductService
 ): Authenticated {
+    val mapper: ObjectMapper = ObjectMapperFactory.camelCaseMapper
+
     @GetMapping
     fun all(): Iterable<Pricing> {
         return pricingService.getAll()
@@ -33,13 +39,21 @@ class PricingController(
         if(auth != null) {
             val product: Product = productService.find(storable.productId)
 
+            val requestedBilling: List<RequestedBilling> = storable
+                .billing
+                .split(",")
+                .map { billingItem ->
+                    RequestedBilling.of(billingItem)
+                }
+
             val pricing: Pricing = pricingService.save(
                 buyer = auth,
                 product = product,
                 quantity = storable.quantity,
                 specifications = storable.specifications,
                 sample = storable.sample,
-                deliveryTerm = storable.deliveryTerm
+                deliveryTerm = storable.deliveryTerm,
+                billing = requestedBilling
             )
 
             // Save product loaded images

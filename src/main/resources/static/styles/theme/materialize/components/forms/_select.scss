@@ -57,6 +57,7 @@ select {
   position: relative;
 
   input.select-dropdown {
+    overflow-y: auto !important;
     &:focus {
       border-bottom: 1px solid $input-focus-color;
     }

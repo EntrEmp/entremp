@@ -28,10 +28,7 @@ class BasicRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun index(): ModelAndView {
-        return ModelAndView("common/general")
-            .addObject("header", header())
-            .addObject("body", "")
-            .addObject("footer", "")
+        return ModelAndView("common/full-landing")
     }
 
     @RequestMapping(

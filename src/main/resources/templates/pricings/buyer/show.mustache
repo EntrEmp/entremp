@@ -4,19 +4,9 @@
             <div class="col s12 m4 l12 detail-products--breadcrumb">
                 <p>Cotizaciones</p> - <P>Sillas</P>
             </div>
-            <div class="col s12 m4 l2 detail-products--photo-min">
-                <h6>Adjuntos</h6>
-                {{#pricing}}
-                    {{#pricingAttachements}}
-                        <span class="z-depth-1">
-                          <img class="materialboxed"
-                               width="80"
-                               height="80"
-                               src="{{s3Link}}">
-                        </span>
-                    {{/pricingAttachements}}
-                {{/pricing}}
 
+            <div class="col s12 m4 l2 detail-products--photo-min">
+                <!-- TODO Previo de lista imagenes (i.e: MELI) -->
             </div>
 
             <!--Selected photo-->
@@ -60,17 +50,37 @@
                             <i class="material-icons">chevron_right</i>Solicitud
                         </div>
                         <div class="collapsible-body">
-                                <p class="seller"> <span><strong>Especificaciones</strong></span>: {{specifications}}</p>
-                                <p class="seller"> <span><strong>Cantidad solicitada</strong></span>: {{quantity}} unidades</p>
-                                <p class="seller"> <span><strong>Requiere Muestra</strong></span>:
-                                    {{#sample}}
-                                        <i class="material-icons">done</i>
-                                    {{/sample}}
-                                    {{^sample}}
-                                        <i class="material-icons">close</i>
-                                    {{/sample}}
-                                </p>
-                                <p class="seller"> <span><strong>Plazo de Entrega</strong></span>: {{deliveryTerm}}</p>
+                            <p class="seller"> <span><strong>Especificaciones</strong></span>:
+                                <p><i>{{specifications}}</i></p>
+                            </p>
+                            <p class="seller"> <span><strong>Cantidad solicitada</strong></span>: {{quantity}} unidades</p>
+                            {{#sample}}
+                                <p class="seller"> <span><strong>Requiere Muestra</strong></span>: SI</p>
+                            {{/sample}}
+                            {{^sample}}
+                                <p class="seller"> <span><strong>Requiere Muestra</strong></span>: NO</p>
+                            {{/sample}}
+
+                            <p class="seller"> <span><strong>Plazo de Entrega</strong></span>: {{deliveryTerm.toHTMLString}}</p>
+
+                            <p class="seller"> <span><strong>Tipos de Facturación</strong></span>:
+                            {{#requestedBilling}}
+                                 <p><i>{{toHTMLString}}</i></p>
+                            {{/requestedBilling}}
+                            </p>
+
+                            <p class="seller"> <span><strong>Adjuntos</strong></span>:
+                            {{#pricingAttachements}}
+                                <li>
+                                    <a href="{{s3Link}}"
+                                       class="hoverable"
+                                       target="_blank"
+                                       download>
+                                        <i class="material-icons left">cloud_download</i>
+                                        {{filename}}
+                                    </a>
+                                </li>
+                            {{/pricingAttachements}}
                         </div>
                     </li>
                         {{#budget}}
@@ -88,6 +98,21 @@
                                     {{deliveryAfterConfirm}} días despues de confirmada la cotizacion
                                 </p>
                                 <p class="green-text"> <span><strong>Vigencia</strong></span>: {{ttlDate}}</p>
+
+                                <p class="seller"> <span><strong>Adjuntos</strong></span>:
+                                <ul>
+                                    {{#budgetAttachement}}
+                                        <li>
+                                            <a href="{{s3Link}}"
+                                               class="hoverable"
+                                               target="_blank"
+                                               download>
+                                                <i class="material-icons left">cloud_download</i>
+                                                {{filename}}
+                                            </a>
+                                        </li>
+                                    {{/budgetAttachement}}
+                                </ul>
                             </div>
                         </li>
                         {{/budget}}

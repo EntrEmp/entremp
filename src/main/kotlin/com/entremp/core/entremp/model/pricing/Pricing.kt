@@ -60,7 +60,13 @@ data class Pricing(
 
         val sample: Boolean = false,
 
-        val status: PricingStatus = PricingStatus.PENDING
+        val status: PricingStatus = PricingStatus.PENDING,
+
+        @ElementCollection(targetClass=RequestedBilling::class)
+        @Enumerated(EnumType.STRING)
+        @CollectionTable(name="pricing_requested_billing")
+        @Column(name="requested_billing")
+        val requestedBilling: List<RequestedBilling> = emptyList()
 ){
 
     fun mainAttachment(): String {

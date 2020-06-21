@@ -21,23 +21,49 @@
             });
         {{/budget}}
     {{/pricing}}
-
+</script>
+<script>
     $(window).load(function(){
-        $('#budget_price').on('change', function() {
+
+        function setTotalPrice(){
             var price = parseFloat($( "#budget_price" ).val());
             var quantity = parseInt($( "#budget_quantity" ).val());
 
             var total = price * quantity;
 
             $('#total_price').val(total);
+        }
+
+        function setTaxes(){
+            var price = parseFloat($( "#total_price" ).val());
+            var iva = parseFloat($("#iva option:selected" ).val());
+
+            var taxes = price * (iva / 100);
+
+            if(isNaN(taxes)) {
+                taxes = 0;
+            }
+
+            if(taxes == 0){
+                $('#taxes').hide();
+            } else {
+                $('#taxes').text("IVA: $ " + taxes);
+                $('#taxes').show();
+            }
+
+        }
+
+        $('#budget_price').on('change', function() {
+            setTotalPrice();
+            setTaxes()
         });
         $('#budget_quantity').on('change', function() {
-            var price = parseFloat($( "#budget_price" ).val());
-            var quantity = parseInt($( "#budget_quantity" ).val());
+            setTotalPrice();
+            setTaxes()
+        });
 
-            var total = price * quantity;
-
-            $('#total_price').val(total);
+        $('#iva').on('change', function() {
+            setTaxes()
         });
     });
 </script>

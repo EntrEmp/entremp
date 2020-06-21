@@ -7,5 +7,6 @@ data class CreatePricingDTO(
     val quantity: Long,
     val sample: Boolean = false,
     val deliveryTerm: DeliveryTerm,
-    val specifications: String
+    val specifications: String,
+    val billing: String
 )

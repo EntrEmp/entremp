@@ -123,11 +123,15 @@ class BudgetController(
 
             val budget = budgetService.save(
                 pricing = pricing,
+
                 price = storable.price,
                 quantity = storable.quantity,
-                iva = storable.iva(),
+
+                billing = storable.billing(),
+                selectedBilling = storable.selectedBilling,
+                iva = storable.iva,
                 total = storable.total,
-                billing = storable.billing,
+
                 ttl = storable.ttlDateTime(),
                 deliveryAfterConfirm = storable.delivery
             )
@@ -162,11 +166,15 @@ class BudgetController(
 
             val budget: Budget = budgetService.update(
                 id = id,
+
                 price = storable.price,
                 quantity = storable.quantity,
-                iva = storable.iva(),
+
+                billing = storable.billing(),
+                selectedBilling = storable.selectedBilling,
+                iva = storable.iva,
                 total = storable.total,
-                billing = storable.billing,
+
                 ttl = storable.ttlDateTime(),
                 deliveryAfterConfirm = storable.delivery
             )
