@@ -1,6 +1,7 @@
 package com.entremp.core.entremp.model.user
 
 import com.entremp.core.entremp.model.chat.Chat
+import com.entremp.core.entremp.model.notification.Notification
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.product.FavoriteProduct
 import com.entremp.core.entremp.model.product.Product
@@ -85,7 +86,12 @@ data class User(
         @OneToMany(mappedBy = "provider")
         @JsonIgnore
         @EqualsAndHashCode.Exclude
-        val providerChats: List<Chat> = emptyList()
+        val providerChats: List<Chat> = emptyList(),
+
+        @OneToMany(mappedBy = "user")
+        @JsonIgnore
+        @EqualsAndHashCode.Exclude
+        val notifications: List<Notification> = emptyList()
 ): UserDetails {
 
         @JsonIgnore
