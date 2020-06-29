@@ -1,0 +1,25 @@
+<div class="container availbl-cotzacns">
+
+    <div class="row availbl-cotzacns-list">
+        <h6>Notificaciones Activas</h6>
+
+        {{#notifications}}
+
+            <div class="col s12 availbl-cotzacns-items">
+                <div class="card-panel #ffffff z-depth-1 card-cotzacns-active">
+                    <div class="row">
+                        <div class="col s9">
+                            <p><i>{{date}}</i></p>
+                            <p>{{message}}</p>
+                        </div>
+                        <div class="col s3">
+                            <a href="/api/notifications/more/{{id}}?role=seller " class="secondary-content">
+                                Ver más
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/notifications}}
+    </div>
+</div>

@@ -10,7 +10,7 @@
                     </a>
                 </div>
 
-                <div class="col s6 header-component--input-search input-field">
+                <div class="col s4 header-component--input-search input-field">
                     <a class="btn btn-default btn-seller" href="/seller/products">categoria</a>
                     <input value="{{searchCriteria}}"
                            class="form-control autocomplete"
@@ -21,7 +21,7 @@
                     <span class="header-span"><i class="material-icons">search</i></span>
                 </div>
 
-                <div class="col s5 header-component--menu">
+                <div class="col s7 header-component--menu">
                     <ul id="dropdown-user" class="dropdown-content">
                         <li><a href="/seller/profile/{{loggedId}}">Ver Perfil</a></li>
                         <li class="divider"></li>
@@ -40,9 +40,25 @@
                             <li><a href="/seller/products">Catalogo</a></li>
                             <li><a href="/seller/pricings">Cotizaciones</a></li>
                             <li><a href="/seller/messages">Mensajes</a></li>
+                            <li>
+                                {{#notifications}}
+                                    <a href="/seller/notifications">
+                                        Notificaciones
+                                        <span class="new badge red" data-badge-caption="">{{.}}</span>
+                                    </a>
+                                {{/notifications}}
+                                {{#emptyNotifications}}
+                                    <a href="/seller/notifications">
+                                        Notificaciones
+                                    </a>
+                                {{/emptyNotifications}}
+                            </li>
                             <!-- Dropdown Trigger -->
-                            <li><a class="dropdown-trigger" href="#!" data-target="dropdown-user">Perfil<i
-                                    class="material-icons right">arrow_drop_down</i></a></li>
+                            <li>
+                                <a class="dropdown-trigger" href="#!" data-target="dropdown-user">
+                                    Perfil<i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
                         </ul>
                     </nav>
                 </div>

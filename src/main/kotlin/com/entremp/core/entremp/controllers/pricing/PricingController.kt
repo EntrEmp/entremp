@@ -2,6 +2,7 @@ package com.entremp.core.entremp.controllers.pricing
 
 import com.entremp.core.entremp.api.pricing.CreatePricingDTO
 import com.entremp.core.entremp.controllers.Authenticated
+import com.entremp.core.entremp.events.OnPricingRequestEvent
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.pricing.RequestedBilling
 import com.entremp.core.entremp.model.product.Product
@@ -11,6 +12,7 @@ import com.entremp.core.entremp.service.ProductService
 import com.entremp.core.entremp.support.ObjectMapperFactory
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
@@ -19,8 +21,9 @@ import org.springframework.web.servlet.view.RedirectView
 @RestController
 @RequestMapping("/api/pricings")
 class PricingController(
-        private val pricingService: PricingService,
-        private val productService: ProductService
+    private val pricingService: PricingService,
+    private val productService: ProductService,
+    private val eventPublisher: ApplicationEventPublisher
 ): Authenticated {
     val mapper: ObjectMapper = ObjectMapperFactory.camelCaseMapper
 
@@ -57,12 +60,22 @@ class PricingController(
             )
 
             // Save product loaded images
-            attachments.map { image: MultipartFile ->
+            attachments
+                .filterNot{ image ->
+                    image.isEmpty
+                }
+                .map { image: MultipartFile ->
                 pricingService.addAttachement(
                     id = pricing.id!!,
                     file = image
                 )
             }
+
+            eventPublisher.publishEvent(
+                OnPricingRequestEvent(
+                    pricing = pricing
+                )
+            )
 
             val id: String = pricing.id !!
 

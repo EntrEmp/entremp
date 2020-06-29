@@ -36,6 +36,12 @@ object ServicesBeans {
         }
 
         bean {
+            NotificationService(
+                notificationRepository = ref()
+            )
+        }
+
+        bean {
             ProductService(
                 productsRepository = ref(),
 

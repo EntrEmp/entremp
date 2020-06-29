@@ -137,7 +137,11 @@ class BudgetController(
             )
 
             // Save product loaded images
-            attachments.map { image: MultipartFile ->
+            attachments
+                .filterNot{ image ->
+                    image.isEmpty
+                }
+                .map { image: MultipartFile ->
                 budgetService.addAttachement(
                     id = budget.id!!,
                     file = image

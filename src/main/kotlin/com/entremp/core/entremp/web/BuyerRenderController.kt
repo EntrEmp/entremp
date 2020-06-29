@@ -12,14 +12,12 @@ import com.entremp.core.entremp.data.CategoriesRepository
 import com.entremp.core.entremp.data.CertificationTagsRepository
 import com.entremp.core.entremp.data.TagsRepository
 import com.entremp.core.entremp.model.*
+import com.entremp.core.entremp.model.notification.Notification
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.product.FavoriteProduct
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.user.User
-import com.entremp.core.entremp.service.ChatService
-import com.entremp.core.entremp.service.PricingService
-import com.entremp.core.entremp.service.ProductService
-import com.entremp.core.entremp.service.UserService
+import com.entremp.core.entremp.service.*
 import com.entremp.core.entremp.support.ObjectMapperFactory
 import com.entremp.core.entremp.support.templates.TemplateBuilder
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -44,6 +42,7 @@ import javax.servlet.http.HttpServletRequest
 @RequestMapping("/buyer")
 class BuyerRenderController(
     private val userService: UserService,
+    private val notificationService: NotificationService,
     private val productService: ProductService,
     private val pricingService: PricingService,
     private val categoriesRepository: CategoriesRepository,
@@ -99,6 +98,49 @@ class BuyerRenderController(
             .addObject("body", body)
             .addObject("footer", "")
             .addObject("tags", tags)
+    }
+
+    /**
+     * Notification Routes
+     */
+    @RequestMapping(
+        "/notifications",
+        method = [RequestMethod.GET],
+        produces = [MediaType.TEXT_HTML_VALUE]
+    )
+    fun notifications(request: HttpServletRequest): ModelAndView {
+        val authenticated: User? = getAuthUser()
+
+        val notifications: List<Notification> = notificationService
+            .findByUser(authenticated!!)
+            .toList()
+            .filterNot { notification ->
+                notification.seen
+            }
+
+        val data: Map<String, Any?> = mapOf(
+            "notifications" to notifications,
+            "role" to "buyer"
+        )
+
+        val body = template(
+            resource = "templates/notifications/buyer/index.mustache",
+            data = data
+        )
+
+        val footer = template(
+            resource = "templates/notifications/buyer/index-footer.mustache",
+            data = data
+        )
+
+        return ModelAndView("common/general")
+            .addObject("header", header())
+            .addObject("body", body)
+            .addObject("footer", footer)
+            .addObject("tags", tags)
+            .addObject("certifications", certifications)
+            .addObject("attributes", attributes)
+            .addObject("categories", categories)
     }
 
     /**
@@ -596,16 +638,35 @@ class BuyerRenderController(
             .addObject("tags", tags)
     }
 
-    private fun header(searchCriteria: String? = null): String = TemplateBuilder(
-        templateName = "templates/common/header/buyer/logged.mustache",
-        factory = factory)
-        .data(
-            mapOf(
-                "loggedId" to getAuthUser()?.id,
-                "searchCriteria" to searchCriteria
+    private fun header(searchCriteria: String? = null): String {
+        val user: User? = getAuthUser()
+
+        val notificationCount: Int? = notificationService
+            .findByUser(user!!)
+            .filterNot { notification ->
+                notification.seen
+            }
+            .size
+
+        val emptyNotifications: Boolean = notificationCount == 0
+
+        return TemplateBuilder(
+            templateName = "templates/common/header/buyer/logged.mustache",
+            factory = factory)
+            .data(
+                mapOf(
+                    "loggedId" to user.id,
+                    "searchCriteria" to searchCriteria,
+                    "notifications" to if(emptyNotifications){
+                        null
+                    } else {
+                        notificationCount
+                    },
+                    "emptyNotifications" to emptyNotifications
+                )
             )
-        )
-        .build()
+            .build()
+    }
 
     private fun template(resource: String): String {
         return TemplateBuilder(

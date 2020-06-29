@@ -4,6 +4,8 @@ import com.entremp.core.entremp.model.user.User
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import lombok.EqualsAndHashCode
 import org.hibernate.annotations.GenericGenerator
+import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import javax.persistence.*
 
 @Entity
@@ -22,5 +24,14 @@ data class Notification(
 
     val type: String,
 
-    val message: String
-)
+    val message: String,
+
+    val createdAt: DateTime = DateTime.now(DateTimeZone.UTC)
+){
+    fun action(): String = when(type){
+        "PRICING" -> "/pricings"
+        else -> "/home"
+    }
+
+    fun date(): String = createdAt.toString()
+}

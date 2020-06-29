@@ -54,8 +54,7 @@ class RegisterController(
 
             val registered: User = registerNewAccount(prospect)
 
-            eventPublisher.publishEvent(
-                OnRegistrationCompleteEvent(
+            eventPublisher.publishEvent(OnRegistrationCompleteEvent(
                     user = registered,
                     url = request.contextPath
                 )
