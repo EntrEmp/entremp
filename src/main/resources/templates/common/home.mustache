@@ -10,63 +10,39 @@
         </div>
         <div class="col s12 m4 l3"></div>
 
-        <!--<div class="col s6 home--title valign-wrapper">-->
-            <!--<div class="row">-->
-                <!--<div class="col s12">-->
-                    <!--<h2 class="center-align"> EntrEmp </h2>-->
-                <!--</div>-->
-                <!--<div class="col s12">-->
-                    <!--<h3 class="center-align">Comprá y vendé gratis!</h3>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
 
   <div class="row">
       <div class="col s12">
           <div class="home--title">
-              <h3> Basados en tus busquedas recientes </h3>
+              <h3> Productos para la nueva normalidad </h3>
           </div>
-          <div class="col s12 m4 l3">
-              <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
+          {{#products}}
+              <div class="col s12 m4 l3">
+                  <h5>{{name}}</h5>
+                  <div class="home--search-img">
+                      <a href="/buyer/products/{{id}}" target="_blank">
+                          <img src="{{mainImage}}">
+                      </a>
+                  </div>
               </div>
-          </div>
-
-          <div class="col s12 m4 l3">
-              <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
-              </div>
-          </div>
-
-
-          <div class="col s12 m4 l3">
-              <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
-              </div>
-          </div>
-
-          <div class="col s12 m4 l3">
-              <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
-              </div>
-          </div>
+          {{/products}}
       </div>
 
       <div class="col s12">
           <div class="home--title">
-              <h3> Basados en tus busquedas recientes </h3>
+              <h3> Acompañan el desarrollo de EntrEmp </h3>
           </div>
 
           <div class="col s12 m4 l6">
               <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
+                  <img src="/images/sponsors/sponsor_01.jpeg">
               </div>
           </div>
 
           <div class="col s12 m4 l6">
               <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
+                  <img src="/images/sponsors/sponsor_03.jpeg">
               </div>
           </div>
       </div>

@@ -94,6 +94,45 @@ class ProductService(
         }
     }
 
+    fun productsForTag(tagString: String): Page<Product> {
+        val criteriaTags: List<Tag> =
+            tagsRepository
+                .findByNameContainingIgnoreCase(
+                    name = tagString
+                )
+
+        val searched: List<ProductTag> =
+            productTagRepository
+                .findByTagIdIn(
+                    criteriaTags
+                        .mapNotNull { tag ->
+                            tag.id
+                        }
+                )
+
+        val tags: List<String> = searched
+            .mapNotNull{ element ->
+                element.product?.id
+            }
+
+        return productsRepository
+            .findAll(
+                ProductFilterSpecification(
+                    ids = tags,
+                    minStock = null,
+                    maxStock = null,
+                    minBatch = null,
+                    maxBatch = null,
+                    searchTerm = null
+                ),
+                PageRequest.of(
+                    0,
+                    4
+                )
+            )
+
+    }
+
     fun filter(productFilter: ProductFilterDTO?): Page<Product> {
         val page: Int = productFilter
             ?.searchPage
