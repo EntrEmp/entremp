@@ -654,7 +654,11 @@ class BuyerRenderController(
                         }
                 }
                 ?: emptyList(),
-            criteria = filter?.criteria ?: ""
+            criteria = filter?.criteria ?: "",
+            minimum = filter?.minimum,
+            maximum = filter?.maximum,
+            minBatch = filter?.minBatch,
+            maxBatch = filter?.maxBatch
         )
 
 

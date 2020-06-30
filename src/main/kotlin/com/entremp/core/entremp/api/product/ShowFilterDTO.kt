@@ -11,6 +11,12 @@ data class ShowFilterDTO(
 
     val certifications: List<CertificationTag> = emptyList(),
 
-    val criteria: String = ""
+    val criteria: String = "",
+
+    val minimum: Int? = null,
+    val maximum: Int? = null,
+
+    val minBatch: Int? = null,
+    val maxBatch: Int? = null
 ) {
 }

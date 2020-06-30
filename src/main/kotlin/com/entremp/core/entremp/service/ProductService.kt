@@ -158,16 +158,22 @@ class ProductService(
 
             val tags: List<String> =
                 if(productFilter.criteria != null && productFilter.criteria.isNotEmpty()){
+                    val criteriaTags: List<Tag> =
+                        tagsRepository
+                        .findByNameContainingIgnoreCase(
+                            name = productFilter.criteria
+                        )
+
+                    val searched: List<ProductTag> =
                     productTagRepository
-                        .findAllById(
-                            tagsRepository
-                                .findByNameContaining(
-                                    name = productFilter.criteria
-                                )
+                        .findByTagIdIn(
+                            criteriaTags
                                 .mapNotNull { tag ->
                                     tag.id
                                 }
                         )
+
+                    searched
                         .mapNotNull{ element ->
                             element.product?.id
                         }
