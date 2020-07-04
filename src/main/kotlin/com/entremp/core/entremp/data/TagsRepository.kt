@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface TagsRepository: CrudRepository<Tag, String>{
     fun findByName(name: String): Tag?
-    fun findByNameContaining(name: String): List<Tag>
+    fun findByNameContainingIgnoreCase(name: String): List<Tag>
 }

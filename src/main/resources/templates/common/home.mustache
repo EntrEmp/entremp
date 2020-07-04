@@ -10,65 +10,56 @@
         </div>
         <div class="col s12 m4 l3"></div>
 
-        <!--<div class="col s6 home--title valign-wrapper">-->
-            <!--<div class="row">-->
-                <!--<div class="col s12">-->
-                    <!--<h2 class="center-align"> EntrEmp </h2>-->
-                <!--</div>-->
-                <!--<div class="col s12">-->
-                    <!--<h3 class="center-align">Comprá y vendé gratis!</h3>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
 
   <div class="row">
       <div class="col s12">
           <div class="home--title">
-              <h3> Basados en tus busquedas recientes </h3>
+              <h3> Productos para la nueva normalidad </h3>
           </div>
-          <div class="col s12 m4 l3">
-              <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
+          {{#products}}
+              <div class="col s12 m4 l3">
+                  <div class="home--search-img hoverable">
+                      <a href="/buyer/products/{{id}}" target="_blank">
+                          <img src="{{mainImage}}">
+                      </a>
+                  </div>
+                  <h6 class="text-center" style="margin-left: 25%;">
+                      {{name}}
+                  </h6>
               </div>
-          </div>
-
-          <div class="col s12 m4 l3">
-              <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
-              </div>
-          </div>
-
-
-          <div class="col s12 m4 l3">
-              <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
-              </div>
-          </div>
-
-          <div class="col s12 m4 l3">
-              <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
-              </div>
-          </div>
+          {{/products}}
       </div>
 
       <div class="col s12">
           <div class="home--title">
-              <h3> Basados en tus busquedas recientes </h3>
+              <h3> Acompañan el desarrollo de EntrEmp </h3>
           </div>
 
-          <div class="col s12 m4 l6">
-              <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
+          <div class="col s12 m4 l4">
+              <div class="home--search-img hoverable">
+                  <a href="https://sauma.com.ar/" target="_blank">
+                      <img src="/images/sponsors/sponsor_01.jpeg" style="min-width: 380px;max-width: 380px;min-height: 200px;max-height: 200px;">
+                  </a>
               </div>
           </div>
 
-          <div class="col s12 m4 l6">
-              <div class="home--search-img">
-                  <img src="https://via.placeholder.com/468x200?text=468x373+Full+Banner">
+          <div class="col s12 m4 l4">
+              <div class="home--search-img hoverable">
+                  <a href="https://sorma.com.ar/" target="_blank">
+                      <img src="/images/sponsors/sponsor_02.jpeg" style="min-width: 380px;max-width: 380px;min-height: 200px;max-height: 200px;">
+                  </a>
               </div>
           </div>
+
+          <div class="col s12 m4 l4">
+              <div class="home--search-img hoverable">
+                  <a href = "https://www.steelplastic.com.ar/" target="_blank">
+                      <img src="/images/sponsors/sponsor_03.jpeg" style="min-width: 380px;max-width: 380px;min-height: 200px;max-height: 200px;">
+                  </a>
+              </div>
+          </div>
+
       </div>
   </div>
 </div>

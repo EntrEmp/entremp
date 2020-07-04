@@ -85,8 +85,11 @@ class BuyerRenderController(
     fun home(): ModelAndView {
         val image = "azul.png"
 
+        val products = productService.productsForTag("Covid 19").content
+
         val data: Map<String, Any?> = mapOf(
-            "image" to image
+            "image" to image,
+            "products" to products
         )
 
         val body = template(
@@ -715,7 +718,11 @@ class BuyerRenderController(
                         }
                 }
                 ?: emptyList(),
-            criteria = filter?.criteria ?: ""
+            criteria = filter?.criteria ?: "",
+            minimum = filter?.minimum,
+            maximum = filter?.maximum,
+            minBatch = filter?.minBatch,
+            maxBatch = filter?.maxBatch
         )
 
 

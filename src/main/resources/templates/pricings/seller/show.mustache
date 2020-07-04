@@ -2,7 +2,11 @@
     <div class="row ">
         <div class="col s12 m4 l8 detail-products--photos">
             <div class="col s12 m4 l12 detail-products--breadcrumb">
-                <p>Cotizaciones</p> - <P>Sillas</P>
+                {{#pricing}}
+                    {{#buyer}}
+                        <p>Cotizaciones</p> - <p>{{name}}</p>
+                    {{/buyer}}
+                {{/pricing}}
             </div>
             <div class="col s12 m4 l2 detail-products--photo-min">
                 <!-- TODO Previo de lista imagenes (i.e: MELI) -->

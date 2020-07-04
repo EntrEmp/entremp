@@ -1,9 +1,6 @@
 package com.entremp.core.entremp.data.product
 
 import com.entremp.core.entremp.model.product.Product
-import com.entremp.core.entremp.model.product.ProductAttribute
-import com.entremp.core.entremp.model.product.ProductCategory
-import com.entremp.core.entremp.model.product.ProductCertification
 
 import org.springframework.data.jpa.domain.Specification
 import javax.persistence.criteria.*
@@ -21,28 +18,6 @@ data class ProductFilterSpecification(
 
         val predicates: MutableList<Predicate> = mutableListOf()
         query.distinct(true)
-
-        if(ids.isNotEmpty()){
-            val products: Path<String> = root.get<String>("id")
-            predicates.add(
-                products.`in`(ids)
-            )
-        }
-
-        if(searchTerm != null && searchTerm.isNotEmpty()){
-            val description: Path<String> = root.get<String>("description")
-            val name: Path<String> = root.get<String>("name")
-            predicates.add(
-                builder.or(
-                    builder.like(
-                        description , "%$searchTerm%"
-                    ),
-                    builder.like(
-                        name , "%$searchTerm%"
-                    )
-                )
-            )
-        }
 
         if(minStock != null && minStock > 0){
             val minValues: Path<Int> = root.get<Int>("minimum")
@@ -82,7 +57,64 @@ data class ProductFilterSpecification(
 
         val predicate: Predicate? = builder.and(*predicates.toTypedArray())
 
-        return predicate
+        return if(searchTerm != null && searchTerm.isNotEmpty()){
+            val description: Path<String> = root.get<String>("description")
+            val name: Path<String> = root.get<String>("name")
+            val pattern = "%${searchTerm}%"
+
+            val regexPredicate: Predicate =
+            builder.or(
+                builder.isTrue(
+                    builder.like(
+                        builder.lower(description) ,
+                        pattern.toLowerCase()
+                    )
+                ),
+                builder.isTrue(
+                    builder.like(
+                        builder.lower(name) ,
+                        pattern.toLowerCase()
+                    )
+                )
+            )
+
+            if(ids.isNotEmpty()){
+                // Regex + ids with numeric predicates
+                val products: Path<String> = root.get<String>("id")
+
+                builder.and(
+                    builder.or(
+                        builder.isTrue(
+                            products.`in`(ids)
+                        ),
+                        builder.isTrue(
+                            regexPredicate
+                        )
+                    ),
+                    predicate
+                )
+            } else {
+                // Regex and numeric predicates
+                builder.and(
+                    regexPredicate,
+                    predicate
+                )
+            }
+
+        } else if(ids.isNotEmpty()){
+            // Ids and numeric predicates
+            val products: Path<String> = root.get<String>("id")
+
+            builder.and(
+                products.`in`(ids),
+                predicate
+            )
+        } else {
+            // Just predicates
+            predicate
+        }
+
     }
+
 
 }
