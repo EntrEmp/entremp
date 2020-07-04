@@ -173,7 +173,10 @@ data class Pricing(
                 <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
                 """.trimIndent()
             } else {
-                "<p> Aguardando una respuesta del proveedor</p>"
+                """
+                   <p> Aguardando una respuesta del proveedor</p> 
+                   <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
+                """.trimIndent()
             }
 
         PricingStatus.APPROVED ->
@@ -222,7 +225,10 @@ data class Pricing(
                     </p>
                 """.trimIndent()
             } else {
-                "<p> Aguardando una respuesta del proveedor</p>"
+                """
+                   <p> Aguardando una respuesta del proveedor</p> 
+                   <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
+                """.trimIndent()
             }
 
         PricingStatus.APPROVED ->
