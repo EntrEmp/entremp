@@ -15,6 +15,9 @@ import com.entremp.core.entremp.model.user.User
 import com.entremp.core.entremp.model.user.VerificationToken
 import com.entremp.core.entremp.support.EmailService
 import com.entremp.core.entremp.support.EntrEmpContext
+import com.entremp.core.entremp.support.templates.TemplateBuilder
+import com.github.mustachejava.DefaultMustacheFactory
+import com.github.mustachejava.MustacheFactory
 import org.joda.time.DateTime
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -39,6 +42,8 @@ class RegisterController(
         private val mailer: EmailService,
         private val context: EntrEmpContext
 ) {
+
+    private val factory: MustacheFactory = DefaultMustacheFactory()
 
     private val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
@@ -122,13 +127,16 @@ class RegisterController(
             )
 
             val server: String = context.toServerAddress()
-            val url: String = "$server/reset?token=$token"
+            val url = "$server/reset?token=$token"
 
-            val text =
-                """
-            A continuación le enviamos el link para que recupere su contraseña.
-            $url
-            """.trimIndent()
+
+            val text = template(
+                resource = "templates/mails/reset_password.mustache",
+                dataMap = mapOf(
+                    "resetUrl" to url,
+                    "emailAddress" to email
+                )
+            )
 
             mailer.sendMail(
                 recipients = listOf(email),
@@ -244,5 +252,11 @@ class RegisterController(
             </div>
         """.trimIndent()
 
-
+    private fun template(resource: String, dataMap: Map<String, Any?>): String =
+        TemplateBuilder(
+            templateName = resource,
+            factory = factory
+        )
+            .data(dataMap)
+            .build()
 }

@@ -40,7 +40,11 @@
                                 {{#notifications}}
                                     <a href="/buyer/notifications">
                                         Notificaciones
-                                        <span class="new badge red" data-badge-caption="">{{.}}</span>
+                                        <span class="new badge red"
+                                              data-badge-caption=""
+                                              style="border-radius:25%/50% !important;">
+                                            {{.}}
+                                        </span>
                                     </a>
                                 {{/notifications}}
                                 {{#emptyNotifications}}

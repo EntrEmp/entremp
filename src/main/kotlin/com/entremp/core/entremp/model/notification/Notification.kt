@@ -30,6 +30,7 @@ data class Notification(
 ){
     fun action(): String = when(type){
         "PRICING" -> "/pricings"
+        "BUDGET" -> "/pricings"
         else -> "/home"
     }
 

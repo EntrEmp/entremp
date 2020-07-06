@@ -99,6 +99,23 @@
     }
 }
 
+@mixin icon-non-circle-img($widthHeight,$border) {
+  @include flex-center;
+  background: $white;
+  max-width: $widthHeight;
+  max-height: $widthHeight;
+  min-width: $widthHeight;
+  min-height: $widthHeight;
+  border-color: $border;
+  border-radius: 50%;
+  padding: $spacing-8;
+  overflow: hidden;
+    img{
+      width: 100%;
+      border-radius: 50%;
+    }
+}
+
 @mixin badges($bg-color){
     @include flex-center;
     background-color:$bg-color;

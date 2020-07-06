@@ -614,7 +614,8 @@ class BuyerRenderController(
                         "chat-question"
                     } else {
                         "chat-answers"
-                    }
+                    },
+                    avatar = message.avatar()
                 )
             }
 

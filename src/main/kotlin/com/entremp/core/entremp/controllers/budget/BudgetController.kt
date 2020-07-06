@@ -11,6 +11,7 @@ import com.entremp.core.entremp.data.chat.ChatRepository
 import com.entremp.core.entremp.data.pricing.PricingRepository
 import com.entremp.core.entremp.data.review.ReviewQualificationRepository
 import com.entremp.core.entremp.data.review.ReviewRepository
+import com.entremp.core.entremp.events.*
 import com.entremp.core.entremp.model.budget.Budget
 import com.entremp.core.entremp.model.budget.BudgetAttachement
 import com.entremp.core.entremp.model.chat.Chat
@@ -31,21 +32,26 @@ import java.util.*
 
 import com.entremp.core.entremp.support.JavaSupport.extension
 import com.entremp.core.entremp.support.JavaSupport.unwrap
+import org.springframework.context.ApplicationEventPublisher
 import java.io.File
 
 @RestController
 @RequestMapping("/api/budgets")
 class BudgetController(
     private val pricingService: PricingService,
-    private val budgetService: BudgetService,
+    private val pricingRepository: PricingRepository,
 
+    private val budgetService: BudgetService,
     private val budgetRepository: BudgetRepository,
     private val budgetAttachementRepository: BudgetAttachementRepository,
-        private val pricingRepository: PricingRepository,
-        private val reviewRepository: ReviewRepository,
-        private val qualificationRepository: ReviewQualificationRepository,
-        private val chatRepository: ChatRepository,
-        private val fileStorageService: FileStorageService
+
+    private val reviewRepository: ReviewRepository,
+    private val qualificationRepository: ReviewQualificationRepository,
+
+    private val chatRepository: ChatRepository,
+
+    private val fileStorageService: FileStorageService,
+    private val eventPublisher: ApplicationEventPublisher
 ): Authenticated {
 
     @GetMapping
@@ -84,6 +90,13 @@ class BudgetController(
                 )
             )
 
+            eventPublisher.publishEvent(
+                OnBudgetAcceptEvent(
+                    budget = budget,
+                    chat = chat
+                )
+            )
+
             return RedirectView("/buyer/messages/${chat.id!!}")
         } else {
             throw RuntimeException("Operation not allowed")
@@ -98,13 +111,28 @@ class BudgetController(
         if(auth != null) {
             val pricing: Pricing = pricingService.find(pricingId)
 
-            pricingRepository.save(
+            val rejectedPricing: Pricing = pricingRepository.save(
                 pricing.copy(
                     status = PricingStatus.REJECTED
                 )
             )
 
-            return RedirectView("/seller/pricings/$pricingId")
+            return if(pricing.budget != null){
+                eventPublisher.publishEvent(
+                    OnBudgetRejectEvent(
+                        budget = pricing.budget
+                    )
+                )
+                RedirectView("/buyer/pricings/$pricingId")
+            } else {
+                eventPublisher.publishEvent(
+                    OnPricingRejectEvent(
+                        pricing = rejectedPricing
+                    )
+                )
+                RedirectView("/seller/pricings/$pricingId")
+            }
+
         } else {
             throw RuntimeException("Operation not allowed")
         }
@@ -147,6 +175,18 @@ class BudgetController(
                     file = image
                 )
             }
+
+            eventPublisher.publishEvent(
+                OnPricingAcceptEvent(
+                    pricing = pricing
+                )
+            )
+
+            eventPublisher.publishEvent(
+                OnBudgetRequestEvent(
+                    budget = budget
+                )
+            )
 
             val id: String = pricing.id !!
 

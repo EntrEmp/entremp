@@ -8,7 +8,6 @@ import com.sendgrid.helpers.mail.objects.Content
 import com.sendgrid.helpers.mail.objects.Email
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.ClassPathResource
 import org.springframework.mail.SimpleMailMessage
 import org.springframework.mail.javamail.JavaMailSender
@@ -34,13 +33,15 @@ class EmailService(
 
         logger.info("Sending email with subject $subject")
 
-        val message = SimpleMailMessage()
-        message.setTo(*recipients.toTypedArray())
-        message.setSubject(subject)
-        message.setText(text)
+        val mime: MimeMessage = sender.createMimeMessage()
+        val helper = MimeMessageHelper(mime, true)
+
+        helper.setTo(recipients.toTypedArray())
+        helper.setSubject(subject)
+        helper.setText(text, true)
 
         try {
-            sender.send(message)
+            sender.send(mime)
         } catch (throwable: Throwable){
             logger.error("Could not sent email", throwable)
         }

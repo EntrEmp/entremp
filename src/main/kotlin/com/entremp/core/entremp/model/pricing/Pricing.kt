@@ -117,15 +117,12 @@ data class Pricing(
         PricingStatus.APPROVED ->
             """
                  <div class="row">
-                    <a class="waves-effect waves-light btn">Ver Mensajes</a>
+                    <a class="waves-effect waves-light btn" href="#">Ver Mensajes</a>
                 </div>
                 <a class="status-detail" href="/seller/pricings/$id">Ver detalle</a>    
             """.trimIndent()
         else ->
-            """
-                <p>
-                </p>
-            """.trimIndent()
+            "<p></p>"
     }
 
     fun providerActions(): String = when(status) {
@@ -148,14 +145,11 @@ data class Pricing(
         PricingStatus.APPROVED ->
             """
                 <p>
-                    <a class="waves-effect waves-light btn">Ver Mensajes</a>
+                    <a class="waves-effect waves-light btn" href="#">Ver Mensajes</a>
                 </p>
             """.trimIndent()
         else ->
-            """
-                <p>
-                </p>
-            """.trimIndent()
+            "<p></p>"
     }
 
     fun indexBuyerActions(): String = when(status){
@@ -165,6 +159,10 @@ data class Pricing(
                 <div class="row">
                     <a class="waves-effect waves-light btn-small modal-trigger"
                        href="#budgetAccept_$id">Aprobar Cotización</a>
+                </div>
+                <div class="row">
+                    <a class="waves-effect waves-light btn-small modal-trigger"
+                       href="#budgetCancel_$id">Rechazar Cotización</a>
                 </div>
                 <div class="row">
                     <a class="waves-effect waves-light btn-small"
@@ -198,11 +196,13 @@ data class Pricing(
                     <a class="waves-effect waves-light btn-small"
                        href="#">Enviar Mensaje</a>
                 </div>
+                <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
                 """.trimIndent()
             }
 
         else ->
-            """
+            if(budget != null){
+                """
                 <div class="row">
                     <a class="waves-effect waves-light btn-small modal-trigger"
                        href="#">Cotizar nuevamente</a>
@@ -211,7 +211,18 @@ data class Pricing(
                     <a class="waves-effect waves-light btn-small"
                        href="#">Ver Mensajes</a>
                 </div>
+                <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
             """.trimIndent()
+            } else {
+                """
+                <div class="row">
+                    <a class="waves-effect waves-light btn-small modal-trigger"
+                       href="#">Cotizar nuevamente</a>
+                </div>
+                <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
+            """.trimIndent()
+            }
+
     }
 
     fun buyerActions(): String = when(status){
@@ -221,13 +232,14 @@ data class Pricing(
                     <p>
                         <a class="waves-effect waves-light btn modal-trigger" 
                            href="#budgetAccept_$id">Aprobar Cotización</a>
+                        <a class="waves-effect waves-light btn modal-trigger" 
+                           href="#budgetCancel_$id">Rechazar Cotización</a>
                         <a class="waves-effect waves-light btn">Descargar Cotización</a>
                     </p>
                 """.trimIndent()
             } else {
                 """
                    <p> Aguardando una respuesta del proveedor</p> 
-                   <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
                 """.trimIndent()
             }
 
@@ -238,22 +250,34 @@ data class Pricing(
                         <a class="waves-effect waves-light btn modal-trigger"
                            href="#rejectSample_$id">Rechazar Muestra</a>
                         <a class="waves-effect waves-light btn">Enviar Mensajes</a>
+                        <a class="waves-effect waves-light btn">Descargar Cotización</a>
                     </p>
                 """.trimIndent()
             } else{
                 """
                     <p>
                         <a class="waves-effect waves-light btn">Enviar Mensajes</a>
+                        <a class="waves-effect waves-light btn">Descargar Cotización</a>
                     </p>
                 """.trimIndent()
             }
 
         else ->
-            """
+            if(budget != null){
+                """
                 <p>
                     <a class="waves-effect waves-light btn">Cotizar nuevamente</a>
                     <a class="waves-effect waves-light btn">Ver Mensajes</a>
                 </p>
             """.trimIndent()
+
+            } else {
+                """
+                <p>
+                    <a class="waves-effect waves-light btn">Cotizar nuevamente</a>
+                </p>
+            """.trimIndent()
+
+            }
     }
 }

@@ -5,6 +5,9 @@ import com.entremp.core.entremp.model.user.User
 import com.entremp.core.entremp.model.user.VerificationToken
 import com.entremp.core.entremp.support.EmailService
 import com.entremp.core.entremp.support.EntrEmpContext
+import com.entremp.core.entremp.support.templates.TemplateBuilder
+import com.github.mustachejava.DefaultMustacheFactory
+import com.github.mustachejava.MustacheFactory
 import org.joda.time.DateTime
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.ApplicationListener
@@ -20,6 +23,8 @@ data class RegistrationListener(
     val context: EntrEmpContext
 ): ApplicationListener<OnRegistrationCompleteEvent> {
 
+    private val factory: MustacheFactory = DefaultMustacheFactory()
+
     override fun onApplicationEvent(event: OnRegistrationCompleteEvent) {
         confirmRegistration(event)
     }
@@ -34,12 +39,18 @@ data class RegistrationListener(
         val server = context.toServerAddress()
         val url = "$server/confirm?token=$token"
 
+        val buyerHome = "$server/buyer/home"
+        val sellerHome = "$server/seller/home"
 
-        val text =
-            """
-            Gracias por registrarte en EntrEmp, a continuación le pasamos el link de confirmación.
-            $url
-            """.trimIndent()
+        val text = template(
+            resource = "templates/mails/validate.mustache",
+            dataMap = mapOf(
+                "validateUrl" to url,
+                "buyerHome" to buyerHome,
+                "sellerHome" to sellerHome,
+                "emailAddress" to recipientAddress
+            )
+        )
 
         mailer.sendMail(
             recipients = listOf(recipientAddress),
@@ -59,4 +70,12 @@ data class RegistrationListener(
             )
         )
     }
+
+    private fun template(resource: String, dataMap: Map<String, Any?>): String =
+        TemplateBuilder(
+            templateName = resource,
+            factory = factory
+        )
+            .data(dataMap)
+            .build()
 }

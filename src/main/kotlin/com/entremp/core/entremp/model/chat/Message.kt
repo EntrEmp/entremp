@@ -1,5 +1,6 @@
 package com.entremp.core.entremp.model.chat
 
+import com.entremp.core.entremp.model.user.UserImage
 import com.fasterxml.jackson.annotation.JsonBackReference
 import lombok.EqualsAndHashCode
 import org.hibernate.annotations.GenericGenerator
@@ -29,4 +30,24 @@ data class Message(
         val sent: DateTime = DateTime.now(DateTimeZone.UTC),
 
         val seen: Boolean = false
-)
+){
+        fun avatar(): String {
+                val images: List<UserImage>? =
+                        when (role) {
+                            "seller" -> {
+                                    chat?.provider?.images
+                            }
+                            "buyer" -> {
+                                    chat?.buyer?.images
+                            }
+                            else -> {
+                                    emptyList()
+                            }
+                        }
+
+                return images
+                        ?.firstOrNull()
+                        ?.s3Link()
+                        ?: "/images/profile/user.png"
+        }
+}

@@ -664,7 +664,8 @@ class SellerRenderController(
                         "chat-question"
                     } else {
                         "chat-answers"
-                    }
+                    },
+                    avatar = message.avatar()
                 )
             }
 
