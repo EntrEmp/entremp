@@ -75,6 +75,30 @@ data class Pricing(
 
     fun providerName():String = provider!!.name
 
+    fun pricingPending(): Boolean =
+        status == PricingStatus.PENDING &&
+                budget == null
+
+    fun budgetPending(): Boolean =
+        status == PricingStatus.PENDING &&
+                budget != null
+
+    fun pricingRejected(): Boolean =
+        (status == PricingStatus.REJECTED ||
+         status == PricingStatus.SAMPLE_REJECTED ) &&
+                budget == null
+
+    fun budgetRejected(): Boolean =
+        (status == PricingStatus.REJECTED ||
+         status == PricingStatus.SAMPLE_REJECTED ) &&
+                budget != null
+
+    fun approvedWithSample(): Boolean = approved() && sample
+
+    fun approvedWithoutSample(): Boolean = approved() && !sample
+
+    fun approved(): Boolean = status == PricingStatus.APPROVED
+
     fun pricingState(): String = when(status){
         PricingStatus.SAMPLE_REJECTED ->
             "<h6 style=\"color:red\"> Muestra rechazada</h6>\n"
@@ -87,197 +111,6 @@ data class Pricing(
                 "<h6 style=\"color:mediumseagreen\"> Cotizacion activa </h6>"
             } else {
                 "<h6 style=\"color:lightseagreen\"> Cotizacion respondida </h6>"
-            }
-    }
-
-    fun indexProviderActions(): String = when(status) {
-        PricingStatus.PENDING ->
-            if (budget == null) {
-                """
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small modal-trigger"
-                       href="#budgetCreate_$id">Ofrecer Cotización</a>
-                </div>
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small modal-trigger"
-                       href="#budgetCancel_$id">Rechazar Cotización</a>
-                </div>
-                <a class="status-detail" href="/seller/pricings/$id">Ver detalle</a>
-                """.trimIndent()
-            } else {
-                """
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small modal-trigger"
-                       href="#budgetEdit_$id">Editar Cotización</a>
-                </div>
-                <a class="status-detail" href="/seller/pricings/$id">Ver detalle</a>    
-                """.trimIndent()
-            }
-
-        PricingStatus.APPROVED ->
-            """
-                 <div class="row">
-                    <a class="waves-effect waves-light btn" href="#">Ver Mensajes</a>
-                </div>
-                <a class="status-detail" href="/seller/pricings/$id">Ver detalle</a>    
-            """.trimIndent()
-        else ->
-            "<p></p>"
-    }
-
-    fun providerActions(): String = when(status) {
-        PricingStatus.PENDING ->
-            if (budget == null) {
-                """
-                <p>
-                    <a class="waves-effect waves-light btn modal-trigger" href="#budgetCreate_$id">Ofrecer Cotización</a>
-                    <a class="waves-effect waves-light btn modal-trigger" href="#budgetCancel_$id">Rechazar Cotización</a>
-                </p>
-                """.trimIndent()
-            } else {
-                """
-                <p>
-                    <a class="waves-effect waves-light btn modal-trigger" href="#budgetEdit_$id">Editar Cotización</a>
-                </p>
-                """.trimIndent()
-            }
-
-        PricingStatus.APPROVED ->
-            """
-                <p>
-                    <a class="waves-effect waves-light btn" href="#">Ver Mensajes</a>
-                </p>
-            """.trimIndent()
-        else ->
-            "<p></p>"
-    }
-
-    fun indexBuyerActions(): String = when(status){
-        PricingStatus.PENDING ->
-            if(budget != null){
-                """
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small modal-trigger"
-                       href="#budgetAccept_$id">Aprobar Cotización</a>
-                </div>
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small modal-trigger"
-                       href="#budgetCancel_$id">Rechazar Cotización</a>
-                </div>
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small"
-                       href="#$id">Descargar Cotización</a>
-                </div>
-                <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
-                """.trimIndent()
-            } else {
-                """
-                   <p> Aguardando una respuesta del proveedor</p> 
-                   <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
-                """.trimIndent()
-            }
-
-        PricingStatus.APPROVED ->
-            if(sample){
-                """
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small modal-trigger"
-                       href="#rejectSample_$id">Rechazar Muestra</a>
-                </div>
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small"
-                       href="#">Enviar Mensaje</a>
-                </div>
-                <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
-                """.trimIndent()
-            } else{
-                """
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small"
-                       href="#">Enviar Mensaje</a>
-                </div>
-                <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
-                """.trimIndent()
-            }
-
-        else ->
-            if(budget != null){
-                """
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small modal-trigger"
-                       href="#">Cotizar nuevamente</a>
-                </div>
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small"
-                       href="#">Ver Mensajes</a>
-                </div>
-                <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
-            """.trimIndent()
-            } else {
-                """
-                <div class="row">
-                    <a class="waves-effect waves-light btn-small modal-trigger"
-                       href="#">Cotizar nuevamente</a>
-                </div>
-                <a class="status-detail" href="/buyer/pricings/$id">Ver detalle</a>
-            """.trimIndent()
-            }
-
-    }
-
-    fun buyerActions(): String = when(status){
-        PricingStatus.PENDING ->
-            if(budget != null){
-                """
-                    <p>
-                        <a class="waves-effect waves-light btn modal-trigger" 
-                           href="#budgetAccept_$id">Aprobar Cotización</a>
-                        <a class="waves-effect waves-light btn modal-trigger" 
-                           href="#budgetCancel_$id">Rechazar Cotización</a>
-                        <a class="waves-effect waves-light btn">Descargar Cotización</a>
-                    </p>
-                """.trimIndent()
-            } else {
-                """
-                   <p> Aguardando una respuesta del proveedor</p> 
-                """.trimIndent()
-            }
-
-        PricingStatus.APPROVED ->
-            if(sample){
-                """
-                    <p>
-                        <a class="waves-effect waves-light btn modal-trigger"
-                           href="#rejectSample_$id">Rechazar Muestra</a>
-                        <a class="waves-effect waves-light btn">Enviar Mensajes</a>
-                        <a class="waves-effect waves-light btn">Descargar Cotización</a>
-                    </p>
-                """.trimIndent()
-            } else{
-                """
-                    <p>
-                        <a class="waves-effect waves-light btn">Enviar Mensajes</a>
-                        <a class="waves-effect waves-light btn">Descargar Cotización</a>
-                    </p>
-                """.trimIndent()
-            }
-
-        else ->
-            if(budget != null){
-                """
-                <p>
-                    <a class="waves-effect waves-light btn">Cotizar nuevamente</a>
-                    <a class="waves-effect waves-light btn">Ver Mensajes</a>
-                </p>
-            """.trimIndent()
-
-            } else {
-                """
-                <p>
-                    <a class="waves-effect waves-light btn">Cotizar nuevamente</a>
-                </p>
-            """.trimIndent()
-
             }
     }
 }

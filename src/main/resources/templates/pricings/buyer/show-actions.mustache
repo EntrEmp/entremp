@@ -1,0 +1,72 @@
+{{#budgetPending}}
+    <p>
+        <a class="waves-effect waves-light btn modal-trigger"
+           href="#budgetAccept_{{id}}">
+            Aprobar Cotización
+        </a>
+        <a class="waves-effect waves-light btn modal-trigger"
+           href="#budgetCancel_{{id}}">
+            Rechazar Cotización
+        </a>
+        <a class="waves-effect waves-light btn"
+           href="#">
+            Descargar Cotización
+        </a>
+    </p>
+{{/budgetPending}}
+
+{{#pricingPending}}
+    <p> Aguardando una respuesta del proveedor</p>
+{{/pricingPending}}
+
+{{#approvedWithSample}}
+    <p>
+        <a class="waves-effect waves-light btn modal-trigger"
+           href="#rejectSample_{{id}}">
+            Rechazar Muestra
+        </a>
+        <a class="waves-effect waves-light btn"
+           href="#">
+            Enviar Mensajes
+        </a>
+        <a class="waves-effect waves-light btn"
+           href="#">
+            Descargar Cotización
+        </a>
+    </p>
+{{/approvedWithSample}}
+
+{{#approvedWithoutSample}}
+    <p>
+        <a class="waves-effect waves-light btn"
+           href="#">
+            Enviar Mensajes
+        </a>
+        <a class="waves-effect waves-light btn"
+           href="#">
+            Descargar Cotización
+        </a>
+    </p>
+{{/approvedWithoutSample}}
+
+{{#budgetRejected}}
+    <p>
+        <a class="waves-effect waves-light btn"
+           href="#">
+            Cotizar nuevamente
+        </a>
+        <a class="waves-effect waves-light btn"
+           href="#">
+            Ver Mensajes
+        </a>
+    </p>
+{{/budgetRejected}}
+
+{{#pricingRejected}}
+    <p>
+        <a class="waves-effect waves-light btn"
+           href="#">
+            Cotizar nuevamente
+        </a>
+    </p>
+{{/pricingRejected}}

@@ -1,0 +1,54 @@
+{{#budgetPending}}
+    <div class="row">
+        <a class="waves-effect waves-light btn-small modal-trigger"
+           href="#budgetEdit_{{id}}">
+            Editar Cotización
+        </a>
+    </div>
+    <a class="status-detail"
+       href="/seller/pricings/{{id}}">
+        Ver detalle
+    </a>
+{{/budgetPending}}
+
+{{#pricingPending}}
+    <div class="row">
+        <a class="waves-effect waves-light btn-small modal-trigger"
+           href="#budgetCreate_{{id}}">
+            Ofrecer Cotización
+        </a>
+    </div>
+    <div class="row">
+        <a class="waves-effect waves-light btn-small modal-trigger"
+           href="#budgetCancel_{{id}}"
+        >Rechazar Cotización
+        </a>
+    </div>
+    <a class="status-detail"
+       href="/seller/pricings/{{id}}">
+        Ver detalle
+    </a>
+{{/pricingPending}}
+
+{{#approved}}
+    <div class="row">
+        <a class="waves-effect waves-light btn"
+           href="#">
+            Ver Mensajes
+        </a>
+    </div>
+    <a class="status-detail"
+       href="/seller/pricings/{{id}}">
+        Ver detalle
+    </a>
+{{/approved}}
+
+{{#budgetRejected}}
+    <p>
+    </p>
+{{/budgetRejected}}
+
+{{#pricingRejected}}
+    <p>
+    </p>
+{{/pricingRejected}}

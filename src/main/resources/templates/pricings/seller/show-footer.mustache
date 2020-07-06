@@ -20,50 +20,73 @@
                 firstActive: 0
             });
         {{/budget}}
+
+        $(window).load(function(){
+
+            function setTotalPrice(priceItem, quantityItem, valueHolder){
+                var price = parseFloat(
+                        $(priceItem).val()
+                );
+                var quantity = parseInt(
+                    $(quantityItem).val()
+                );
+
+                var total = price * quantity;
+
+                $(valueHolder).val(total);
+            }
+
+            function setTaxes(totalItem, taxItem, valueHolder) {
+                var price = parseFloat($(totalItem).val());
+                var iva = parseFloat($(taxItem).val());
+
+                var taxes = price * (iva / 100);
+
+                if(isNaN(taxes)) {
+                    taxes = 0;
+                }
+
+                if(taxes == 0){
+                    $(valueHolder).hide();
+                } else {
+                    $(valueHolder).text("IVA: $ " + taxes);
+                    $(valueHolder).show();
+                }
+
+            }
+
+            $('#budget_price_{{id}}').on('change', function() {
+                setTotalPrice(
+                        $( "#budget_price_{{id}}"),
+                        $( "#budget_quantity_{{id}}"),
+                        $('#total_price_{{id}}')
+                );
+                setTaxes(
+                        $( "#total_price_{{id}}"),
+                        $("#iva_{{id}} option:selected"),
+                        $('#taxes_{{id}}')
+                );
+            });
+            $('#budget_quantity_{{id}}').on('change', function() {
+                setTotalPrice(
+                        $( "#budget_price_{{id}}"),
+                        $( "#budget_quantity_{{id}}"),
+                        $('#total_price_{{id}}')
+                );
+                setTaxes(
+                        $( "#total_price_{{id}}"),
+                        $("#iva_{{id}} option:selected"),
+                        $('#taxes_{{id}}')
+                );
+            });
+
+            $('#iva_{{id}}').on('change', function() {
+                setTaxes(
+                        $( "#total_price_{{id}}"),
+                        $("#iva_{{id}} option:selected"),
+                        $('#taxes_{{id}}')
+                );
+            });
+        });
     {{/pricing}}
-</script>
-<script>
-    $(window).load(function(){
-
-        function setTotalPrice(){
-            var price = parseFloat($( "#budget_price" ).val());
-            var quantity = parseInt($( "#budget_quantity" ).val());
-
-            var total = price * quantity;
-
-            $('#total_price').val(total);
-        }
-
-        function setTaxes(){
-            var price = parseFloat($( "#total_price" ).val());
-            var iva = parseFloat($("#iva option:selected" ).val());
-
-            var taxes = price * (iva / 100);
-
-            if(isNaN(taxes)) {
-                taxes = 0;
-            }
-
-            if(taxes == 0){
-                $('#taxes').hide();
-            } else {
-                $('#taxes').text("IVA: $ " + taxes);
-                $('#taxes').show();
-            }
-
-        }
-
-        $('#budget_price').on('change', function() {
-            setTotalPrice();
-            setTaxes()
-        });
-        $('#budget_quantity').on('change', function() {
-            setTotalPrice();
-            setTaxes()
-        });
-
-        $('#iva').on('change', function() {
-            setTaxes()
-        });
-    });
 </script>

@@ -1,0 +1,60 @@
+{{#budgetPending}}
+    <div class="row">
+        <a class="waves-effect waves-light btn-small modal-trigger"
+           href="#budgetAccept_{{id}}">Aprobar Cotización</a>
+    </div>
+    <div class="row">
+        <a class="waves-effect waves-light btn-small modal-trigger"
+           href="#budgetCancel_{{id}}">Rechazar Cotización</a>
+    </div>
+    <div class="row">
+        <a class="waves-effect waves-light btn-small"
+           href="#{{id}}">Descargar Cotización</a>
+    </div>
+    <a class="status-detail" href="/buyer/pricings/{{id}}">Ver detalle</a>
+{{/budgetPending}}
+
+{{#pricingPending}}
+    <p> Aguardando una respuesta del proveedor</p>
+    <a class="status-detail" href="/buyer/pricings/{{id}}">Ver detalle</a>
+{{/pricingPending}}
+
+{{#approvedWithSample}}
+    <div class="row">
+        <a class="waves-effect waves-light btn-small modal-trigger"
+           href="#rejectSample_{{id}}">Rechazar Muestra</a>
+    </div>
+    <div class="row">
+        <a class="waves-effect waves-light btn-small"
+           href="#">Enviar Mensaje</a>
+    </div>
+    <a class="status-detail" href="/buyer/pricings/{{id}}">Ver detalle</a>
+{{/approvedWithSample}}
+
+{{#approvedWithoutSample}}
+    <div class="row">
+        <a class="waves-effect waves-light btn-small"
+           href="#">Enviar Mensaje</a>
+    </div>
+    <a class="status-detail" href="/buyer/pricings/{{id}}">Ver detalle</a>
+{{/approvedWithoutSample}}
+
+{{#budgetRejected}}
+    <div class="row">
+        <a class="waves-effect waves-light btn-small modal-trigger"
+           href="#">Cotizar nuevamente</a>
+    </div>
+    <div class="row">
+        <a class="waves-effect waves-light btn-small"
+           href="#">Ver Mensajes</a>
+    </div>
+    <a class="status-detail" href="/buyer/pricings/{{id}}">Ver detalle</a>
+{{/budgetRejected}}
+
+{{#pricingRejected}}
+    <div class="row">
+        <a class="waves-effect waves-light btn-small modal-trigger"
+           href="#">Cotizar nuevamente</a>
+    </div>
+    <a class="status-detail" href="/buyer/pricings/{{id}}">Ver detalle</a>
+{{/pricingRejected}}

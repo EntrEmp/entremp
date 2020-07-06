@@ -62,18 +62,18 @@
                             <div class="col s12">
                                 <div class="col s6">
                                     <label for="price">Precio Unitario</label>
-                                    <input id="budget_price" type="number" name="price" step="0.01" required>
+                                    <input id="budget_price_{{id}}" type="number" name="price" step="0.01" required>
                                 </div>
 
                                 <div class="col s6">
                                     <label for="quantity">Cantidad total</label>
-                                    <input id="budget_quantity" type="number" name="quantity" required>
+                                    <input id="budget_quantity_{{id}}" type="number" name="quantity" required>
                                 </div>
                             </div>
 
                             <div class="col s12">
                                 <div class="input-field col s6">
-                                    <select name="iva" id="iva">
+                                    <select name="iva" id="iva_{{id}}">
                                         <option value="0">0 %</option>
                                         <option value="10.5">10.5 %</option>
                                         <option value="21">21 %</option>
@@ -82,7 +82,7 @@
                                 </div>
 
                                 <div class="input-field col s6">
-                                    <select id="selectedBilling" name="selectedBilling">
+                                    <select id="selectedBilling_{{id}}" name="selectedBilling">
                                         {{#requestedBilling}}
                                             <option value="{{name}}">{{toHTMLString}}</option>
                                         {{/requestedBilling}}
@@ -95,7 +95,7 @@
                             <div class="col s12">
                                 <div class="col s6">
                                     <label for="total">Precio Total (s/ IVA)</label>
-                                    <input id="total_price" type="number" name="total" step="0.01" style='pointer-events: none;'>
+                                    <input id="total_price_{{id}}" type="number" name="total" step="0.01" style='pointer-events: none;'>
                                 </div>
 
                                 <div class="input-field col s6">
@@ -104,7 +104,7 @@
 
                             <div class="col s12">
                                 <div class="col s6">
-                                    <span class="taxes" id="taxes">
+                                    <span class="taxes" id="taxes_{{id}}">
                                     </span>
                                 </div>
 

@@ -74,6 +74,7 @@
                             </p>
 
                             <p class="seller"> <span><strong>Adjuntos</strong></span>:
+                            <ul>
                             {{#pricingAttachements}}
                                 <li>
                                     <a href="{{s3Link}}"
@@ -85,6 +86,7 @@
                                     </a>
                                 </li>
                             {{/pricingAttachements}}
+                            <ul>
                         </div>
                     </li>
                         {{#budget}}
@@ -122,11 +124,10 @@
                         {{/budget}}
 
                     {{/pricing}}
-
                 </ul>
 
                 {{#pricing}}
-                    {{{buyerActions}}}
+                    {{> show-actions}}
                 {{/pricing}}
 
             </div>
