@@ -25,16 +25,40 @@
            href="#rejectSample_{{id}}">Rechazar Muestra</a>
     </div>
     <div class="row">
-        <a class="waves-effect waves-light btn-small"
-           href="#">Enviar Mensaje</a>
+        {{#budget}}
+            {{#chat}}
+                <a class="waves-effect waves-light btn-small"
+                   href="/buyer/messages/{{id}}">
+                    Enviar Mensajes
+                </a>
+            {{/chat}}
+            {{^chat}}
+                <a class="waves-effect waves-light btn-small"
+                   href="/buyer/messages">
+                    Enviar Mensajes
+                </a>
+            {{/chat}}
+        {{/budget}}
     </div>
     <a class="status-detail" href="/buyer/pricings/{{id}}">Ver detalle</a>
 {{/approvedWithSample}}
 
 {{#approvedWithoutSample}}
     <div class="row">
-        <a class="waves-effect waves-light btn-small"
-           href="#">Enviar Mensaje</a>
+        {{#budget}}
+            {{#chat}}
+                <a class="waves-effect waves-light btn-small"
+                   href="/buyer/messages/{{id}}">
+                    Enviar Mensajes
+                </a>
+            {{/chat}}
+            {{^chat}}
+                <a class="waves-effect waves-light btn-small"
+                   href="/buyer/messages">
+                    Enviar Mensajes
+                </a>
+            {{/chat}}
+        {{/budget}}
     </div>
     <a class="status-detail" href="/buyer/pricings/{{id}}">Ver detalle</a>
 {{/approvedWithoutSample}}
@@ -45,8 +69,20 @@
            href="#">Cotizar nuevamente</a>
     </div>
     <div class="row">
-        <a class="waves-effect waves-light btn-small"
-           href="#">Ver Mensajes</a>
+        {{#budget}}
+            {{#chat}}
+                <a class="waves-effect waves-light btn-small"
+                   href="/buyer/messages/{{id}}">
+                    Ver Mensajes
+                </a>
+            {{/chat}}
+            {{^chat}}
+                <a class="waves-effect waves-light btn-small"
+                   href="/buyer/messages">
+                    Ver Mensajes
+                </a>
+            {{/chat}}
+        {{/budget}}
     </div>
     <a class="status-detail" href="/buyer/pricings/{{id}}">Ver detalle</a>
 {{/budgetRejected}}

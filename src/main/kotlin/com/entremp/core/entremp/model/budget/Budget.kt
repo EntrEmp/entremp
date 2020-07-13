@@ -1,5 +1,6 @@
 package com.entremp.core.entremp.model.budget
 
+import com.entremp.core.entremp.model.chat.Chat
 import com.entremp.core.entremp.model.pricing.Pricing
 import com.entremp.core.entremp.model.review.Review
 import com.fasterxml.jackson.annotation.JsonBackReference
@@ -50,7 +51,16 @@ data class Budget(
         @OneToMany(mappedBy = "budget")
         @JsonManagedReference
         @EqualsAndHashCode.Exclude
-        val budgetAttachement: List<BudgetAttachement> = emptyList()
+        val budgetAttachement: List<BudgetAttachement> = emptyList(),
+
+        @OneToOne
+        @JoinTable(
+                name = "budget_chat",
+                joinColumns = [JoinColumn(name = "budget_id", referencedColumnName = "id")],
+                inverseJoinColumns = [JoinColumn(name = "chat_id", referencedColumnName = "id")]
+        )
+        @EqualsAndHashCode.Exclude
+        val chat: Chat? = null
 ){
         fun ttlDate(): String = ttl.toString("MM/dd/yyyy")
 

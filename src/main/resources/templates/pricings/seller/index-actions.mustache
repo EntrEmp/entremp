@@ -32,10 +32,20 @@
 
 {{#approved}}
     <div class="row">
-        <a class="waves-effect waves-light btn"
-           href="#">
-            Ver Mensajes
-        </a>
+        {{#budget}}
+            {{#chat}}
+                <a class="waves-effect waves-light btn-small"
+                   href="/seller/messages/{{id}}">
+                    Ver Mensajes
+                </a>
+            {{/chat}}
+            {{^chat}}
+                <a class="waves-effect waves-light btn-small"
+                   href="/seller/messages">
+                    Ver Mensajes
+                </a>
+            {{/chat}}
+        {{/budget}}
     </div>
     <a class="status-detail"
        href="/seller/pricings/{{id}}">

@@ -19,7 +19,20 @@
 
 {{#approved}}
     <p>
-        <a class="waves-effect waves-light btn" href="#">Ver Mensajes</a>
+        {{#budget}}
+            {{#chat}}
+                <a class="waves-effect waves-light btn"
+                   href="/seller/messages/{{id}}">
+                    Ver Mensajes
+                </a>
+            {{/chat}}
+            {{^chat}}
+                <a class="waves-effect waves-light btn"
+                   href="/seller/messages">
+                    Ver Mensajes
+                </a>
+            {{/chat}}
+        {{/budget}}
     </p>
 {{/approved}}
 

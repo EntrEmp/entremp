@@ -90,6 +90,12 @@ class BudgetController(
                 )
             )
 
+            budgetRepository.save(
+                budget.copy(
+                    chat = chat
+                )
+            )
+
             eventPublisher.publishEvent(
                 OnBudgetAcceptEvent(
                     budget = budget,

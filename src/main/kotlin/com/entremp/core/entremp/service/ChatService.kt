@@ -9,11 +9,34 @@ import com.entremp.core.entremp.support.JavaSupport.unwrap
 
 class ChatService(val chatRepository: ChatRepository) {
 
-    fun findChats(user: User, role: String): List<Chat> {
-        return chatRepository.findByBuyerOrProvider(
-            buyer = user,
-            provider = user
-        ).distinct()
+    private val buyerRole = "buyer"
+    private val sellerRole = "seller"
+
+    fun findChats(user: User,
+                  role: String): List<Chat> {
+
+        val chats: Iterable<Chat> = when(role){
+            buyerRole ->
+                chatRepository.findByBuyer(
+                    buyer = user
+                )
+
+            sellerRole ->
+                chatRepository.findByProvider(
+                    provider = user
+                )
+
+            else ->
+                chatRepository.findByBuyerOrProvider(
+                    buyer = user,
+                    provider = user
+                )
+
+        }
+
+        return chats.distinctBy { chat ->
+            chat.id
+        }
     }
 
     fun getMessages(chatId: String): List<Message> {

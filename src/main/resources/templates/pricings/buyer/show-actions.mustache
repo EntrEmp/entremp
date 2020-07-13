@@ -25,10 +25,22 @@
            href="#rejectSample_{{id}}">
             Rechazar Muestra
         </a>
-        <a class="waves-effect waves-light btn"
-           href="#">
-            Enviar Mensajes
-        </a>
+
+        {{#budget}}
+            {{#chat}}
+                <a class="waves-effect waves-light btn"
+                   href="/buyer/messages/{{id}}">
+                    Enviar Mensajes
+                </a>
+            {{/chat}}
+            {{^chat}}
+                <a class="waves-effect waves-light btn"
+                   href="/buyer/messages">
+                    Enviar Mensajes
+                </a>
+            {{/chat}}
+        {{/budget}}
+
         <a class="waves-effect waves-light btn"
            href="#">
             Descargar Cotización
@@ -38,10 +50,21 @@
 
 {{#approvedWithoutSample}}
     <p>
-        <a class="waves-effect waves-light btn"
-           href="#">
-            Enviar Mensajes
-        </a>
+        {{#budget}}
+            {{#chat}}
+                <a class="waves-effect waves-light btn"
+                   href="/buyer/messages/{{id}}">
+                    Enviar Mensajes
+                </a>
+            {{/chat}}
+            {{^chat}}
+                <a class="waves-effect waves-light btn"
+                   href="/buyer/messages">
+                    Enviar Mensajes
+                </a>
+            {{/chat}}
+        {{/budget}}
+
         <a class="waves-effect waves-light btn"
            href="#">
             Descargar Cotización
@@ -55,10 +78,20 @@
            href="#">
             Cotizar nuevamente
         </a>
-        <a class="waves-effect waves-light btn"
-           href="#">
-            Ver Mensajes
-        </a>
+        {{#budget}}
+            {{#chat}}
+                <a class="waves-effect waves-light btn"
+                   href="/buyer/messages/{{id}}">
+                    Ver Mensajes
+                </a>
+            {{/chat}}
+            {{^chat}}
+                <a class="waves-effect waves-light btn"
+                   href="/buyer/messages">
+                    ver Mensajes
+                </a>
+            {{/chat}}
+        {{/budget}}
     </p>
 {{/budgetRejected}}
 
