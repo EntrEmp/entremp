@@ -20,7 +20,7 @@ data class PricingAttachement(
         @EqualsAndHashCode.Exclude
         val pricing: Pricing? = null,
 
-        private val fileLocation: String
+        val fileLocation: String
 ): Fileable(fileLocation){
         fun extension(): String =
                 fileLocation

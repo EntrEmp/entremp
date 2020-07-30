@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/2005/Atom">
+
+<head>
+    <meta charset="UTF-8">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Entremp - Compra más facil</title>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="/css/production/output.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/production/landing.css" media="screen,projection" />
+</head>
+
+<body>
+<nav class="header-component buyer">
+    <div class="container-fluid">
+
+        <div class="nav-wrapper">
+            <div class="row">
+
+                <div class="col s1">
+                    <a href="/" class="brand-logo">
+                        <img src="/images/logo/azul.png" style="height: 80px;">
+                    </a>
+                </div>
+
+                <div class="col s6 header-component--input-search">
+                </div>
+
+                <div class="col s4 header-component--menu">
+                    <nav>
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="#marketing-contact">Contactanos</a></li>
+                            <li><a href="/faq">FAQ</a></li>
+                            <li><a href="/terms-and-conditions">Terminos & Condiciones</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+        <div class="container">
+            <br><br>
+            <h1 class="header center">Entremp</h1>
+            <div class="row center">
+                <h5 class="header col s12 light">La revolucion digital llego a las compras B2B</h5>
+            </div>
+            <div class="row center">
+                <!--<a href="/choose" class="btn btn-large waves-effect waves-blue darken-4">-->
+                <a href="#marketing-contact" class="btn btn-large waves-effect waves-blue darken-4">
+                    Conoce Entremp
+                </a>
+            </div>
+            <br><br>
+        </div>
+    </div>
+
+    <div class="parallax">
+        <img src="/images/landing/hands.jpg">
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="section">
+
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center blue-text"><i class="material-icons">flash_on</i></h2>
+                    <h5 class="center">Encontra proveedores rapido</h5>
+
+                    <p class="light">
+                        El proceso de buscar proveedores reducido a unos pocos clicks. Encontra lo que estabas buscando más rapido que nunca, comparando multiples proveedores y accediendo al mejor precio
+                    </p>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center blue-text"><i class="material-icons">group</i></h2>
+                    <h5 class="center">Conta con respaldo</h5>
+
+                    <p class="light">
+                        Comprar y publicar es completamente gratuito y contas con el respaldo de un gran equipo trabajando para ayudarte
+                    </p>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="icon-block">
+                    <h2 class="center blue-text"><i class="material-icons">monetization_on</i></h2>
+                    <h5 class="center">Desarrolla un nuevo canal</h5>
+
+                    <p class="light">
+                        Vender entre empresas nunca fue tan fácil y tus margenes son tuyos gracias a nuestro modelo sin comisiones
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+        <div class="container">
+            <div class="row center">
+                <h5 class="header col s12 light">
+                    Tomando el control de tus gastos compras más y mejor
+                </h5>
+            </div>
+        </div>
+    </div>
+    <div class="parallax">
+        <img src="/images/landing/coins.jpg" alt="Unsplashed background img 2">
+    </div>
+</div>
+
+<div class="container section scrollspy" id="marketing-contact">
+    <div class="section">
+
+        <div class="row">
+            <div class="col s12 center">
+                <h3><i class="mdi-content-send brown-text"></i></h3>
+                <h4>Contactanos</h4>
+
+                <div class="preloader-wrapper big active" id="preloader" style="display: none">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="contact-form">
+
+                    <div class="col s12">
+                        <div class="switch">
+                            <label>
+                                Soy Comprador
+                                <input name="seller" type="checkbox" id="role-checkbox">
+                                <span class="lever"></span>
+                                Soy Vendedor
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col s6">
+                        <label class="col s12" for="name" >Nombre y Apellido</label>
+                        <input class="validate" type="text" name="name" required>
+                    </div>
+
+                    <div class="col s6">
+                        <label class="col s12" for="email">Correo electrónico</label>
+                        <input class="validate" type="email" name="email" required>
+                    </div>
+
+                    <div class="col s6">
+                        <label class="col s12" for="phone">Teléfono</label>
+                        <input class="validate" type="number" name="phone" required>
+                    </div>
+
+                    <div class="col s6">
+                        <label class="col s12" for="cuit">CUIT</label>
+                        <input class="validate" type="number" name="cuit"required>
+                    </div>
+
+                    <div class="col s12">
+                        <label for="textarea1" id="searching-label">Contanos qué estás comprando y en qué canditades</label>
+                        <textarea name="criteria" class="materialize-textarea"></textarea>
+                    </div>
+
+                    <div class="col s12">
+                        <button class=" col s12 btn waves-effect waves-light center-align row"
+                                type="submit"
+                                id="contact-submit"
+                                name="action">Enviar</button>
+                    </div>
+                </form>
+
+                <div id="success-message" style="display: none">
+                    <p>Tu consulta se envío correctamente!</p>
+                    <p>Te contactaremos a la brevedad.</p>
+                    <p>Gracias por confiar en EntrEmp!</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+        <div class="container">
+            <div class="row center">
+                <h5 class="header col s12 light">
+                    Nuestra misión es democratizar la información y maximizar las ventas dentro del canal compra y venta entre empresas!
+                </h5>
+            </div>
+        </div>
+    </div>
+    <div class="parallax">
+        <img src="/images/landing/steps.jpg" alt="Unsplashed background img 3">
+    </div>
+</div>
+
+<footer class="page-footer buyer">
+    <div class="container">
+        <div class="row">
+
+            <div class="col l6 s12">
+                <h5 class="white-text">Quienes Somos</h5>
+                <p class="grey-text text-lighten-4">Somos una empresa joven que busca revolucionar la forma en que se manejan las compras empresariales</p>
+            </div>
+
+            <div class="col l3 s12">
+                <h5 class="white-text">Contactanos</h5>
+                <ul>
+                    <li>
+                        <a class="white-text" href="https://www.linkedin.com/company/entremp-com/" target="_blank">LinkedIn: Entremp</a>
+                    </li>
+                    <li>
+                        <a class="white-text" href="mailto:info@entremp.com">info@entremp.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src="/js/jquery/jquery-2.1.1.min.js" ></script>
+<script type="text/javascript" src="/js/bin/materialize.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.parallax').parallax();
+        $('.scrollspy').scrollSpy();
+
+        $('#role-checkbox').change(function() {
+            if(this.checked) {
+                $('#searching-label').text("Contanos qué estás vendiendo y en qué canditades");
+            } else {
+                $('#searching-label').text("Contanos qué estás comprando y en qué canditades");
+            }
+        });
+
+        function success(){
+            $('#preloader').hide();
+            $('#contact-form').hide();
+            $('#success-message').show();
+            M.toast(
+                {
+                    html: 'Tu consulta se envío correctamente!',
+                    classes: 'rounded'
+                }
+            );
+        }
+
+        function error(){
+            $('#preloader').hide();
+            $('#contact-form').show();
+            $('#success-message').hide();
+            M.toast(
+                {
+                    html: 'Hubo un error en el envío de tu consulta. Probá nuevamente!',
+                    classes: 'rounded'
+                }
+            );
+        }
+
+        $("#contact-submit").on('click', function(e){
+
+            $('#preloader').show();
+
+            var formData = $("#contact-form").serializeArray();
+            var data = {};
+
+            $.map(formData, function(n, i){
+                // transform switch to boolean data
+                if(n['name'] === 'seller' && n['value'] === 'on'){
+                    data[n['name']] = true;
+                } else {
+                    data[n['name']] = n['value'];
+                }
+            });
+
+            // send ajax
+            $.ajax({
+                url: 'contact', // url where to submit the request
+                type : "POST", // type of action POST || GET
+                contentType : "application/json",
+                dataType : 'json',
+                data : JSON.stringify(data),
+                success : function(result) {
+                    // you can see the result from the console
+                    // tab of the developer tools
+                    success();
+                    console.log(result);
+                },
+                error: function(xhr, resp, text) {
+                    error();
+                    console.log(xhr, resp, text);
+                }
+            });
+
+            e.preventDefault();
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<div id="reprice_{{id}}" class="modal modals-container modals--product">
+    <div class="modal-content ">
+
+        <a href="#!" style="position:absolute;top:5px;right:5px;" class="modal-close">
+            <i class="tiny material-icons close">clear</i>
+        </a>
+
+        <h5>Estas seguro que queres repetir esta solicitud de cotización?</h5>
+
+        <div class="row">
+            <form method="post" action="/api/pricings/{{id}}/reprice" enctype="multipart/form-data">
+
+                <div class="col s12">
+                    {{#product}}
+                        <div class="col s2 card-panel z-depth-1 cargar--product">
+                            <img class="materialboxed"
+                                 height="80"
+                                 width="80"
+                                 src="{{mainImage}}">
+                        </div>
+
+                        <div class="col s8">
+                            <h5 class="blue-grey-text">{{name}}</h5>
+                            <p class="lighten-1-text">{{description}}</p>
+                        </div>
+                        <div class="col s2">
+                            <p class="grey-text lighten-1-text"> {{minimum}} Min</p>
+                            <p class="grey-text lighten-1-text"> {{maximum}} Max</p>
+                            <p class="grey-text lighten-1-text"> {{batch}}{{batchSize}} Lote</p>
+                        </div>
+                    {{/product}}
+                </div>
+                <div class="col s12">
+                    <a href="#!" class="col s5 waves-effect waves-dark btn btn-flat modal-close">Cancelar</a>
+                    <div class="col s1"></div>
+                    <button type="submit" class="col s5 waves-effect waves-dark btn">Volver a cotizar</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

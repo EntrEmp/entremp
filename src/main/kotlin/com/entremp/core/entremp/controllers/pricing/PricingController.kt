@@ -4,6 +4,7 @@ import com.entremp.core.entremp.api.pricing.CreatePricingDTO
 import com.entremp.core.entremp.controllers.Authenticated
 import com.entremp.core.entremp.events.OnPricingRequestEvent
 import com.entremp.core.entremp.model.pricing.Pricing
+import com.entremp.core.entremp.model.pricing.PricingAttachement
 import com.entremp.core.entremp.model.pricing.RequestedBilling
 import com.entremp.core.entremp.model.product.Product
 import com.entremp.core.entremp.model.user.User
@@ -127,6 +128,55 @@ class PricingController(
     fun removeAttachment(@PathVariable id: String, @PathVariable attachementId: String){
         pricingService.removeAttachement(attachementId)
     }
+
+    @PostMapping("/{id}/reprice")
+    fun save(@PathVariable id: String,
+             redirectAttributes: RedirectAttributes
+    ): RedirectView {
+        val auth: User? = getAuthUser()
+
+        val oldPricing: Pricing? = pricingService.find(id)
+
+        if(auth != null && oldPricing != null) {
+
+            val product: Product = oldPricing.product !!
+
+            val pricing: Pricing = pricingService.save(
+                buyer = auth,
+                product = product,
+                quantity = oldPricing.quantity,
+                specifications = oldPricing.specifications,
+                sample = oldPricing.sample,
+                deliveryTerm = oldPricing.deliveryTerm,
+                billing = oldPricing.requestedBilling
+            )
+
+            // Save product loaded images
+            oldPricing
+                .pricingAttachements
+                .map { attachement: PricingAttachement ->
+                    pricingService.addAttachement(
+                        id = pricing.id!!,
+                        location = attachement.fileLocation
+                    )
+                }
+
+            eventPublisher.publishEvent(
+                OnPricingRequestEvent(
+                    pricing = pricing
+                )
+            )
+
+            val repricingId: String = pricing.id !!
+
+            redirectAttributes.addFlashAttribute("success", flashSuccess(productId = repricingId))
+
+            return RedirectView("/buyer/pricings/$repricingId")
+        } else {
+            throw RuntimeException("Operation not allowed")
+        }
+    }
+
 
 
     private fun flashSuccess(productId: String): String =

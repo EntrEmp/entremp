@@ -33,6 +33,13 @@ class WebSecurityConfiguration(
                 ?.antMatchers("/seller/**")?.authenticated()
                 ?.antMatchers("/buyer/**")?.authenticated()
                 ?.antMatchers("/resources/**")?.permitAll()
+
+                // TODO Eliminar los denyAll al aplicar los nuevos cambios de flujo
+                ?.antMatchers("/register")?.denyAll()
+                ?.antMatchers("/confirm")?.denyAll()
+                ?.antMatchers("/recover")?.denyAll()
+                ?.antMatchers("/reset")?.denyAll()
+                ?.antMatchers("/choose")?.denyAll()
                 ?.anyRequest()?.permitAll()
             ?.and()
                 ?.formLogin()

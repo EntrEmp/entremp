@@ -169,6 +169,23 @@ class PricingService(
         }
     }
 
+    fun addAttachement(
+        id: String,
+        location: String
+    ){
+        val pricing: Pricing? = pricingRepository.findById(id).unwrap()
+
+        if(pricing != null) {
+            pricingAttachementRepository.save(
+                PricingAttachement(
+                    pricing = pricing,
+                    fileLocation = location
+                )
+            )
+        } else {
+            throw RuntimeException("Pricing not found for id $id")
+        }
+    }
 
     fun addAttachement(
             id: String,

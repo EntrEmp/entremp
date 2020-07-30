@@ -28,7 +28,9 @@ class BasicRenderController {
         produces = [MediaType.TEXT_HTML_VALUE]
     )
     fun index(): ModelAndView {
-        return ModelAndView("common/full-landing")
+        // TODO uncomment when back to logged functionality
+//        return ModelAndView("common/full-landing")
+        return ModelAndView("common/marketing-landing")
     }
 
     @RequestMapping(
